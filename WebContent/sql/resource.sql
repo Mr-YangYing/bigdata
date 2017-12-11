@@ -1,0 +1,13 @@
+INSERT INTO `resource` VALUES (1, '22222', '资源名称2333', 'D:\\eclipseCode\\LargeDataTeachMS\\WebContent\\images\\下载.png', '张三', '2017-12-5', '描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述', 2);
+INSERT INTO `resource` VALUES (3, '222', '资源名称', 'D:\\eclipseCode\\LargeDataTeachMS\\WebContent\\images\\test.xls', '我', '2017-12-5', '描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述', 3);
+INSERT INTO `resource` VALUES (4, '222', '资源名称', 'D:\\eclipseCode\\LargeDataTeachMS\\WebContent\\images\\test.xls', '对的', '2017-12-5', '描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述', 5);
+INSERT INTO `resource` VALUES (5, '222', '资源名称', 'D:\\eclipseCode\\LargeDataTeachMS\\WebContent\\images\\test.xls', '公共', '2017-12-5', '描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述', 5);
+INSERT INTO `resource` VALUES (6, '222', '资源名称', 'D:\\eclipseCode\\LargeDataTeachMS\\WebContent\\images\\test.xls', '简介', '2017-12-5', '描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述', 6);
+INSERT INTO `resource` VALUES (7, '222', '资源名称', 'D:\\eclipseCode\\LargeDataTeachMS\\WebContent\\images\\test.xls', '对的', '2017-12-5', '描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述', 7);
+INSERT INTO `resource` VALUES (8, '222', '资源名称', 'D:\\eclipseCode\\LargeDataTeachMS\\WebContent\\images\\test.xls', NULL, '2017-12-5', '描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述', 2);
+INSERT INTO `resource` VALUES (11, '222', '资源名称', 'D:\\eclipseCode\\LargeDataTeachMS\\WebContent\\images\\test.xls', NULL, '2017-12-5', '描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述', 2);
+INSERT INTO `resource` VALUES (12, '222', '资源名称', 'D:\\eclipseCode\\LargeDataTeachMS\\WebContent\\images\\test.xls', NULL, '2017-12-5', '描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述', 2);
+INSERT INTO `resource` VALUES (14, 'sss', 'sss', 'D:\\eclipseCode\\LargeDataTeachMS\\WebContent\\images\\teacher.sql', NULL, '2017-12-5', '', 2);
+INSERT INTO `resource` VALUES (15, 'www', 'www', 'D:\\eclipseCode\\LargeDataTeachMS\\WebContent\\images\\XMP.exe', NULL, '2017-12-5', 'www', 2);
+INSERT INTO `resource` VALUES (16, 'eeee', 'eeeee222', 'D:\\eclipseCode\\LargeDataTeachMS\\WebContent\\images\\下载.png', NULL, '2017-12-5', 'eeee', 2);
+INSERT INTO `resource` VALUES (17, 'ddddd', 'ddddd', 'D:\\eclipseCode\\LargeDataTeachMS\\WebContent\\images\\下载.png', NULL, '2017-12-5', 'dddd', 2);
