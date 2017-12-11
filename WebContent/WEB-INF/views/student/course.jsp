@@ -28,7 +28,7 @@
   <div class="main container-fluid" style="height: 80%;overflow:auto;">
     <div class="row">
       <!--导航条菜单开始-->
-		<%@include file="/WEB-INF/views/common/student/menu.jsp"%>
+		<%@include file="/WEB-INF/views/common/menu.jsp"%>
       <!--导航条菜单结束-->
       <!--主体部分开始-->
       <div class="content col-md-10">
