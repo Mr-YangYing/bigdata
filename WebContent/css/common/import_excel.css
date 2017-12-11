@@ -1,0 +1,11 @@
+.center-vertical {
+    position:relative;
+    top:50%;
+    transform:translateY(-30%);
+	padding:0px 5px 0px 5px;
+	float:left;
+}
+.center-vertical.lbl-content{
+	width:100px;
+	text-align:right;
+}

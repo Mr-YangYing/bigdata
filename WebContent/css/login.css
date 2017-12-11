@@ -1,0 +1,101 @@
+
+/*初始化样式*/
+a, address, b, big, blockquote, body, center, cite, code, dd, del, div, dl, dt, em, fieldset, font, form, h1, h2, h3, h4, h5, h6, html, i, iframe, img, ins, label, legend, li, ol, p, pre, small, span, strong, u, ul, var { margin: 0px; padding: 0px; }
+ol, ul { list-style: outside none none; }
+:focus { outline: 0px none; }
+a img { border: 0px none; }
+img { vertical-align: middle; }
+em { font-style: normal; }
+html{height: 100%;  overflow: hidden;}
+body { font: 12px/150% Arial,Verdana,"宋体"; color: rgb(102, 102, 102); background: rgb(255, 255, 255) none repeat scroll 0% 0%; }
+input{
+    display: block;
+    background:none;
+    outline:none;
+    border:0px;
+}
+
+.header{width:990px ;margin: 50px auto 10px;}
+.header span {
+    font-size: 24px;
+    font-family: "微软雅黑";
+    color: #222;
+    margin: 10px 0px;
+    margin-left: 50px;
+
+}
+.content {
+    clear: both;
+    height: 457px;
+}
+.login-wrap .login-banner{
+    position:absolute;
+    width:100% ;
+    height: 457px;
+    background: #1d9fc8 none repeat scroll 0% 0%;
+}
+.w{
+    width: 990px;
+    margin:0px auto ;
+}
+.bg-w{
+    width: 990px;
+    margin: 0px auto;
+    background-image: url("../img/banner-bg.jpg");
+    height: 457px;
+    z-index: 3;
+}
+.login-u{
+    width: 100%;
+    height: 50px;
+    text-align:center;
+    border-bottom:#f4f4f4 1px solid ;
+    line-height:50px;
+    font-size: 14px;
+}
+.login-form {
+    float: right;
+    top: 32px;
+    position: relative;
+    z-index: 4;
+    background: #fff;
+    overflow: hidden;
+    width: 320px;
+    height: 380px;
+}
+.login-form form{
+    margin: 20px 30px;
+}
+.login-name {
+    padding:6px 12px  ;
+    width: 100%;
+    height:36px;
+    font-size: 14px;
+    border:#cfdadd 1px solid ;
+    box-shadow:none;
+    top: 20px;
+
+}
+.login-word{
+    padding:6px 12px  ;
+    width: 100%;
+    height:36px;
+    font-size: 14px;
+    border:#cfdadd 1px solid ;
+    box-shadow:none;
+    margin-top: 20px;
+}
+
+.foot{
+    text-align: center;
+    margin:10px auto ;
+}
+.foot span{
+    display: block;
+    padding: 2px;
+}
+.login-form form button{
+    width:100%;
+    height:36px;
+    margin-top: 20px;
+}

@@ -1,0 +1,16 @@
+INSERT INTO `student` VALUES (1, '20170000', '9999', '2017第一学期', '经管学院', '数理统计', '1班');
+INSERT INTO `student` VALUES (2, '20170001', '9', '2017第一学期', '经管学院', '数理统计', '1班');
+INSERT INTO `student` VALUES (3, '20170002', '9', '2017第一学期', '经管学院', '数理统计', '1班');
+INSERT INTO `student` VALUES (4, '20170003', '9', '2017第一学期', '经管学院', '数理统计', '1班');
+INSERT INTO `student` VALUES (5, '20170004', '9', '2017第一学期', '经管学院', '数理统计', '1班');
+INSERT INTO `student` VALUES (6, '20170005', '99', '2017第一学期', '经管学院', '数理统计', '1班');
+INSERT INTO `student` VALUES (7, '20170006', '8', '2017第一学期', '经管学院', '数理统计', '1班');
+INSERT INTO `student` VALUES (8, '20170007', '8', '2017第一学期', '经管学院', '数理统计', '1班');
+INSERT INTO `student` VALUES (9, '20170008', '8', '2017第一学期', '经管学院', '数理统计', '1班');
+INSERT INTO `student` VALUES (10, '20170009', '8', '2017第一学期', '经管学院', '数理统计', '1班');
+INSERT INTO `student` VALUES (11, '20170010', '8', '2017第一学期', '经管学院', '数理统计', '1班');
+INSERT INTO `student` VALUES (12, '20170011', '8', '2017第一学期', '经管学院', '数理统计', '1班');
+INSERT INTO `student` VALUES (13, '20170012', '8', '2017第一学期', '经管学院', '数理统计', '1班');
+INSERT INTO `student` VALUES (14, '20170013', '8', '2017第一学期', '经管学院', '数理统计', '1班');
+INSERT INTO `student` VALUES (15, '20170014', '8', '2017第一学期', '经管学院', '数理统计', '1班');
+INSERT INTO `student` VALUES (16, '20170015', '8', '2017第一学期', '经管学院', '数理统计', '1班');
