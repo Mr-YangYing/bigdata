@@ -12,6 +12,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Properties;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -58,10 +59,19 @@ public class ParseFileController {
 	@RequestMapping(value="/parseExcel")
 	public void parseExcel(FileInfo fileInfo,HttpServletResponse response,HttpSession session){
 		//String desPath = ServletActionContext.getServletContext().getRealPath("/uploads/"+DateUtil.getDate(date)+"/"+fileType);  
-		String path = session.getServletContext().getRealPath("/uploadFiles/");//上传文件路径
-		//String desPath = fileInfo.getFilePath();
+		//读取配置文件,获取上传文件路径
+		InputStream in = session.getServletContext().getResourceAsStream("/WEB-INF/classes/uploadFilePath.properties"); 
+		Properties prop = new Properties();
+		try {
+			prop.load(in);
+		} catch (Exception e1) {
+			e1.printStackTrace();
+		}
+		String path = prop.getProperty("batchFilePath");
+		//
 	    File destFile = new File(path, fileInfo.getUploadFileName());
-	   
+	    System.out.println(destFile);
+
 		try {
 			//book = new HSSFWorkbook(new FileInputStream(destFile));
 			InputStream is = new FileInputStream(destFile);
@@ -112,8 +122,18 @@ public class ParseFileController {
 	public List<List> parseExcelBody(FileInfo fileInfo,HttpServletResponse response,HttpSession session){
 		List<List> bodyList = new ArrayList<>();//存放Excel所以数据信息
 		//String desPath = fileInfo.getFilePath();
-		String path = session.getServletContext().getRealPath("/uploadFiles/");//上传文件路径
+		//读取配置文件,获取上传文件路径
+		InputStream in = session.getServletContext().getResourceAsStream("/WEB-INF/classes/uploadFilePath.properties"); 
+		Properties prop = new Properties();
+		try {
+			prop.load(in);
+		} catch (Exception e1) {
+			e1.printStackTrace();
+		}
+		String path = prop.getProperty("batchFilePath");
+		//
 	    File destFile = new File(path, fileInfo.getUploadFileName());
+
 	    try {
 			InputStream is = new FileInputStream(destFile);
 			HSSFWorkbook book = new HSSFWorkbook(is);

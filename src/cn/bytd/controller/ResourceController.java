@@ -3,11 +3,16 @@ package cn.bytd.controller;
 
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
 import java.util.Map;
+import java.util.Properties;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.io.FileUtils;
@@ -96,8 +101,18 @@ public class ResourceController {
 	@RequestMapping(value="/resourceUpload")
 	public ModelAndView resourceUpload(MultipartFile uploadFile,Resource resource,HttpSession session,long taskId,String courseType,RedirectAttributes ra){
 		ModelAndView md = new ModelAndView();
-		String path = session.getServletContext().getRealPath("/images/");//上传文件路径
 		String filename = uploadFile.getOriginalFilename();//文件原始名称
+		
+		//读取配置文件,获取上传文件路径
+		InputStream in = session.getServletContext().getResourceAsStream("/WEB-INF/classes/uploadFilePath.properties"); 
+		Properties prop = new Properties();
+		try {
+			prop.load(in);
+		} catch (Exception e1) {
+			e1.printStackTrace();
+		}
+		String path = prop.getProperty("resourceFilePath");
+		
 		File filepath = new File(path, filename);//路径拼接:上传文件路径+文件名
 		   //判断路径是否存在，如果不存在就创建一个
         if (!filepath.getParentFile().exists()) { 
@@ -129,7 +144,7 @@ public class ResourceController {
 	 * @return
 	 * @throws Exception
 	 */
-	@RequestMapping(value="/resourceDownload",method={RequestMethod.GET})
+/*	@RequestMapping(value="/resourceDownload",method={RequestMethod.GET})
     public ResponseEntity<byte[]> resourceDownload(HttpServletRequest request, long id) throws Exception{
     	Resource resource = resourceService.getById(id);
     	
@@ -137,8 +152,8 @@ public class ResourceController {
        String[] splits = resource.getResourceAddr().split("\\\\");
        String fileName = splits[splits.length-1];//文件名
        //下载文件路径
-/*       String path = request.getServletContext().getRealPath("/images/");
-       File file = new File(path + File.separator + fileName);*/
+       String path = request.getServletContext().getRealPath("/images/");
+       File file = new File(path + File.separator + fileName);
        File file = new File(resource.getResourceAddr());
        HttpHeaders headers = new HttpHeaders();  
        //下载显示的文件名，解决中文名称乱码问题  
@@ -149,5 +164,42 @@ public class ResourceController {
        //application/octet-stream ： 二进制流数据（最常见的文件下载）。
        headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
        return new ResponseEntity<byte[]>(FileUtils.readFileToByteArray(file),headers,HttpStatus.CREATED);  
-    }
+    }*/
+    /**
+     * 资源下载
+     * @param id
+     * @param response
+     * @throws Exception
+     */
+    @RequestMapping(value="/resourceDownload",method={RequestMethod.GET})
+	public void resourceDownload(long id, HttpServletResponse response) throws Exception {
+    	Resource resource = resourceService.getById(id);
+    	//获取文件名
+        String[] splits = resource.getResourceAddr().split("\\\\");
+        String fileName = splits[splits.length-1];
+        //获取下载文件路径
+        File file = new File(resource.getResourceAddr());
+		// 设置响应头和客户端保存文件名
+		response.setCharacterEncoding("utf-8");
+		response.setContentType("multipart/form-data");
+		response.setHeader("Content-Disposition", "attachment;fileName=" + fileName);
+		try {
+			// 打开本地文件流
+			InputStream inputStream = new FileInputStream(file);
+			// 激活下载操作
+			OutputStream os = response.getOutputStream();
+
+			// 循环写入输出流
+			byte[] b = new byte[2048];
+			int length;
+			while ((length = inputStream.read(b)) > 0) {
+				os.write(b, 0, length);
+			}
+			// 这里主要关闭。
+			os.close();
+			inputStream.close();
+		} catch (Exception e) {
+			throw e;
+		}
+	}
 }

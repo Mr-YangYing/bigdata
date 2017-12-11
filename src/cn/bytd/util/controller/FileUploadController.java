@@ -2,6 +2,8 @@ package cn.bytd.util.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.util.Properties;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
@@ -35,8 +37,23 @@ public class FileUploadController {
 		String newFileName = UUID.randomUUID().toString()+originalFilename.substring(originalFilename.lastIndexOf("."));
 		//写文件
 		try {
-			String path = session.getServletContext().getRealPath("/uploadFiles/");//上传文件路径
-			upload.transferTo(new File(path+originalFilename));
+			//读取配置文件,获取上传文件路径
+			InputStream in = session.getServletContext().getResourceAsStream("/WEB-INF/classes/uploadFilePath.properties"); 
+			Properties prop = new Properties();
+			try {
+				prop.load(in);
+			} catch (Exception e1) {
+				e1.printStackTrace();
+			}
+			String path = prop.getProperty("batchFilePath");
+			
+			File filepath = new File(path, originalFilename);//路径拼接:上传文件路径+文件名
+			   //判断路径是否存在，如果不存在就创建一个
+	        if (!filepath.getParentFile().exists()) { 
+	        	filepath.getParentFile().mkdirs();
+	        }
+			System.out.println(path);
+			upload.transferTo(new File(path+File.separator+originalFilename));
 		} catch (IllegalStateException | IOException e) {
 			e.printStackTrace();
 		}
