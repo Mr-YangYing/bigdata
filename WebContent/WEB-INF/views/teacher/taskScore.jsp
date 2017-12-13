@@ -41,10 +41,11 @@
             <div class="col-sm-10" style="padding-left: 0">
               <form class="form-inline" name="searchForm" action="${pageContext.request.contextPath}/task/taskList" method="post"><!--当屏幕小于768时，变为两行-->
               <!-- ---------------携带分页信息隐藏域 --------------------->
-              	<input type="hidden" name ="currentPage" value="1" id="currentPage">
-              	<input type="hidden" name ="pageSize" value="${pageResult.pageSize}" id="pageSize">
+<%--               	<input type="hidden" name ="currentPage" value="1" id="currentPage">
+              	<input type="hidden" name ="pageSize" value="${pageResult.pageSize}" id="pageSize"> --%>
               <!-- ---------------携带分页信息隐藏域 --------------------->
-              	<input type="hidden" name ="courseId" value="" id="courseId">
+              	<input type="hidden" name ="courseId" value="" id="courseId"><!--课程ID  -->
+              	<input type="hidden" name ="teacherId" value="1" id="teacherId"><!--教师ID  -->
               	
                 <div class="form-group col-sm-4">
 	              <div class="col-sm-6 control-label" style="text-align: center;padding: 6px 0px;">
@@ -94,10 +95,8 @@
 		          <thead>
 		          <tr>
 		           <!--  <th class="text-center">序号</th> -->
-		            <th class="text-center">任务ID</th>
 		            <th class="text-center">任务名称</th>
-		            <th class="text-center">学习时间(天)</th>
-		            <th class="text-center">完成难度</th>
+		            <th class="text-center">完成状态</th>
 		            <th class="text-center">任务类型</th>
 		            <th class="text-center">成绩</th>
 		            <th class="text-center">操作</th>
@@ -106,26 +105,13 @@
 		          <tbody>
 		          <c:forEach items="${taskList}" var="task" varStatus="c">
 			          <tr>
-			          <%--   <td>${c.count}</td> --%>
-			            <td>${task.id}</td>
 			            <td>${task.taskName}</td>
-			            <td>${task.usefulTime}</td>
-			            <!--完成难度判断  -->
-			            <c:choose>
-			            	<c:when test="${task.difficulty==0}">
-			            		<td>简单</td>
-			            	</c:when>
-			            	<c:when test="${task.difficulty==1}">
-			            		<td>一般</td>
-			            	</c:when>
-			            	<c:when test="${task.difficulty==2}">
-			            		<td>中等</td>
-			            	</c:when>
-			            	<c:otherwise>
-			            		<td>难</td>
-			            	</c:otherwise>
-			            </c:choose>
-			            <!-- 任务类型判断 -->
+						<c:if test="${task.completeStatus==0}">
+							<td>未完成</td>
+						</c:if>
+						<c:if test="${task.completeStatus==1}">
+							<td>已完成</td>
+						</c:if>
 			            <c:choose>
 			            	<c:when test="${task.taskType==0}">
 			            		<td>实验</td>
@@ -137,11 +123,18 @@
 			            		<td>学习</td>
 			            	</c:otherwise>
 			            </c:choose>
-			            <td>cj</td>
+			            <c:if test="${task.score==0}">
+			            	<td></td>
+			            </c:if>
+			            <c:if test="${task.score!=0}">
+			            	<td>${task.score}</td>
+			            </c:if>
 			            <td>
 			              <div class="btn-group">
-			                <a class="btn btn-warning btn-sm" href="javascript:getTaskDetailById(${task.id})">查看报告</a>
-			                <a class="btn btn-warning btn-sm" href="javascript:getTaskDetailById(${task.id})">评分</a>
+			                <a class="btn btn-warning btn-sm" href="javascript:lookReportById(${task.id})">查看报告</a>
+				             <c:if test="${task.completeStatus==1}">
+			                	<a class="btn btn-warning btn-sm" href="javascript:giveScoreById(${task.id})" style="margin-left: 10px">评分</a>
+							</c:if>
 			              </div>
 			            </td>
 			          </tr>
@@ -151,9 +144,9 @@
         	</div>
         <!--数据展示部分结束-->
         <!--分页信息条开始-->
-        <c:if test="${pageResult.totalCount!=0}">
+    <%--     <c:if test="${pageResult.totalCount!=0}">
 	        <%@include file="/WEB-INF/views/common/pagination.jsp" %>
-        </c:if>
+        </c:if> --%>
 		<!--分页信息条结束  -->
       </div>
       <!--主体部分结束-->

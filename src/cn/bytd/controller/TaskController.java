@@ -2,6 +2,7 @@ package cn.bytd.controller;
 
 import java.util.List;
 
+import javax.annotation.Resource;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,10 +11,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import cn.bytd.domain.Classes;
 import cn.bytd.domain.Course;
 import cn.bytd.domain.Task;
 import cn.bytd.queryPage.CourseQueryObject;
 import cn.bytd.queryPage.page.PageResult;
+import cn.bytd.service.IClassesService;
 import cn.bytd.service.ICourseService;
 import cn.bytd.service.ITaskService;
 
@@ -32,6 +35,8 @@ public class TaskController {
 	private ITaskService taskService;
 	@Autowired
 	private ICourseService courseService;
+	@Resource(name="classesService")
+	private IClassesService classesService;
 	/**
 	 * 课程列表,包含课程对应的任务数
 	 * @param request
@@ -145,7 +150,7 @@ public class TaskController {
 	
 	
 	/**
-	 * 根据教师id获取所有任务,返回json
+	 * 根据课程id获取所有任务,返回json
 	 * @param id
 	 * @return
 	 */
@@ -155,20 +160,22 @@ public class TaskController {
 		return taskService.getTaskByCourseId(courseId);
 	}
 	/**
-	 * 根据教师id获取所有任务
+	 * 根据课程id获取所有任务,教师Id用于返回班级列表
 	 * @param id
 	 * @return
 	 */
 	@RequestMapping(value="/taskList")
-	public ModelAndView taskList(long courseId){
+	public ModelAndView taskList(long courseId,long teacherId){
 		List<Task> taskList = taskService.getTaskByCourseId(courseId);
+		List<Classes> classesList =classesService.getClassesByTeacherId(teacherId);
 		ModelAndView md = new ModelAndView();
 		md.addObject("taskList", taskList);
+		md.addObject("classesList", classesList);
 		md.setViewName("/views/teacher/taskScore");
 		return md;
 	}
 	/**
-	 * 根据教师id获取所有已经发布的任务
+	 * 根据课程id获取所有已经发布的任务
 	 * @param id
 	 * @return
 	 */

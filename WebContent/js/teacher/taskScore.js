@@ -1,9 +1,4 @@
-
-var fileUploadName = ""//文件上传的名称
-var courseType = "";//我的课程
-	
 $(function(){
-	
 	//根据选择的班级,得到班级下的学生
 	$("#classesSelect").change(function(){
 		var classesId = $(this).children('option:selected').val();

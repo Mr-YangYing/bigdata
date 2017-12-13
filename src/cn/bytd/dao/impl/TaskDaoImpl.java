@@ -84,9 +84,9 @@ public class TaskDaoImpl implements ITaskDao{
 	 * @param task
 	 */
     public void update(Task task){
-		jdbcTemplate.update("update task set taskName = ?,taskType = ?,uploadReport = ?,publishTask = ?,difficulty = ?,usefulTime = ?,description = ? where id = ?", 
+		jdbcTemplate.update("update task set taskName = ?,taskType = ?,uploadReport = ?,publishTask = ?,difficulty = ?,usefulTime = ?,completeStatus = ?,score = ?,description = ? where id = ?", 
 				task.getTaskName(),task.getTaskType(),task.getUploadReport(),0,task.getDifficulty(),
-				task.getUsefulTime(),task.getDescription(),task.getId());
+				task.getUsefulTime(),task.getCompleteStatus(),task.getScore(),task.getDescription(),task.getId());
 	};
 	
 	/**
@@ -94,9 +94,9 @@ public class TaskDaoImpl implements ITaskDao{
 	 * @param task
 	 */
 	public void insert(Task task,long courseId){
-		jdbcTemplate.update("insert into task(taskName,taskType,uploadReport,publishTask,difficulty,usefulTime,description,courseId) values(?,?,?,?,?,?,?,?)",
+		jdbcTemplate.update("insert into task(taskName,taskType,uploadReport,publishTask,difficulty,usefulTime,completeStatus,score,description,courseId) values(?,?,?,?,?,?,?,?,?,?)",
 				task.getTaskName(),task.getTaskType(),task.getUploadReport(),0,task.getDifficulty(),
-				task.getUsefulTime(),task.getDescription(),courseId);
+				task.getUsefulTime(),task.getCompleteStatus(),task.getScore(),task.getDescription(),courseId);
 	};
 	
 	/**
@@ -136,6 +136,8 @@ public class TaskDaoImpl implements ITaskDao{
 			task.setPublishTask(rs.getInt("publishTask"));
 			task.setDifficulty(rs.getInt("difficulty"));
 			task.setUsefulTime(rs.getInt("usefulTime"));
+			task.setCompleteStatus(rs.getInt("completeStatus"));
+			task.setScore(rs.getInt("score"));
 			return task;
 		}
 		

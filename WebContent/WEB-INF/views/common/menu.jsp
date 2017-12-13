@@ -35,8 +35,6 @@
                 <div class="panel-body" style="padding-left: 30px;">
                  		<a href="${pageContext.request.contextPath}/task/courseList">任务管理</a> 
                 </div>
-              </div>
-              <div class="panel-collapse collapse in" id="collapseTwo"><!--第二部分，折叠部分-->
                 <div class="panel-body" style="padding-left: 30px;">
                  		<a href="${pageContext.request.contextPath}/classes/getClassesByTeacherId?teacherId=1">成绩管理</a> 
                 </div>
@@ -52,9 +50,6 @@
                 <div class="panel-body" style="padding-left: 30px;">
                 		<a href="${pageContext.request.contextPath}/resource/resourceList?courseType=其他课程">资源管理</a> 
                 </div>
-<!--                 <div class="panel-body" style="padding-left: 30px;">
-                 		<a href="#">资源上传</a> 
-                </div> -->
               </div>
           </div>
           <!-- 学生 -->
