@@ -18,11 +18,11 @@ public class Course {
 	private String courseName;//课程名称
 	private Date startDate;//开课日期
 	private Date endDate;//节课日期
-	private String labAddress;//实验室地址
 	private String teacherName;//课程对应老师姓名
 	private int courseOpen;//是否开课 1:开课,0:未开课
 	private String description;
 	
+	private Laboratory laboratory;//课程对应实验室
 	private List<Teacher> teachers = new ArrayList<>();//课程对应老师
 	private List<Student> students = new ArrayList<>();//课程对应学生
 	private List<Task> tasks = new ArrayList<>();//课程对应任务
@@ -51,12 +51,6 @@ public class Course {
 	}
 	public void setEndDate(Date endDate) {
 		this.endDate = endDate;
-	}
-	public String getLabAddress() {
-		return labAddress;
-	}
-	public void setLabAddress(String labAddress) {
-		this.labAddress = labAddress;
 	}
 	public String getTeacherName() {
 		return teacherName;
@@ -99,6 +93,12 @@ public class Course {
 	}
 	public void setClassess(List<Classes> classess) {
 		this.classess = classess;
+	}
+	public Laboratory getLaboratory() {
+		return laboratory;
+	}
+	public void setLaboratory(Laboratory laboratory) {
+		this.laboratory = laboratory;
 	}
 
 }

@@ -12,7 +12,7 @@ import java.util.List;
  */
 public class Classes {
 	private Long id;
-	private String classNumber;//班号
+	private String classesNumber;//班号
 	
 	private List<Course> courses = new ArrayList<>();//班级对应的课程
 	private List<Student> students = new ArrayList<>();//班级对应的学生
@@ -22,11 +22,12 @@ public class Classes {
 	public void setId(Long id) {
 		this.id = id;
 	}
-	public String getClassNumber() {
-		return classNumber;
+
+	public String getClassesNumber() {
+		return classesNumber;
 	}
-	public void setClassNumber(String classNumber) {
-		this.classNumber = classNumber;
+	public void setClassesNumber(String classesNumber) {
+		this.classesNumber = classesNumber;
 	}
 	public List<Course> getCourses() {
 		return courses;

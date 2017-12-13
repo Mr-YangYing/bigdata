@@ -7,11 +7,13 @@ import java.util.List;
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
 import cn.bytd.dao.ITaskDao;
+import cn.bytd.domain.Student;
 import cn.bytd.domain.Task;
 import cn.bytd.queryPage.page.PageResult;
 import cn.bytd.queryPage.query.IQueryObject;
@@ -67,7 +69,14 @@ public class TaskDaoImpl implements ITaskDao{
 	 * @return
 	 */
 	public Task getTaskById(long taskId){
-		return jdbcTemplate.queryForObject("select * from task where id = ?",rm,taskId);
+		Task task = null;
+		//避免出现org.springframework.dao.EmptyResultDataAccessException: Incorrect result size: expected 1, actual 0
+		try {
+			task = jdbcTemplate.queryForObject("select * from task where id = ?",rm,taskId);
+		} catch (EmptyResultDataAccessException e) {
+			return null;
+		}
+		return task;
 	};
 	
 	/**

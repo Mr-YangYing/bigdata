@@ -18,25 +18,25 @@ import org.springframework.web.servlet.ModelAndView;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 
-import cn.bytd.domain.Teacher;
-import cn.bytd.queryPage.TeacherQueryObject;
+import cn.bytd.domain.Laboratory;
+import cn.bytd.queryPage.LaboratoryQueryObject;
 import cn.bytd.queryPage.page.PageResult;
-import cn.bytd.service.ITeacherService;
+import cn.bytd.service.ILaboratoryService;
 
 /**
  * 
- * 说明:教师Controller
+ * 说明:实验室Controller
  * @author yangying
  * @version 1.0
  * @date 2017-10-23 下午7:20:18
  *
  */
-@RequestMapping("/teacher")
+@RequestMapping("/laboratory")
 @Controller
-public class TeacherController {
+public class LaboratoryController {
 
 	@Autowired
-	private ITeacherService teacherService;
+	private ILaboratoryService laboratoryService;
 	
 	/**
 	 * 列表
@@ -45,7 +45,7 @@ public class TeacherController {
 	 * @return
 	 */
 	@RequestMapping("/list")
-	public ModelAndView list(HttpServletRequest request,TeacherQueryObject qo){
+	public ModelAndView list(HttpServletRequest request,LaboratoryQueryObject qo){
 		//可以获取另一个方法传入的值
 /*		
 		Map<String, Object> modelMap = (Map<String, Object>)RequestContextUtils.getInputFlashMap(request);
@@ -53,11 +53,11 @@ public class TeacherController {
 			 int currentPage = (int) modelMap.get("currentPage");
 			 qo.setCurrentPage(currentPage);
 		}*/
-		PageResult pageResult = teacherService.query(qo);
+		PageResult pageResult = laboratoryService.query(qo);
 		ModelAndView md = new ModelAndView();
 		md.addObject("qo", qo);
 		md.addObject("pageResult", pageResult);
-		md.setViewName("views/director/teacher");
+		md.setViewName("views/director/laboratory");
 		return md;
 	}
 	/**
@@ -68,9 +68,9 @@ public class TeacherController {
 	 */
 	@RequestMapping(value="/delete",method={RequestMethod.GET})
 	public ModelAndView delete(long id){
-		teacherService.delete(id);
+		laboratoryService.delete(id);
 		ModelAndView md = new ModelAndView();
-		md.setViewName("redirect:/teacher/list");
+		md.setViewName("redirect:/laboratory/list");
 		return md;
 	}
 	/**
@@ -80,7 +80,7 @@ public class TeacherController {
 	 */
 	@RequestMapping(value="/batchDelete",method={RequestMethod.GET})
 	public ModelAndView batchDelete(Long[] ids){
-		teacherService.batchDelete(ids);
+		laboratoryService.batchDelete(ids);
 		return null;
 	}
 	
@@ -91,24 +91,25 @@ public class TeacherController {
 	 */
 	@RequestMapping(value="/get",method={RequestMethod.GET})
 	@ResponseBody
-	public Teacher get(long id){
-		return teacherService.getById(id);
+	public Laboratory get(long id){
+		return laboratoryService.getById(id);
 	}
+	
 	/**
-	 * 修改/添加
-	 * @param teacher
+	 * 修改或添加
+	 * @param Laboratory
 	 * @return
 	 */
 	@RequestMapping(value="/update")
-	public ModelAndView update(Teacher teacher/*,int currentPage,RedirectAttributes ra*/){
+	public ModelAndView update(Laboratory Laboratory/*,int currentPage,RedirectAttributes ra*/){
 		ModelAndView md = new ModelAndView();
-		if (teacher.getId()!= -1) {
-			teacherService.update(teacher);
+		if (Laboratory.getId()!=-1) {
+			laboratoryService.update(Laboratory);
 		}else {
-			teacherService.insert(teacher);
+			laboratoryService.insert(Laboratory);
 		}
-		md.setViewName("redirect:/teacher/list");
-		//ra.addFlashAttribute("currentPage", currentPage);方法之间传递参数
+		//ra.addFlashAttribute("currentPage", currentPage);
+		md.setViewName("redirect:/laboratory/list");
 		return md;
 	}
 	
@@ -119,7 +120,7 @@ public class TeacherController {
 	@RequestMapping(value="/getColumnName")
 	@ResponseBody
 	public List<String> getColumnName(){
-		return teacherService.getColumnName();
+		return laboratoryService.getColumnName();
 	}
 	/**
 	 * 批量添加
@@ -131,33 +132,25 @@ public class TeacherController {
 	 */
 	@RequestMapping(value="/batchUpdate")
 	public ModelAndView batchUpdate(@RequestParam(value="excelData") String excelData,@RequestParam(value="databaseFiled") String databaseFiled) throws NoSuchFieldException, SecurityException, ParseException{
-		List<Teacher> teacherList = new ArrayList<>();//存放课程表数据
+		List<Laboratory> laboratoryList = new ArrayList<>();//存放课程表数据
 		
 		JSONArray excelDataArrays = (JSONArray) JSON.parse(excelData);//页面传入的Excel表的所有数据
 		int arraySize = excelDataArrays.size();
 		JSONArray databaseFiledArray = (JSONArray) JSON.parse(databaseFiled);//页面传入的选中的数据库字段数据
 		for (int i = 0; i < arraySize ; i++) {
 			JSONArray excelDataArray = (JSONArray) excelDataArrays.get(i);
-			Teacher teacher = new Teacher();
+			Laboratory Laboratory = new Laboratory();
 			for (int j = 0; j < excelDataArray.size(); j++) {
-				if (databaseFiledArray.get(j).toString().equals(Teacher.class.getDeclaredField("teacherAccount").getName())) {
-					teacher.setTeacherAccount((String)excelDataArray.get(j));
+				if (databaseFiledArray.get(j).toString().equals(Laboratory.class.getDeclaredField("labAddress").getName())) {
+					Laboratory.setLabAddress((String)excelDataArray.get(j));
 				}
-				if (databaseFiledArray.get(j).toString().equals(Teacher.class.getDeclaredField("teacherName").getName())) {
-					teacher.setTeacherName((String)excelDataArray.get(j));
-				}
-				if (databaseFiledArray.get(j).toString().equals(Teacher.class.getDeclaredField("positionalTitles").getName())) {
-					teacher.setPositionalTitles((String)excelDataArray.get(j));
-				}
-
-
 			}
-			teacherList.add(teacher);
+			laboratoryList.add(Laboratory);
 		}
-		System.out.println(teacherList);
-		teacherService.batchUpdate(teacherList);
+		System.out.println(laboratoryList);
+		laboratoryService.batchUpdate(laboratoryList);
 		ModelAndView md = new ModelAndView();
-		md.setViewName("redirect:/teacher/list");
+		md.setViewName("redirect:/laboratory/list");
 		return md;
 	}
 	

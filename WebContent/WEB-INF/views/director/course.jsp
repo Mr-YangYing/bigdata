@@ -112,7 +112,7 @@
 		            <td>${c.count}</td>
 		            <td>${course.courseName}</td>
 		            <td>${course.startDate}</td>
-		            <td>${course.labAddress}</td>
+		            <td>${course.laboratory.labAddress}</td>
 		            <td>${course.teacherName}</td>
 		            <td>
 		              <div class="btn-group">

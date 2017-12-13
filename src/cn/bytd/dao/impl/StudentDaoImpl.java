@@ -9,6 +9,7 @@ import java.util.List;
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.BatchPreparedStatementSetter;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -19,6 +20,7 @@ import org.springframework.stereotype.Repository;
 import cn.bytd.dao.IStudentDao;
 import cn.bytd.dao.ITeacherDao;
 import cn.bytd.domain.Course;
+import cn.bytd.domain.Resource;
 import cn.bytd.domain.Student;
 import cn.bytd.domain.Teacher;
 import cn.bytd.queryPage.page.PageResult;
@@ -137,9 +139,26 @@ public class StudentDaoImpl implements IStudentDao {
 	 * 根据id获取
 	 */
 	public Student getById(long id) {
-		return jdbcTemplate.queryForObject("select * from student where id = ?",rm,id);
+		Student student = null;
+		//避免出现org.springframework.dao.EmptyResultDataAccessException: Incorrect result size: expected 1, actual 0
+		try {
+			student = jdbcTemplate.queryForObject("select * from student where id = ?",rm,id);
+		} catch (EmptyResultDataAccessException e) {
+			return null;
+		}
+		return student;
 	}
 	
+	
+	/**
+	 * 根据班级Id获取学生
+	 * 
+	 * @param classesId
+	 * @return
+	 */
+	public List<Student> getStudentByClassesId(long classesId){
+		return jdbcTemplate.query("select * from student where classesId = ?", rm,classesId);
+	};
 
 	/**
 	 * 修改

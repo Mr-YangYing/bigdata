@@ -89,4 +89,14 @@ public class StudentServiceImpl implements IStudentService{
 	public void batchUpdate(List<Student> list) {
 		 studentDao.batchUpdate(list);
 	}
+	
+	/**
+	 * 根据班级Id获取学生
+	 * 
+	 * @param classesId
+	 * @return
+	 */
+	public List<Student> getStudentByClassesId(long classesId){
+		return studentDao.getStudentByClassesId(classesId);
+	};
 }

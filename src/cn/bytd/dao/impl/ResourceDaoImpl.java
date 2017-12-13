@@ -8,11 +8,13 @@ import java.util.List;
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
 import cn.bytd.dao.IResourceDao;
+import cn.bytd.domain.Course;
 import cn.bytd.domain.Resource;
 import cn.bytd.domain.Student;
 import cn.bytd.queryPage.page.PageResult;
@@ -52,9 +54,18 @@ public class ResourceDaoImpl implements IResourceDao{
 	public void resourceDelete(long resourceId){
 		jdbcTemplate.update("delete from resource where id = ?", resourceId);
 	}
-	
+	/**
+	 * 根据Id获取资源
+	 */
 	public Resource getById(long resourceId){
-		return jdbcTemplate.queryForObject("select * from resource where id = ?",rm,resourceId);
+		Resource resource = null;
+		//避免出现org.springframework.dao.EmptyResultDataAccessException: Incorrect result size: expected 1, actual 0
+		try {
+			resource = jdbcTemplate.queryForObject("select * from resource where id = ?",rm,resourceId);
+		} catch (EmptyResultDataAccessException e) {
+			return null;
+		}
+		return resource;
 	}
 	
 	/**

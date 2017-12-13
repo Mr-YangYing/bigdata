@@ -1,40 +1,29 @@
 package cn.bytd.controller;
 
 
-import java.lang.reflect.Field;
 import java.text.ParseException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import org.springframework.web.servlet.support.RequestContextUtils;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 
 import cn.bytd.domain.Course;
 import cn.bytd.domain.Student;
-import cn.bytd.domain.Teacher;
 import cn.bytd.queryPage.CourseQueryObject;
-import cn.bytd.queryPage.StudentQueryObject;
-import cn.bytd.queryPage.TeacherQueryObject;
 import cn.bytd.queryPage.page.PageResult;
 import cn.bytd.service.ICourseService;
 import cn.bytd.service.IStudentService;
-import cn.bytd.service.ITeacherService;
 import cn.bytd.util.DateUtil;
 
 /**
@@ -126,6 +115,19 @@ public class CourseController {
 	}
 	
 	/**
+	 * 根据学生id获取课程
+	 * @param id
+	 * @return
+	 */
+	@RequestMapping(value="/getCourseByStudentId",method={RequestMethod.GET})
+	@ResponseBody
+	public List<Course> getCourseByStudentId(long studentId){
+		return courseService.getByStudentId(studentId);
+	}
+	
+	
+	
+	/**
 	 * 关闭课程
 	 * @param id
 	 * @return
@@ -186,9 +188,6 @@ public class CourseController {
 				}
 				if (databaseFiledArray.get(j).toString().equals(Course.class.getDeclaredField("endDate").getName())) {
 					course.setEndDate(DateUtil.string2date(excelDataArray.get(j).toString(),"yyyy-MM-dd"));
-				}
-				if (databaseFiledArray.get(j).toString().equals(Course.class.getDeclaredField("labAddress").getName())) {
-					course.setLabAddress((String)excelDataArray.get(j));
 				}
 				if (databaseFiledArray.get(j).toString().equals(Course.class.getDeclaredField("teacherName").getName())) {
 					course.setTeacherName((String)excelDataArray.get(j));

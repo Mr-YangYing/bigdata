@@ -1,15 +1,16 @@
 package cn.bytd.dao.impl;
 
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.annotation.Resource;
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.BatchPreparedStatementSetter;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -18,10 +19,10 @@ import org.springframework.jdbc.support.rowset.SqlRowSetMetaData;
 import org.springframework.stereotype.Repository;
 
 import cn.bytd.dao.ICourseDao;
+import cn.bytd.dao.ILaboratoryDao;
 import cn.bytd.dao.ITaskDao;
-import cn.bytd.dao.ITeacherDao;
 import cn.bytd.domain.Course;
-import cn.bytd.domain.Teacher;
+import cn.bytd.domain.Laboratory;
 import cn.bytd.queryPage.page.PageResult;
 import cn.bytd.queryPage.query.IQueryObject;
 import cn.bytd.queryPage.utils.QueryUtil;
@@ -47,6 +48,8 @@ public class CourseDaoImpl implements ICourseDao {
 
 	@Autowired
 	private ITaskDao taskDao;
+	@Resource(name="laboratoryDao")
+	private ILaboratoryDao laboratoryDao;
 	
 	/**
 	 * 查询所有
@@ -76,7 +79,6 @@ public class CourseDaoImpl implements ICourseDao {
 	/**
 	 * 分页查询
 	 */
-	@SuppressWarnings("deprecation")
 	public PageResult queryPage(Integer currentPage, Integer pageSize) {
 		//查询结果集,得到listData
 		String baseSql = "select * from teacher limit ?,?";
@@ -102,7 +104,14 @@ public class CourseDaoImpl implements ICourseDao {
 	 * 根据id获取
 	 */
 	public Course getById(long id) {
-		return jdbcTemplate.queryForObject("select * from course where id = ?",rm,id);
+		Course course = null;
+		//避免出现org.springframework.dao.EmptyResultDataAccessException: Incorrect result size: expected 1, actual 0
+		try {
+			course = jdbcTemplate.queryForObject("select * from course where id = ?",rm,id);
+		} catch (EmptyResultDataAccessException e) {
+			return null;
+		}
+		return course;
 	}
 
 	/**
@@ -169,7 +178,7 @@ public class CourseDaoImpl implements ICourseDao {
 		
 		final List<Course> tempList = list;
 		
-		String sql = "insert into course(courseName,startDate,endDate,labAddress,teacherName,courseOpen,description)values(?,?,?,?,?,?,?)";
+		String sql = "insert into course(courseName,startDate,endDate,teacherName,courseOpen,description)values(?,?,?,?,?,?)";
 		jdbcTemplate.batchUpdate(sql, new BatchPreparedStatementSetter() {
 			
 			@Override
@@ -177,10 +186,9 @@ public class CourseDaoImpl implements ICourseDao {
 				ps.setString(1, tempList.get(i).getCourseName());
 				ps.setDate(2,new java.sql.Date(tempList.get(i).getStartDate().getTime()));
 				ps.setDate(3,new java.sql.Date(tempList.get(i).getEndDate().getTime()));
-				ps.setString(4, tempList.get(i).getLabAddress());
-				ps.setString(5, tempList.get(i).getTeacherName());
-				ps.setInt(6, tempList.get(i).getCourseOpen());
-				ps.setString(7, tempList.get(i).getDescription());
+				ps.setString(4, tempList.get(i).getTeacherName());
+				ps.setInt(5, tempList.get(i).getCourseOpen());
+				ps.setString(6, tempList.get(i).getDescription());
 			}
 			
 			@Override
@@ -215,11 +223,13 @@ public class CourseDaoImpl implements ICourseDao {
 			course.setCourseName(rs.getString("courseName"));
 			course.setStartDate(rs.getDate("startDate"));
 			course.setEndDate(rs.getDate("endDate"));
-			course.setLabAddress(rs.getString("labAddress"));
 			course.setTeacherName(rs.getString("teacherName"));
 			course.setCourseOpen(rs.getInt("courseOpen"));
 			course.setDescription(rs.getString("description"));
 			course.setTasks(taskDao.getTaskByCourseId(rs.getLong("id")));
+			if(laboratoryDao.getById(rs.getLong("id"))!=null){
+				course.setLaboratory(laboratoryDao.getById(rs.getLong("id")));
+			}
 			return course;
 		}
 

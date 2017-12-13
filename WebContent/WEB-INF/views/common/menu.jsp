@@ -19,6 +19,9 @@
                 <div class="panel-body" style="padding-left: 30px;">
                 		<a href="${pageContext.request.contextPath}/course/list">实验课程管理</a> 
                 </div>
+                <div class="panel-body" style="padding-left: 30px;">
+                		<a href="${pageContext.request.contextPath}/laboratory/list">实验室管理</a> 
+                </div>
               </div>
           </div>
           <!-- 教师 -->
@@ -31,6 +34,11 @@
               <div class="panel-collapse collapse in" id="collapseTwo"><!--第二部分，折叠部分-->
                 <div class="panel-body" style="padding-left: 30px;">
                  		<a href="${pageContext.request.contextPath}/task/courseList">任务管理</a> 
+                </div>
+              </div>
+              <div class="panel-collapse collapse in" id="collapseTwo"><!--第二部分，折叠部分-->
+                <div class="panel-body" style="padding-left: 30px;">
+                 		<a href="${pageContext.request.contextPath}/classes/getClassesByTeacherId?teacherId=1">成绩管理</a> 
                 </div>
               </div>
           </div>

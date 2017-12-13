@@ -2,7 +2,6 @@ package cn.bytd.controller;
 
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -12,7 +11,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import cn.bytd.domain.Course;
-import cn.bytd.domain.Student;
 import cn.bytd.domain.Task;
 import cn.bytd.queryPage.CourseQueryObject;
 import cn.bytd.queryPage.page.PageResult;
@@ -147,7 +145,7 @@ public class TaskController {
 	
 	
 	/**
-	 * 根据教师id获取所有任务
+	 * 根据教师id获取所有任务,返回json
 	 * @param id
 	 * @return
 	 */
@@ -158,6 +156,19 @@ public class TaskController {
 	}
 	/**
 	 * 根据教师id获取所有任务
+	 * @param id
+	 * @return
+	 */
+	@RequestMapping(value="/taskList")
+	public ModelAndView taskList(long courseId){
+		List<Task> taskList = taskService.getTaskByCourseId(courseId);
+		ModelAndView md = new ModelAndView();
+		md.addObject("taskList", taskList);
+		md.setViewName("/views/teacher/taskScore");
+		return md;
+	}
+	/**
+	 * 根据教师id获取所有已经发布的任务
 	 * @param id
 	 * @return
 	 */
