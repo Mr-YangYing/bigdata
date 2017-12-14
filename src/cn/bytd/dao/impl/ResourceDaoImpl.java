@@ -47,6 +47,14 @@ public class ResourceDaoImpl implements IResourceDao{
 		return QueryUtil.query(qo, "resource", rm, jdbcTemplate);
 	}
 	
+	
+	/**
+	 * 根据任务Id获取资源
+	 */
+	public List<Resource> getResourceByTaskId(long taskId) {
+		return jdbcTemplate.query("select * from resource where taskId = ?",rm,taskId);
+	}
+	
 	/**
 	 * 根据资源Id删除资源
 	 * @param resourceId

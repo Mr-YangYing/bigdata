@@ -65,4 +65,9 @@ public interface ITaskService {
 	 * @param taskId
 	 */
 	void deleteTask(long taskId);
+	/**
+	 * 打分
+	 * @param taskId
+	 */
+	void setScoreByTaskId(Integer score,long taskId,long studentId);
 }

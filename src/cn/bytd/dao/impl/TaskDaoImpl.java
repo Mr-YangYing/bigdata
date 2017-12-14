@@ -4,6 +4,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
+import javax.annotation.Resource;
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
+import cn.bytd.dao.IMarkDao;
 import cn.bytd.dao.ITaskDao;
 import cn.bytd.domain.Student;
 import cn.bytd.domain.Task;
@@ -37,7 +39,9 @@ public class TaskDaoImpl implements ITaskDao{
 	public void setDataSource(DataSource dataSource) {
 		this.jdbcTemplate = new JdbcTemplate(dataSource);
 	}
-
+	@Resource(name="markDao")
+	private IMarkDao markDao;
+	
 	/**
 	 * 高级查询+分页查询
 	 */
@@ -84,9 +88,9 @@ public class TaskDaoImpl implements ITaskDao{
 	 * @param task
 	 */
     public void update(Task task){
-		jdbcTemplate.update("update task set taskName = ?,taskType = ?,uploadReport = ?,publishTask = ?,difficulty = ?,usefulTime = ?,completeStatus = ?,score = ?,description = ? where id = ?", 
+		jdbcTemplate.update("update task set taskName = ?,taskType = ?,uploadReport = ?,publishTask = ?,difficulty = ?,completeStatus = ?,description = ? where id = ?", 
 				task.getTaskName(),task.getTaskType(),task.getUploadReport(),0,task.getDifficulty(),
-				task.getUsefulTime(),task.getCompleteStatus(),task.getScore(),task.getDescription(),task.getId());
+				task.getCompleteStatus(),task.getDescription(),task.getId());
 	};
 	
 	/**
@@ -94,9 +98,9 @@ public class TaskDaoImpl implements ITaskDao{
 	 * @param task
 	 */
 	public void insert(Task task,long courseId){
-		jdbcTemplate.update("insert into task(taskName,taskType,uploadReport,publishTask,difficulty,usefulTime,completeStatus,score,description,courseId) values(?,?,?,?,?,?,?,?,?,?)",
+		jdbcTemplate.update("insert into task(taskName,taskType,uploadReport,publishTask,difficulty,completeStatus,description,courseId) values(?,?,?,?,?,?,?,?)",
 				task.getTaskName(),task.getTaskType(),task.getUploadReport(),0,task.getDifficulty(),
-				task.getUsefulTime(),task.getCompleteStatus(),task.getScore(),task.getDescription(),courseId);
+				task.getCompleteStatus(),task.getDescription(),courseId);
 	};
 	
 	/**
@@ -104,7 +108,7 @@ public class TaskDaoImpl implements ITaskDao{
 	  * @param taskId
 	  */
 	 public void publishTask(long taskId){
-		 jdbcTemplate.update("update task set publishTask = ? where id = ?", 1,taskId);
+		 jdbcTemplate.update("update task set publishTask = 1 where id = ?",taskId);
 	 }
 	
 		/**
@@ -113,6 +117,18 @@ public class TaskDaoImpl implements ITaskDao{
 		 */
 	 public void deleteTask(long taskId){
 		 jdbcTemplate.update("delete from task where id = ?", taskId);
+	 };
+	 
+	 
+		/**
+		 * 给指定任务打分
+		 * @param taskId
+		 */
+	 public void setScoreByTaskId(Integer score,long taskId,long studentId){
+		 if(markDao.getMarkById(studentId, taskId)==null){
+			 jdbcTemplate.update("insert into mark(score,studentId,taskId)values(?,?,?)",score,studentId,taskId);
+		 }
+		 jdbcTemplate.update("update mark set score = ? where studentId = ? and taskId = ?",score,studentId,taskId);
 	 };
 	 
 	/**
@@ -135,9 +151,7 @@ public class TaskDaoImpl implements ITaskDao{
 			task.setDescription(rs.getString("description"));
 			task.setPublishTask(rs.getInt("publishTask"));
 			task.setDifficulty(rs.getInt("difficulty"));
-			task.setUsefulTime(rs.getInt("usefulTime"));
 			task.setCompleteStatus(rs.getInt("completeStatus"));
-			task.setScore(rs.getInt("score"));
 			return task;
 		}
 		

@@ -94,4 +94,12 @@ public class TaskServiceImpl implements ITaskService{
 	 public	void deleteTask(long taskId){
 		 taskDao.deleteTask(taskId);
 	 };
+	 
+		/**
+		 * 打分
+		 * @param taskId
+		 */
+	 public void setScoreByTaskId(Integer score,long taskId,long studentId){
+		 taskDao.setScoreByTaskId(score,taskId,studentId);
+	 };
 }

@@ -72,9 +72,7 @@
 		          <thead>
 		          <tr>
 		           <!--  <th class="text-center">序号</th> -->
-		            <th class="text-center">任务ID</th>
 		            <th class="text-center">任务名称</th>
-		            <th class="text-center">学习时间(天)</th>
 		            <th class="text-center">完成难度</th>
 		            <th class="text-center">任务类型</th>
 		            <th class="text-center">操作</th>
@@ -84,9 +82,7 @@
 		          <c:forEach items="${taskList}" var="task" varStatus="c">
 			          <tr>
 			          <%--   <td>${c.count}</td> --%>
-			            <td>${task.id}</td>
 			            <td>${task.taskName}</td>
-			            <td>${task.usefulTime}</td>
 			            <!--完成难度判断  -->
 			            <c:choose>
 			            	<c:when test="${task.difficulty==0}">
@@ -171,13 +167,6 @@
 			</div>
 			<div class="col-sm-3">
 				<input type="text" name="taskName" class="form-control" value="" id="taskName">
-			</div>
-			<div class="col-sm-2 control-label">
-				<label>有效时间：</label>
-			</div>
-			<div class="col-sm-2">
-				<input type="text" name="usefulTime"  class="form-control" value="" id="usefulTime" style="position: relative;">
-				<label style="position: absolute;left: 102px;top: 8px">天</label>
 			</div>
 		</div>
 		<div class="form-group">

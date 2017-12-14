@@ -46,6 +46,7 @@
               <!-- ---------------携带分页信息隐藏域 --------------------->
               	<input type="hidden" name ="courseId" value="" id="courseId"><!--课程ID  -->
               	<input type="hidden" name ="teacherId" value="1" id="teacherId"><!--教师ID  -->
+              	<input type="hidden" name ="studentId" id="studentId" value=""><!-- 用于存放学生ID,评分的时候需要 -->
               	
                 <div class="form-group col-sm-4">
 	              <div class="col-sm-6 control-label" style="text-align: center;padding: 6px 0px;">
@@ -123,18 +124,18 @@
 			            		<td>学习</td>
 			            	</c:otherwise>
 			            </c:choose>
-			            <c:if test="${task.score==0}">
+			            <c:if test="${task.mark.score==0}">
 			            	<td></td>
 			            </c:if>
-			            <c:if test="${task.score!=0}">
-			            	<td>${task.score}</td>
+			            <c:if test="${task.mark.score!=0}">
+			            	<td>${task.mark.score}</td>
 			            </c:if>
 			            <td>
 			              <div class="btn-group">
-			                <a class="btn btn-warning btn-sm" href="javascript:lookReportById(${task.id})">查看报告</a>
 				             <c:if test="${task.completeStatus==1}">
-			                	<a class="btn btn-warning btn-sm" href="javascript:giveScoreById(${task.id})" style="margin-left: 10px">评分</a>
+			                	<a class="btn btn-warning btn-sm" href="${pageContext.request.contextPath}/report/getReportByTaskId?taskId=${task.id}&studentId=${studentId}">查看报告</a>
 							</c:if>
+			                	<a class="btn btn-warning btn-sm" href="javascript:setScoreByTaskId(${task.id},${studentId})" style="margin-left: 10px">评分</a>
 			              </div>
 			            </td>
 			          </tr>

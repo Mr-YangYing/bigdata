@@ -50,7 +50,14 @@ public interface IStudentService {
 	 * 根据id删除
 	 */
 	void delete(long id);
-
+	
+	/**
+	 * 批量设置学生班级
+	 * @param ids
+	 * @param classesId
+	 */
+	void batchSetClasses(Long[] ids,long classesId);
+	
 	/**
 	 * 批量删除
 	 * 

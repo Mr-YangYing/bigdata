@@ -49,6 +49,16 @@ public class StudentServiceImpl implements IStudentService{
 	public void delete(long id) {
 		studentDao.delete(id);
 	}
+	
+	/**
+	 * 批量设置学生班级
+	 * @param ids
+	 * @param classesId
+	 */
+	public void batchSetClasses(Long[] ids,long classesId){
+		studentDao.batchSetClasses(ids, classesId);
+	};
+	
 	/**
 	 * 批量删除
 	 */

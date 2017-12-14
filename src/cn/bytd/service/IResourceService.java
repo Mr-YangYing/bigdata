@@ -44,5 +44,11 @@ public interface IResourceService {
 	 * @return
 	 */
 	Resource getById(long resourceId);
+	/**
+	 * 根据任务Id获取资源
+	 * @param taskId
+	 * @return
+	 */
+	List<Resource> getResourceByTaskId(long taskId);
 
 }

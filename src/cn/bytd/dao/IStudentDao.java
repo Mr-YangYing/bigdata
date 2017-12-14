@@ -51,6 +51,12 @@ public interface IStudentDao {
 	 * @param id
 	 */
 	void delete(long id);
+	/**
+	 * 批量设置学生班级
+	 * @param ids
+	 * @param classesId
+	 */
+	void batchSetClasses(Long[] ids,long classesId);
 
 	/**
 	 * 批量删除

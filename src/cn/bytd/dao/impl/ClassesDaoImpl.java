@@ -42,7 +42,7 @@ public class ClassesDaoImpl implements IClassesDao{
 
 	/**
 	 * 
-	 * 内部类:Course类结果集处理器
+	 * 内部类:Classes类结果集处理器
 	 *
 	 */
 	private class RowMapperClasses implements RowMapper<Classes> {

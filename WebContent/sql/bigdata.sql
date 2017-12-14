@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50520
 File Encoding         : 65001
 
-Date: 2017-12-11 13:54:50
+Date: 2017-12-14 21:53:12
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -20,14 +20,18 @@ SET FOREIGN_KEY_CHECKS=0;
 -- ----------------------------
 DROP TABLE IF EXISTS `classes`;
 CREATE TABLE `classes` (
-  `id` bigint(255) NOT NULL DEFAULT '0',
-  `classNumber` varchar(255) DEFAULT NULL,
+  `id` bigint(255) NOT NULL AUTO_INCREMENT,
+  `classesNumber` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of classes
 -- ----------------------------
+INSERT INTO `classes` VALUES ('1', '1班');
+INSERT INTO `classes` VALUES ('2', '2班');
+INSERT INTO `classes` VALUES ('3', '3班');
+INSERT INTO `classes` VALUES ('4', '4班');
 
 -- ----------------------------
 -- Table structure for `course`
@@ -39,49 +43,53 @@ CREATE TABLE `course` (
   `startDate` date DEFAULT NULL,
   `endDate` date DEFAULT NULL,
   `teacherName` varchar(20) DEFAULT NULL,
-  `labAddress` varchar(20) DEFAULT NULL,
   `courseOpen` tinyint(1) DEFAULT NULL COMMENT '是否开课 1:开课,0:未开课',
   `description` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=utf8;
+  `laboratoryId` bigint(255) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `course_lab_FK` (`laboratoryId`),
+  CONSTRAINT `course_lab_FK` FOREIGN KEY (`laboratoryId`) REFERENCES `laboratory` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=39 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of course
 -- ----------------------------
-INSERT INTO `course` VALUES ('1', '课程1', '2017-10-30', '2017-12-12', '张三', 'A201', '0', '描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述');
-INSERT INTO `course` VALUES ('2', '课程2', '2017-10-30', '2017-12-22', '李四', 'B501', '1', '描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述');
-INSERT INTO `course` VALUES ('3', '课程3', '2017-10-18', '2017-12-22', '刘达', 'A203', '1', '描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述');
-INSERT INTO `course` VALUES ('4', '课程4', '2017-10-04', '2017-12-22', '阿斯蒂芬', 'C221', '1', '描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述');
-INSERT INTO `course` VALUES ('5', '课程5', '2017-10-23', '2017-12-22', '省道', 'C211', '1', '描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述');
-INSERT INTO `course` VALUES ('6', '课程6', '2017-10-02', '2017-12-22', '对的', 'C322', '1', '描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述');
-INSERT INTO `course` VALUES ('7', '课程111', '2017-09-09', '2017-12-22', '张三', 'A221', '1', '描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述');
-INSERT INTO `course` VALUES ('8', '课程222', '2017-10-09', '2017-12-22', '舒阿文', 'C109', '1', '描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述');
-INSERT INTO `course` VALUES ('9', '张三', '2017-09-09', '2017-12-22', '课程111', 'A221', '1', '描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述');
-INSERT INTO `course` VALUES ('10', '舒阿文', '2017-10-09', '2017-12-22', '课程222', 'C109', '1', '描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述');
-INSERT INTO `course` VALUES ('13', '课程111', '2017-09-09', '2017-12-22', '张三', 'A221', '1', '描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述');
-INSERT INTO `course` VALUES ('14', '课程222', '2017-10-09', '2017-12-22', '舒阿文', 'C109', '1', '描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述');
-INSERT INTO `course` VALUES ('15', '课程111', '2017-09-09', '2017-12-22', '张三', 'A221', '1', '描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述');
-INSERT INTO `course` VALUES ('16', '课程222', '2017-10-09', '2017-12-22', '舒阿文', 'C109', '1', '描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述');
-INSERT INTO `course` VALUES ('17', '课程111', '2017-09-09', '2017-12-22', '张三', 'A221', '1', '描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述');
-INSERT INTO `course` VALUES ('18', '课程222', '2017-10-09', '2017-12-22', '舒阿文', 'C109', '1', '描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述');
-INSERT INTO `course` VALUES ('19', '课程111', '2017-09-09', '2017-12-22', '张三', 'A221', '1', '描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述');
-INSERT INTO `course` VALUES ('20', '课程222', '2017-10-09', '2017-12-22', '舒阿文', 'C109', '1', '描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述');
-INSERT INTO `course` VALUES ('21', '是', '2017-09-09', '2017-12-22', null, null, '0', '描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述');
-INSERT INTO `course` VALUES ('22', '是', '2017-10-09', null, null, null, '0', '描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述');
-INSERT INTO `course` VALUES ('23', '课程111', '2017-09-09', null, '张三', 'A221', '1', null);
-INSERT INTO `course` VALUES ('24', '课程222', '2017-10-09', null, '舒阿文', 'C109', '1', null);
-INSERT INTO `course` VALUES ('25', '课程111', '2017-09-09', null, '张三', 'A221', '1', null);
-INSERT INTO `course` VALUES ('26', '课程222', '2017-10-09', null, '舒阿文', 'C109', '1', null);
-INSERT INTO `course` VALUES ('27', '课程111', '2017-09-09', null, '张三', 'A221', '1', null);
-INSERT INTO `course` VALUES ('28', '课程222', '2017-10-09', null, '舒阿文', 'C109', '1', null);
-INSERT INTO `course` VALUES ('29', '张三', '2017-09-09', null, '课程111', 'A221', '1', null);
-INSERT INTO `course` VALUES ('30', '舒阿文', '2017-10-09', null, '课程222', 'C109', '1', null);
-INSERT INTO `course` VALUES ('31', '课程111', '2017-09-09', '2017-12-22', '张三', 'A221', '1', null);
-INSERT INTO `course` VALUES ('32', '课程222', '2017-10-09', '2017-12-12', '舒阿文', 'C109', '1', null);
-INSERT INTO `course` VALUES ('33', '课程111', '2017-09-09', '2017-12-22', '张三', 'A221', '1', null);
-INSERT INTO `course` VALUES ('34', '课程222', '2017-10-09', '2017-12-12', '舒阿文', 'C109', '0', null);
-INSERT INTO `course` VALUES ('35', '课程111', '2017-09-09', '2017-12-22', '张三', 'A221', '1', null);
-INSERT INTO `course` VALUES ('36', '课程222', '2017-10-09', '2017-12-12', '舒阿文', 'C109', '1', null);
+INSERT INTO `course` VALUES ('1', '课程1', '2017-10-30', '2017-12-12', '张三', '0', '描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述', '1');
+INSERT INTO `course` VALUES ('2', '课程2', '2017-10-30', '2017-12-22', '李四', '1', '描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述', '2');
+INSERT INTO `course` VALUES ('3', '课程3', '2017-10-18', '2017-12-22', '刘达', '1', '描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述', '3');
+INSERT INTO `course` VALUES ('4', '课程4', '2017-10-04', '2017-12-22', '阿斯蒂芬', '1', '描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述', null);
+INSERT INTO `course` VALUES ('5', '课程5', '2017-10-23', '2017-12-22', '省道', '1', '描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述', null);
+INSERT INTO `course` VALUES ('6', '课程6', '2017-10-02', '2017-12-22', '对的', '1', '描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述', null);
+INSERT INTO `course` VALUES ('7', '课程111', '2017-09-09', '2017-12-22', '张三', '1', '描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述', null);
+INSERT INTO `course` VALUES ('8', '课程222', '2017-10-09', '2017-12-22', '舒阿文', '1', '描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述', null);
+INSERT INTO `course` VALUES ('9', '张三', '2017-09-09', '2017-12-22', '课程111', '1', '描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述', null);
+INSERT INTO `course` VALUES ('10', '舒阿文', '2017-10-09', '2017-12-22', '课程222', '1', '描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述', null);
+INSERT INTO `course` VALUES ('13', '课程111', '2017-09-09', '2017-12-22', '张三', '1', '描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述', null);
+INSERT INTO `course` VALUES ('14', '课程222', '2017-10-09', '2017-12-22', '舒阿文', '1', '描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述', null);
+INSERT INTO `course` VALUES ('15', '课程111', '2017-09-09', '2017-12-22', '张三', '1', '描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述', null);
+INSERT INTO `course` VALUES ('16', '课程222', '2017-10-09', '2017-12-22', '舒阿文', '1', '描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述', null);
+INSERT INTO `course` VALUES ('17', '课程111', '2017-09-09', '2017-12-22', '张三', '1', '描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述', null);
+INSERT INTO `course` VALUES ('18', '课程222', '2017-10-09', '2017-12-22', '舒阿文', '1', '描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述', null);
+INSERT INTO `course` VALUES ('19', '课程111', '2017-09-09', '2017-12-22', '张三', '1', '描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述', null);
+INSERT INTO `course` VALUES ('20', '课程222', '2017-10-09', '2017-12-22', '舒阿文', '1', '描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述', null);
+INSERT INTO `course` VALUES ('21', '是', '2017-09-09', '2017-12-22', null, '0', '描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述', null);
+INSERT INTO `course` VALUES ('22', '是', '2017-10-09', null, null, '0', '描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述', null);
+INSERT INTO `course` VALUES ('23', '课程111', '2017-09-09', null, '张三', '1', null, null);
+INSERT INTO `course` VALUES ('24', '课程222', '2017-10-09', null, '舒阿文', '1', null, null);
+INSERT INTO `course` VALUES ('25', '课程111', '2017-09-09', null, '张三', '1', null, null);
+INSERT INTO `course` VALUES ('26', '课程222', '2017-10-09', null, '舒阿文', '1', null, null);
+INSERT INTO `course` VALUES ('27', '课程111', '2017-09-09', null, '张三', '1', null, null);
+INSERT INTO `course` VALUES ('28', '课程222', '2017-10-09', null, '舒阿文', '1', null, null);
+INSERT INTO `course` VALUES ('29', '张三', '2017-09-09', null, '课程111', '1', null, null);
+INSERT INTO `course` VALUES ('30', '舒阿文', '2017-10-09', null, '课程222', '1', null, null);
+INSERT INTO `course` VALUES ('31', '课程111', '2017-09-09', '2017-12-22', '张三', '1', null, null);
+INSERT INTO `course` VALUES ('32', '课程222', '2017-10-09', '2017-12-12', '舒阿文', '1', null, null);
+INSERT INTO `course` VALUES ('33', '课程111', '2017-09-09', '2017-12-22', '张三', '1', null, null);
+INSERT INTO `course` VALUES ('34', '课程222', '2017-10-09', '2017-12-12', '舒阿文', '0', null, null);
+INSERT INTO `course` VALUES ('35', '课程111', '2017-09-09', '2017-12-22', '张三', '1', null, null);
+INSERT INTO `course` VALUES ('36', '课程222', '2017-10-09', '2017-12-12', '舒阿文', '1', null, null);
+INSERT INTO `course` VALUES ('37', '课程111', '2017-09-09', '2017-12-22', '张三', '1', null, null);
+INSERT INTO `course` VALUES ('38', '课程222', '2017-10-09', '2017-12-12', '舒阿文', '1', null, null);
 
 -- ----------------------------
 -- Table structure for `course_classes_config`
@@ -143,6 +151,47 @@ INSERT INTO `course_teacher_config` VALUES ('1', '2');
 INSERT INTO `course_teacher_config` VALUES ('2', '3');
 
 -- ----------------------------
+-- Table structure for `laboratory`
+-- ----------------------------
+DROP TABLE IF EXISTS `laboratory`;
+CREATE TABLE `laboratory` (
+  `id` bigint(255) NOT NULL AUTO_INCREMENT,
+  `labAddress` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of laboratory
+-- ----------------------------
+INSERT INTO `laboratory` VALUES ('1', 'A222');
+INSERT INTO `laboratory` VALUES ('2', 'A111');
+INSERT INTO `laboratory` VALUES ('3', 'B101');
+INSERT INTO `laboratory` VALUES ('4', '444');
+INSERT INTO `laboratory` VALUES ('5', '5555');
+
+-- ----------------------------
+-- Table structure for `mark`
+-- ----------------------------
+DROP TABLE IF EXISTS `mark`;
+CREATE TABLE `mark` (
+  `id` bigint(255) NOT NULL AUTO_INCREMENT,
+  `score` int(11) DEFAULT NULL,
+  `studentId` bigint(255) DEFAULT NULL,
+  `taskId` bigint(255) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `mark_stuId_FK` (`studentId`),
+  KEY `mark_taskId_fK` (`taskId`),
+  CONSTRAINT `mark_stuId_FK` FOREIGN KEY (`studentId`) REFERENCES `student` (`id`),
+  CONSTRAINT `mark_taskId_fK` FOREIGN KEY (`taskId`) REFERENCES `task` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of mark
+-- ----------------------------
+INSERT INTO `mark` VALUES ('3', '88', '1', '2');
+INSERT INTO `mark` VALUES ('4', '88', '1', '7');
+
+-- ----------------------------
 -- Table structure for `permission`
 -- ----------------------------
 DROP TABLE IF EXISTS `permission`;
@@ -164,6 +213,28 @@ INSERT INTO `permission` VALUES ('4', '审核初审', 'suspect:review', '对初�
 INSERT INTO `permission` VALUES ('5', '逃费处理', 'confirm:process', '对确认名单记录进行处理标记');
 
 -- ----------------------------
+-- Table structure for `report`
+-- ----------------------------
+DROP TABLE IF EXISTS `report`;
+CREATE TABLE `report` (
+  `id` bigint(255) NOT NULL AUTO_INCREMENT,
+  `reportName` varchar(255) DEFAULT NULL,
+  `reportAddress` varchar(255) DEFAULT NULL,
+  `uploadDate` date DEFAULT NULL,
+  `studentId` bigint(255) DEFAULT NULL,
+  `taskId` bigint(255) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `reportId_taskId_FK` (`taskId`),
+  KEY `reportId_studentId_FK` (`studentId`),
+  CONSTRAINT `reportId_studentId_FK` FOREIGN KEY (`studentId`) REFERENCES `student` (`id`),
+  CONSTRAINT `reportId_taskId_FK` FOREIGN KEY (`taskId`) REFERENCES `task` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of report
+-- ----------------------------
+
+-- ----------------------------
 -- Table structure for `resource`
 -- ----------------------------
 DROP TABLE IF EXISTS `resource`;
@@ -179,20 +250,16 @@ CREATE TABLE `resource` (
   PRIMARY KEY (`id`),
   KEY `resource_task_FK_idx` (`taskId`),
   CONSTRAINT `resource_task_FK` FOREIGN KEY (`taskId`) REFERENCES `task` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of resource
 -- ----------------------------
-INSERT INTO `resource` VALUES ('1', '22222', '资源名称2333', 'D:\\eclipseCode\\LargeDataTeachMS\\WebContent\\images\\下载.png', '张三', '2017-12-05', '描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述', '2');
 INSERT INTO `resource` VALUES ('3', '222', '资源名称', 'D:\\eclipseCode\\LargeDataTeachMS\\WebContent\\images\\test.xls', '我', '2017-12-05', '描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述', '3');
 INSERT INTO `resource` VALUES ('4', '222', '资源名称', 'D:\\eclipseCode\\LargeDataTeachMS\\WebContent\\images\\test.xls', '对的', '2017-12-05', '描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述', '5');
 INSERT INTO `resource` VALUES ('5', '222', '资源名称', 'D:\\eclipseCode\\LargeDataTeachMS\\WebContent\\images\\test.xls', '公共', '2017-12-05', '描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述', '5');
 INSERT INTO `resource` VALUES ('6', '222', '资源名称', 'D:\\eclipseCode\\LargeDataTeachMS\\WebContent\\images\\test.xls', '简介', '2017-12-05', '描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述', '6');
 INSERT INTO `resource` VALUES ('7', '222', '资源名称', 'D:\\eclipseCode\\LargeDataTeachMS\\WebContent\\images\\test.xls', '对的', '2017-12-05', '描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述', '7');
-INSERT INTO `resource` VALUES ('8', '222', '资源名称', 'D:\\eclipseCode\\LargeDataTeachMS\\WebContent\\images\\test.xls', null, '2017-12-05', '描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述', '2');
-INSERT INTO `resource` VALUES ('11', '222', '资源名称', 'D:\\eclipseCode\\LargeDataTeachMS\\WebContent\\images\\test.xls', null, '2017-12-05', '描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述', '2');
-INSERT INTO `resource` VALUES ('12', '222', '资源名称', 'D:\\eclipseCode\\LargeDataTeachMS\\WebContent\\images\\test.xls', null, '2017-12-05', '描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述', '2');
 INSERT INTO `resource` VALUES ('14', 'sss', 'sss', 'D:\\eclipseCode\\LargeDataTeachMS\\WebContent\\images\\teacher.sql', null, '2017-12-05', '', '2');
 INSERT INTO `resource` VALUES ('15', 'www', 'www', 'D:\\eclipseCode\\LargeDataTeachMS\\WebContent\\images\\XMP.exe', null, '2017-12-05', 'www', '2');
 INSERT INTO `resource` VALUES ('16', 'eeee', 'eeeee222', 'D:\\eclipseCode\\LargeDataTeachMS\\WebContent\\images\\下载.png', null, '2017-12-05', 'eeee', '2');
@@ -254,17 +321,17 @@ CREATE TABLE `student` (
   UNIQUE KEY `studentNumber` (`studentNumber`),
   KEY `student_classes_FK` (`classesId`),
   CONSTRAINT `student_classes_FK` FOREIGN KEY (`classesId`) REFERENCES `classes` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of student
 -- ----------------------------
-INSERT INTO `student` VALUES ('1', '88888', '', '', '', '数理统计', null);
-INSERT INTO `student` VALUES ('2', '444444', '', '', '', '数理统计', null);
-INSERT INTO `student` VALUES ('3', '20170002', '9', '2017第一学期', '经管学院', '数理统计', null);
-INSERT INTO `student` VALUES ('4', '20170003', '9', '2017第一学期', '经管学院', '数理统计', null);
-INSERT INTO `student` VALUES ('5', '20170004', '9', '2017第一学期', '经管学院', '数理统计', null);
-INSERT INTO `student` VALUES ('6', '20170005', '99', '2017第一学期', '经管学院', '数理统计', null);
+INSERT INTO `student` VALUES ('1', '88888', '222', '', '', '数理统计', '1');
+INSERT INTO `student` VALUES ('2', '444444', '222', '', '', '数理统计', '1');
+INSERT INTO `student` VALUES ('3', '20170002', '9', '2017第一学期', '经管学院', '数理统计', '1');
+INSERT INTO `student` VALUES ('4', '20170003', '9', '2017第一学期', '经管学院', '数理统计', '1');
+INSERT INTO `student` VALUES ('5', '20170004', '9', '2017第一学期', '经管学院', '数理统计', '2');
+INSERT INTO `student` VALUES ('6', '20170005', '99', '2017第一学期', '经管学院', '数理统计', '2');
 INSERT INTO `student` VALUES ('7', '20170006', '8', '2017第一学期', '经管学院', '数理统计', null);
 INSERT INTO `student` VALUES ('8', '20170007', '8', '2017第一学期', '经管学院', '数理统计', null);
 INSERT INTO `student` VALUES ('9', '20170008', '8', '2017第一学期', '经管学院', '数理统计', null);
@@ -277,7 +344,6 @@ INSERT INTO `student` VALUES ('15', '20170014', '8', '2017第一学期', '经管
 INSERT INTO `student` VALUES ('16', '20170015', '8', '2017第一学期', '经管学院', '数理统计', null);
 INSERT INTO `student` VALUES ('17', '2222.0', '对对对', '111.0', '发发发', null, null);
 INSERT INTO `student` VALUES ('23', '2222', '对对对', '111', '发发发', null, null);
-INSERT INTO `student` VALUES ('24', '333', '反反复复', '222', '发发发', null, null);
 
 -- ----------------------------
 -- Table structure for `task`
@@ -290,7 +356,7 @@ CREATE TABLE `task` (
   `uploadReport` tinyint(4) DEFAULT NULL COMMENT '上传报告是否开启    1:开启,0:关闭',
   `publishTask` tinyint(4) DEFAULT NULL COMMENT '是否发布任务  1:发布,0:未发布',
   `difficulty` tinyint(4) DEFAULT NULL,
-  `usefulTime` int(11) DEFAULT NULL,
+  `completeStatus` tinyint(4) DEFAULT NULL,
   `description` varchar(255) DEFAULT NULL,
   `courseId` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`id`),
@@ -301,34 +367,34 @@ CREATE TABLE `task` (
 -- ----------------------------
 -- Records of task
 -- ----------------------------
-INSERT INTO `task` VALUES ('2', '是是是', null, null, '0', null, '4', '', '1');
-INSERT INTO `task` VALUES ('3', '00', '0', '0', '1', '0', '0', '', '2');
-INSERT INTO `task` VALUES ('4', '00', '0', '0', '0', '0', '0', '', '2');
-INSERT INTO `task` VALUES ('5', '00', '0', '0', '0', '0', '0', '', '3');
-INSERT INTO `task` VALUES ('6', '00', '0', '0', '0', '0', '0', '', '4');
-INSERT INTO `task` VALUES ('7', '00', '0', '0', '1', '0', '0', '', '1');
-INSERT INTO `task` VALUES ('8', '00', '0', '0', '1', '0', '0', '', '1');
-INSERT INTO `task` VALUES ('9', '00', '0', '0', '0', '0', '0', '', '1');
-INSERT INTO `task` VALUES ('10', '00', '0', '0', '0', '0', '0', '', '1');
-INSERT INTO `task` VALUES ('11', '00', '0', '0', '0', '0', '0', '', '1');
-INSERT INTO `task` VALUES ('12', '00', '0', '0', '0', '0', '0', '', '1');
-INSERT INTO `task` VALUES ('13', '00', '0', '0', '0', '0', '0', '', '1');
-INSERT INTO `task` VALUES ('14', '00', '0', '0', '0', '0', '0', '', '1');
-INSERT INTO `task` VALUES ('15', '00', '0', '0', '0', '0', '0', '', '1');
-INSERT INTO `task` VALUES ('16', '00', '0', '0', '0', '0', '0', '', '1');
-INSERT INTO `task` VALUES ('17', '00', '0', '0', '0', '0', '0', '', '1');
-INSERT INTO `task` VALUES ('18', '00', '0', '0', '0', '0', '0', '', '1');
-INSERT INTO `task` VALUES ('19', '00', '0', '0', '0', '0', '0', '', '1');
-INSERT INTO `task` VALUES ('20', '00', '0', '0', '0', '0', '0', '', '1');
-INSERT INTO `task` VALUES ('21', '00', '0', '0', '0', '0', '0', '', '1');
-INSERT INTO `task` VALUES ('22', '00', '0', '0', '0', '0', '0', '', '1');
-INSERT INTO `task` VALUES ('23', '00', '0', '0', '0', '0', '0', '', '1');
-INSERT INTO `task` VALUES ('24', '00', '0', '0', '0', '0', '0', '', '1');
-INSERT INTO `task` VALUES ('25', '00', '0', '0', '0', '0', '0', '', '1');
-INSERT INTO `task` VALUES ('26', '00', '0', '0', '0', '0', '0', '', '1');
-INSERT INTO `task` VALUES ('27', '00', '0', '0', '0', '0', '0', '', '1');
-INSERT INTO `task` VALUES ('28', '00', '0', '0', '0', '0', '0', '', '1');
-INSERT INTO `task` VALUES ('29', '00', '0', '0', '0', '0', '0', '', '1');
+INSERT INTO `task` VALUES ('2', '是是是', '0', '1', '1', '0', null, '', '1');
+INSERT INTO `task` VALUES ('3', '00', '0', '0', '1', '0', null, '', '2');
+INSERT INTO `task` VALUES ('4', '00', '0', '0', '0', '0', null, '', '2');
+INSERT INTO `task` VALUES ('5', '00', '0', '0', '0', '0', null, '', '3');
+INSERT INTO `task` VALUES ('6', '00', '0', '0', '0', '0', null, '', '4');
+INSERT INTO `task` VALUES ('7', '00', '0', '0', '1', '0', null, '', '1');
+INSERT INTO `task` VALUES ('8', '00', '0', '1', '1', '0', null, '', '1');
+INSERT INTO `task` VALUES ('9', '00', '0', '1', '1', '0', null, '', '1');
+INSERT INTO `task` VALUES ('10', '00', '0', '0', '0', '0', null, '', '1');
+INSERT INTO `task` VALUES ('11', '00', '0', '0', '0', '0', null, '', '1');
+INSERT INTO `task` VALUES ('12', '00', '0', '0', '0', '0', null, '', '1');
+INSERT INTO `task` VALUES ('13', '00', '0', '0', '0', '0', null, '', '1');
+INSERT INTO `task` VALUES ('14', '00', '0', '0', '0', '0', null, '', '1');
+INSERT INTO `task` VALUES ('15', '00', '0', '0', '0', '0', null, '', '1');
+INSERT INTO `task` VALUES ('16', '00', '0', '0', '0', '0', null, '', '1');
+INSERT INTO `task` VALUES ('17', '00', '0', '0', '0', '0', null, '', '1');
+INSERT INTO `task` VALUES ('18', '00', '0', '0', '0', '0', null, '', '1');
+INSERT INTO `task` VALUES ('19', '00', '0', '0', '0', '0', null, '', '1');
+INSERT INTO `task` VALUES ('20', '00', '0', '0', '0', '0', null, '', '1');
+INSERT INTO `task` VALUES ('21', '00', '0', '0', '0', '0', null, '', '1');
+INSERT INTO `task` VALUES ('22', '00', '0', '0', '0', '0', null, '', '1');
+INSERT INTO `task` VALUES ('23', '00', '0', '0', '0', '0', null, '', '1');
+INSERT INTO `task` VALUES ('24', '00', '0', '0', '0', '0', null, '', '1');
+INSERT INTO `task` VALUES ('25', '00', '0', '0', '0', '0', null, '', '1');
+INSERT INTO `task` VALUES ('26', '00', '0', '0', '0', '0', null, '', '1');
+INSERT INTO `task` VALUES ('27', '00', '0', '0', '0', '0', null, '', '1');
+INSERT INTO `task` VALUES ('28', '00', '0', '0', '0', '0', null, '', '1');
+INSERT INTO `task` VALUES ('29', '00', '0', '0', '0', '0', null, '', '1');
 
 -- ----------------------------
 -- Table structure for `teacher`
@@ -360,6 +426,25 @@ INSERT INTO `teacher` VALUES ('17', '333.0', '对的', '教授');
 INSERT INTO `teacher` VALUES ('20', '222.0', '而定', '讲师');
 INSERT INTO `teacher` VALUES ('22', '222', '而定', '讲师');
 INSERT INTO `teacher` VALUES ('23', '333', '对的', '教授');
+
+-- ----------------------------
+-- Table structure for `teacher_classes_config`
+-- ----------------------------
+DROP TABLE IF EXISTS `teacher_classes_config`;
+CREATE TABLE `teacher_classes_config` (
+  `tea_id` bigint(255) NOT NULL,
+  `cla_id` bigint(255) NOT NULL,
+  PRIMARY KEY (`tea_id`,`cla_id`),
+  KEY `classesId_teacherId_FK` (`cla_id`),
+  CONSTRAINT `classesId_teacherId_FK` FOREIGN KEY (`cla_id`) REFERENCES `classes` (`id`),
+  CONSTRAINT `teacherId_classesId_FK` FOREIGN KEY (`tea_id`) REFERENCES `teacher` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of teacher_classes_config
+-- ----------------------------
+INSERT INTO `teacher_classes_config` VALUES ('1', '1');
+INSERT INTO `teacher_classes_config` VALUES ('1', '2');
 
 -- ----------------------------
 -- Table structure for `user`

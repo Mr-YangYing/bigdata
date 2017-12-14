@@ -66,4 +66,12 @@ public class ResourceServiceImpl implements IResourceService {
 	public Resource getById(long resourceId){
 		return resourceDao.getById(resourceId);
 	};
+	
+	/**
+	 * 根据任务Id获取资源
+	 * @return
+	 */
+	public List<Resource> getResourceByTaskId(long taskId){
+		return resourceDao.getResourceByTaskId(taskId);
+	};
 }

@@ -13,11 +13,13 @@ import org.springframework.web.servlet.ModelAndView;
 
 import cn.bytd.domain.Classes;
 import cn.bytd.domain.Course;
+import cn.bytd.domain.Mark;
 import cn.bytd.domain.Task;
 import cn.bytd.queryPage.CourseQueryObject;
 import cn.bytd.queryPage.page.PageResult;
 import cn.bytd.service.IClassesService;
 import cn.bytd.service.ICourseService;
+import cn.bytd.service.IMarkService;
 import cn.bytd.service.ITaskService;
 
 /**
@@ -37,6 +39,8 @@ public class TaskController {
 	private ICourseService courseService;
 	@Resource(name="classesService")
 	private IClassesService classesService;
+	@Resource(name="markService")
+	private IMarkService markService;
 	/**
 	 * 课程列表,包含课程对应的任务数
 	 * @param request
@@ -71,7 +75,6 @@ public class TaskController {
 		
 		Course course = courseService.getById(courseId);
 		List<Task> publishedTaskList = taskService.getPublishedTaskByCourseId(courseId);//根据课程Id获取任务,而且是已经发布的任务
-		
 		ModelAndView md = new ModelAndView();
 		md.addObject("course", course);
 		md.addObject("publishedTaskList", publishedTaskList);
@@ -104,6 +107,16 @@ public class TaskController {
 	@ResponseBody
 	public Task getTaskById(long taskId){
 	    return taskService.getTaskById(taskId);
+	}
+	/**
+	 * 给指定任务打分数
+	 * @param taskId
+	 * @return
+	 */
+	@RequestMapping(value="/setScoreByTaskId")
+	public ModelAndView setScoreByTaskId(Integer score,long taskId,long studentId){
+		taskService.setScoreByTaskId(score,taskId,studentId);
+		return null;
 	}
 	
 	/**
@@ -165,12 +178,18 @@ public class TaskController {
 	 * @return
 	 */
 	@RequestMapping(value="/taskList")
-	public ModelAndView taskList(long courseId,long teacherId){
+	public ModelAndView taskList(long courseId,long teacherId,long studentId){
 		List<Task> taskList = taskService.getTaskByCourseId(courseId);
 		List<Classes> classesList =classesService.getClassesByTeacherId(teacherId);
+		for (int i = 0; i < taskList.size(); i++) {
+			long taskId = taskList.get(i).getId();
+			Mark mark = markService.getMarkById(studentId, taskId);
+			taskList.get(i).setMark(mark);
+		}
 		ModelAndView md = new ModelAndView();
 		md.addObject("taskList", taskList);
 		md.addObject("classesList", classesList);
+		md.addObject("studentId", studentId);
 		md.setViewName("/views/teacher/taskScore");
 		return md;
 	}

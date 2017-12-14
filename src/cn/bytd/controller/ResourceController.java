@@ -7,6 +7,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
@@ -69,6 +70,19 @@ public class ResourceController {
 		md.setViewName("views/teacher/resource");
 		return md;
 	}
+	/**
+	 * 根据任务Id获取资源
+	 * @return
+	 */
+	@RequestMapping(value="/getResourceByTaskId")
+	public ModelAndView getResourceByTaskId(long taskId){
+		List<Resource> resourceList = resourceService.getResourceByTaskId(taskId);
+		ModelAndView md = new ModelAndView();
+		md.addObject("resourceList", resourceList);
+		md.setViewName("views/student/resource");
+		return md;
+	}
+	
 	/**
 	 * 资源删除
 	 * @param resourceId

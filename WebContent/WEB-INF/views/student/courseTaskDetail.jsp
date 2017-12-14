@@ -18,6 +18,11 @@
   <![endif]-->
   <style type="text/css">
   </style>
+    <script src="${pageContext.request.contextPath}/jquery/jquery.js"></script>
+  <script src="${pageContext.request.contextPath}/bootstrap/js/bootstrap.js"></script>
+  <script src="${pageContext.request.contextPath}/js/layer.js"></script>
+  <script type="text/javascript" src="${pageContext.request.contextPath}/My97DatePicker/WdatePicker.js"></script>
+  <script src="${pageContext.request.contextPath}/js/student/courseTaskDetail.js"></script>
 </head>
 <body style="font-family: Microsoft YaHei">
 <!--页头部分开始-->
@@ -71,11 +76,8 @@
 		          <thead>
 		          <tr>
 		           <!--  <th class="text-center">序号</th> -->
-		            <th class="text-center">任务ID</th>
 		            <th class="text-center">任务名称</th>
-		            <th class="text-center">学习时间(天)</th>
 		            <th class="text-center">完成状态</th>
-		            <th class="text-center">完成难度</th>
 		            <th class="text-center">任务类型</th>
 		            <th class="text-center">操作</th>
 		          </tr>
@@ -84,25 +86,13 @@
 		          <c:forEach items="${publishedTaskList}" var="task" varStatus="c">
 			          <tr>
 			          <%--   <td>${c.count}</td> --%>
-			            <td>${task.id}</td>
 			            <td>${task.taskName}</td>
-			            <td>${task.usefulTime}</td>
-			            <!--完成状态判断  --><td>完成状态</td>
-			            <c:choose>
-			            	<c:when test="${task.difficulty==0}">
-			            		<td>简单</td>
-			            	</c:when>
-			            	<c:when test="${task.difficulty==1}">
-			            		<td>一般</td>
-			            	</c:when>
-			            	<c:when test="${task.difficulty==2}">
-			            		<td>中等</td>
-			            	</c:when>
-			            	<c:otherwise>
-			            		<td>难</td>
-			            	</c:otherwise>
-			            </c:choose>
-			            <!-- 任务类型判断 -->
+			            <c:if test="${task.completeStatus==0}">
+				            <td>未完成</td>
+			            </c:if>
+			            <c:if test="${task.completeStatus==1}">
+				            <td>已完成</td>
+			            </c:if>
 			            <c:choose>
 			            	<c:when test="${task.taskType==0}">
 			            		<td>实验</td>
@@ -116,8 +106,11 @@
 			            </c:choose>
 			            <td>
 			              <div class="btn-group">
-			                <a class="btn btn-info btn-sm" href="javascript:uploadWork(${task.id})" style="margin-right: 20px">上传作业</a>
-			                <a class="btn btn-warning btn-sm" href="javascript:getTaskDetailById(${task.id})">查看</a>
+			                <a class="btn btn-info btn-sm" href="${pageContext.request.contextPath}/resource/getResourceByTaskId?taskId=${task.id}" style="margin-right: 20px">学习资源</a>
+				            <c:if test="${task.uploadReport==1}">
+					            <a class="btn btn-info btn-sm" href="javascript:addReport(${task.id},${course.id})" style="margin-right: 20px">上传作业</a>
+				            </c:if>
+			                <a class="btn btn-warning btn-sm" href="javascript:getTaskDetailById(${task.id})">任务详情</a>
 			              </div>
 			            </td>
 			          </tr>
@@ -139,11 +132,6 @@
 <!--页脚部分开始-->
 <%@include file="/WEB-INF/views/common/footer.jsp" %>
 <!--页脚部分结束-->
-  <script src="${pageContext.request.contextPath}/jquery/jquery.js"></script>
-  <script src="${pageContext.request.contextPath}/bootstrap/js/bootstrap.js"></script>
-  <script src="${pageContext.request.contextPath}/js/layer.js"></script>
-  <script type="text/javascript" src="${pageContext.request.contextPath}/My97DatePicker/WdatePicker.js"></script>
-  <script src="${pageContext.request.contextPath}/js/student/courseTaskDetail.js"></script>
 </body>
 
 <!-- 任务详情的表单 -->
@@ -166,13 +154,6 @@
 			</div>
 			<div class="col-sm-3">
 				<input type="text" name="taskName" class="form-control" value="" id="taskName">
-			</div>
-			<div class="col-sm-2 control-label">
-				<label>有效时间：</label>
-			</div>
-			<div class="col-sm-2">
-				<input type="text" name="usefulTime"  class="form-control" value="" id="usefulTime" style="position: relative;">
-				<label style="position: absolute;left: 102px;top: 8px">天</label>
 			</div>
 		</div>
 		<div class="form-group">
@@ -229,6 +210,48 @@
 			</div>
 			<div class="col-sm-7">
 				<textarea  name="description"  class="form-control"  id="description" rows="8"></textarea>
+			</div>
+		</div>
+	</form>
+</div>
+
+<!-- 上传报告的表单 -->
+<div id="reportDiv" style="display:none;overflow: hidden;padding-top: 30px">
+	<!--水平表单-->
+	<form class="form-horizontal" action="${pageContext.request.contextPath}/report/reportUpload" method="post" name="uploadForm" enctype="multipart/form-data">
+
+		<!-- ---------------携带分页信息隐藏域 --------------------->
+		<input type="hidden" name="currentPage" value="${pageResult.currentPage}" id="currentPage">
+		<input type="hidden" name="pageSize" value="${pageResult.pageSize}" id="pageSize">
+		<!-- ---------------携带分页信息隐藏域 --------------------->
+		<!-- 隐藏域存放id -->
+		<input type="hidden" name="id" value="-1" id="updateId">
+		<!-- 隐藏域存放courseId -->
+		<input type="hidden" name="courseId" value="" id="courseId">
+		<!-- 隐藏域存放taskId -->
+		<input type="hidden" name="taskId" value="" id="taskId">
+		<!-- 隐藏域存放studentId,学生登录时能直接获取到 -->
+		<input type="hidden" name="studentId" value="1">
+	
+		<!--当屏幕小于768时，变为两行-->
+		<div class="form-group">
+			<div class="col-sm-3 control-label">
+				<label>资源名称：</label>
+			</div>
+			<div class="col-sm-3">
+				<input type="text" name="reportName"  class="form-control" value="" id="reportName" >
+			</div>
+		</div>
+		<div class="form-group">
+			<div class="col-sm-3 control-label">
+				<label>上传作业：</label>
+			</div>
+			<div class="col-sm-5">
+				<input type="text" name="fileName" id="fileName" value="" class="form-control" readonly="readonly">
+				<input type="file" name="uploadFile" value="" id="uploadFile" style="visibility: hidden;" onchange="fileSelected();">
+			</div>
+			<div class="col-sm-3">
+				<input id="btn_upload" type="button" class="btn btn-default" onclick="uploadFile.click()" value="选择文件"/>
 			</div>
 		</div>
 	</form>

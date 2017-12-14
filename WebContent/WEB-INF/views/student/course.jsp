@@ -56,7 +56,7 @@
 		            <td>${fn:length(course.tasks)}</td>
 		            <td>
 		              <div class="btn-group">
-		                <a class="btn btn-info btn-sm" href="${pageContext.request.contextPath}/student/courseTaskDetail?courseId=${course.id}" style="margin-right: 20px">查看</a>
+		                <a class="btn btn-info btn-sm" href="${pageContext.request.contextPath}/student/courseTaskDetail?courseId=${course.id}">查看</a>
 		              </div>
 		            </td>
 		          </tr>

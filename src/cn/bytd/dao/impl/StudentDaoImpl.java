@@ -99,6 +99,28 @@ public class StudentDaoImpl implements IStudentDao {
 
 
 	/**
+	 * 批量设置学生班级
+	 */
+	public void batchSetClasses(Long[] ids,long classesId) {
+		final List<Long> idList = new ArrayList<>();
+		for (int i = 0; i < ids.length; i++) {
+			idList.add(ids[i]);
+		}
+		jdbcTemplate.batchUpdate("update student set classesId = ? where id = ?",new BatchPreparedStatementSetter() {
+			
+			@Override
+			public void setValues(PreparedStatement ps, int i) throws SQLException {
+				ps.setLong(1,classesId);
+				ps.setLong(2,idList.get(i));
+			}
+			
+			@Override
+			public int getBatchSize() {
+				return idList.size();
+			}
+		});
+	}
+	/**
 	 * 批量删除
 	 */
 	public void batchDelete(Long[] ids) {
