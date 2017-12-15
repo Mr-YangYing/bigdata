@@ -110,6 +110,58 @@ $(function(){
     		}
     	});
     });
+    //点击配置班级按钮
+    $(".btn_batch_setClasses").on("click",function(){
+    	var ids = $.map($(".currentCheckbox:checked"),function(item){
+    		return $(item).data("eid");
+    	});
+    	if(ids.length==0){
+    		layer.msg('您还没有选中!!!');
+    		return;
+    	}
+    	
+    	layer.open({
+  		  type: 1,
+  		  title:["配置班级","font-size:18px"],
+  		  skin: 'layui-layer-rim', //加上边框
+  		  area: ['600px', '500px'], //宽高
+  		  content: $('#setClassesDiv'), //这里content是一个DOM，注意：最好该元素要存放在body最外层，否则可能被其它的相对元素所影响
+  		  success: function(){
+  			 $.ajax({
+				  type: 'post',
+				  url: '/classes/getClassesList',
+				  success: function(classesList){
+					  $("#classesSelect").empty();
+						$("#classesSelect").append("<option>------请选择------</option>");
+						for(var i = 0 ;i < classesList.length ; i++){
+							$("#classesSelect").append("<option value = '"+classesList[i].id+"'>"+classesList[i].classesNumber+"</option>");
+						}
+				  }
+				});
+  		  },
+  		  btn:['提交','取消'],
+  		  btn1:function(index){
+  			  var classesId = $("#classesSelect option:selected").val();
+			 $.ajax({
+				  type: 'get',
+				  url: "/student/batchSetClasses",
+				  data:"ids="+ids+"&classesId="+classesId,
+				  success: function(classesList){
+						layer.msg('设置班级成功', {
+							icon : 1,
+							time : 2000
+						},function(){
+							window.location.reload();//重新加载
+						});
+				  }
+				});
+
+  		},
+  		  btn2:function(){
+  				
+  			}
+  		});
+    });
     
     
 	

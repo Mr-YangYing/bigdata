@@ -36,7 +36,7 @@
         <!--高级查询开始-->
         <div class="container-fluid" style="border: 1px solid gainsboro;margin-bottom: 10px;height: 50px">
           <div class="row" style="padding-top: 8px">
-            <div class="col-sm-8">
+            <div class="col-sm-7">
               <form class="form-inline" action="${pageContext.request.contextPath}/student/list" method="post"><!--当屏幕小于768时，变为两行-->
               <!-- ---------------携带分页信息隐藏域 --------------------->
               	<input type="hidden" name ="currentPage" value="1" id="currentPage">
@@ -66,11 +66,12 @@
                 </div>
               </form>
             </div>
-            <div class="col-sm-4">
+            <div class="col-sm-5">
               <div class="btn-group pull-right">
                 <a class="btn btn-info btn-sm" style="margin-right: 20px" href="javascript:batchUpload('student')">批量导入</a>
                 <a class="btn btn-info btn-sm" style="margin-right: 20px" href="javascript:addStudent()">添加学生</a>
                 <a class="btn btn-info btn-sm btn_batch_delete" style="margin-right: 20px">批量删除</a>
+                <a class="btn btn-info btn-sm btn_batch_setClasses" style="margin-right: 20px">配置班级</a>
               </div>
             </div>
           </div>
@@ -87,7 +88,7 @@
             <th class="text-center">学期</th>
             <th class="text-center">学院</th>
             <th class="text-center">专业</th>
-           <!--  <th class="text-center">班级</th> -->
+            <th class="text-center">班级</th>
             <th class="text-center">操作</th>
           </tr>
           </thead>
@@ -101,7 +102,7 @@
 	            <td>${student.currentTerm}</td>
 	            <td>${student.college}</td>
 	            <td>${student.profession}</td>
-	            <%-- <td>${student.classes}</td> --%>
+	            <td>${student.classes.classesNumber}</td>
 	            <td>
 	              <div class="btn-group">
 	                <a class="btn btn-warning btn-sm" href="javascript:getStudentById(${student.id})" style="margin-right: 20px">修改</a>
@@ -190,6 +191,34 @@
 				<input type="text" name="classes"  class="form-control" value="" id="updateClasses">
 			</div>
 		</div> -->
+	</form>
+</div>
+
+
+
+<!-- 修改学生的表单 -->
+<div id="setClassesDiv" style="display:none;overflow: hidden;padding-top: 60px">
+	<!--水平表单-->
+	<form class="form-horizontal" action="" method="post" name="setClassesForm">
+
+		<!-- ---------------携带分页信息隐藏域 --------------------->
+		<input type="hidden" name="currentPage" value="${pageResult.currentPage}" id="currentPage">
+		<input type="hidden" name="pageSize" value="${pageResult.pageSize}" id="pageSize">
+		<!-- ---------------携带分页信息隐藏域 --------------------->
+	
+		<input type="hidden" name="ids" value="">
+		<!--当屏幕小于768时，变为两行-->
+		<div class="form-group">
+			<div class="col-sm-3 control-label">
+				<label>选择班级：</label>
+			</div>
+			<div class="col-sm-7">
+				<select name="classesId" class="form-control" id="classesSelect">
+                  	<option>------请选择------</option>
+                </select>
+			</div>
+		</div>
+		
 	</form>
 </div>
 </html>

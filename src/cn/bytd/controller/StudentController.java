@@ -92,6 +92,17 @@ public class StudentController {
 		studentService.batchDelete(ids);
 		return null;
 	}
+	/**
+	 * 批量设置班级
+	 * @param ids
+	 * @param classesId
+	 * @return
+	 */
+	@RequestMapping(value="/batchSetClasses",method={RequestMethod.GET})
+	public ModelAndView batchSetClasses(Long[] ids,long classesId){
+		studentService.batchSetClasses(ids,classesId);
+		return null;
+	}
 	
 	/**
 	 * 根据id获取

@@ -137,7 +137,7 @@
 <!-- 任务详情的表单 -->
 <div id="taskDetailDiv" style="display:none;overflow: hidden;padding-top: 30px">
 	<!--水平表单-->
-	<form class="form-horizontal" action="" method="post" name="updateForm">
+	<form class="form-horizontal" action="" method="post" name="taskDetailForm">
 
 		<!-- ---------------携带分页信息隐藏域 --------------------->
 		<input type="hidden" name="currentPage" value="${pageResult.currentPage}" id="currentPage">

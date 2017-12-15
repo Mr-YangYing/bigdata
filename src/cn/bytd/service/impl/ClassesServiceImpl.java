@@ -31,5 +31,20 @@ public class ClassesServiceImpl implements IClassesService{
 	public List<Classes> getClassesByTeacherId(long teacherId) {
 		return classesDao.getClassesByTeacherId(teacherId);
 	}
+	
+	/**
+	 * 获取所有班级
+	 * @return
+	 */
+	public List<Classes> getClassesList(){
+		return classesDao.getClassesList();
+	}
+
+	/**
+	 * 
+	 */
+	public Classes getClassesById(long classesId) {
+		return classesDao.getClassesById(classesId);
+	};
 
 }

@@ -26,6 +26,7 @@ import cn.bytd.domain.Teacher;
 import cn.bytd.queryPage.page.PageResult;
 import cn.bytd.queryPage.query.IQueryObject;
 import cn.bytd.queryPage.utils.QueryUtil;
+import cn.bytd.service.IClassesService;
 
 /**
  * 
@@ -45,6 +46,8 @@ public class StudentDaoImpl implements IStudentDao {
 	public void setDataSource(DataSource dataSource) {
 		this.jdbcTemplate = new JdbcTemplate(dataSource);
 	}
+	@javax.annotation.Resource(name="classesService")
+	private IClassesService classesService;
 
 	/**
 	 * 查询所有
@@ -261,6 +264,7 @@ public class StudentDaoImpl implements IStudentDao {
 			student.setCurrentTerm(rs.getString("currentTerm"));
 			student.setCollege(rs.getString("college"));
 			student.setProfession(rs.getString("profession"));
+			student.setClasses(classesService.getClassesById(rs.getLong("classesId")));
 			return student;
 		}
 

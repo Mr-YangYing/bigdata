@@ -20,5 +20,16 @@ public interface IClassesDao {
 	 * @return
 	 */
 	List<Classes> getClassesByTeacherId(long teacherId);
+	/**
+	 * 获取所有班级
+	 * @return
+	 */
+	List<Classes> getClassesList();
+	/**
+	 * 根据Id获取班级
+	 * @param classesId
+	 * @return
+	 */
+	Classes getClassesById(long classesId);
 
 }

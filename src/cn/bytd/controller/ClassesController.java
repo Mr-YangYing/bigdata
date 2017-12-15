@@ -6,6 +6,7 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import cn.bytd.domain.Classes;
@@ -38,5 +39,15 @@ public class ClassesController {
 		md.addObject("classesList", classesList);
 		md.setViewName("/views/teacher/taskScore");
 		return md;
+	}
+	/**
+	 * 获取所有班级
+	 * @return
+	 */
+	@RequestMapping(value="/getClassesList")
+	@ResponseBody
+	public List<Classes> getClassesList(){
+		List<Classes> classesList =classesService.getClassesList();
+		return classesList;
 	}
 }

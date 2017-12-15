@@ -7,12 +7,14 @@ import java.util.List;
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
 import cn.bytd.dao.IClassesDao;
 import cn.bytd.domain.Classes;
+import cn.bytd.domain.Student;
 
 /**
  * 
@@ -40,6 +42,29 @@ public class ClassesDaoImpl implements IClassesDao{
 		return jdbcTemplate.query("select * from classes where id in(select cla_id from teacher_classes_config where tea_id = ?)", rm, teacherId);
 	}
 
+	/**
+	 * 获取所有班级
+	 * @return
+	 */
+	public List<Classes> getClassesList(){
+		return jdbcTemplate.query("select * from classes", rm);
+	};
+	
+	
+
+	@Override
+	public Classes getClassesById(long classesId) {
+		Classes classes = null;
+		//避免出现org.springframework.dao.EmptyResultDataAccessException: Incorrect result size: expected 1, actual 0
+		try {
+			classes = jdbcTemplate.queryForObject("select * from classes where id = ?",rm,classesId);
+		} catch (EmptyResultDataAccessException e) {
+			return null;
+		}
+		return classes;
+	}
+
+	
 	/**
 	 * 
 	 * 内部类:Classes类结果集处理器
