@@ -22,6 +22,9 @@
                 <div class="panel-body" style="padding-left: 30px;">
                 		<a href="${pageContext.request.contextPath}/laboratory/list">实验室管理</a> 
                 </div>
+                <div class="panel-body" style="padding-left: 30px;">
+                		<a href="${pageContext.request.contextPath}/schedule/list">课表管理</a> 
+                </div>
               </div>
           </div>
           <!-- 教师 -->

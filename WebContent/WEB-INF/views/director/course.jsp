@@ -86,7 +86,8 @@
             </div>
             <div class="col-sm-2">
               <div class="btn-group pull-right">
-                <a class="btn btn-info btn-sm" style="margin-right: 20px" href="javascript:batchUpload('course')">上传实验课程表</a>
+                <a class="btn btn-info btn-sm" style="margin-right: 20px" href="javascript:batchUpload('course')">上传实验课程</a>
+                
               </div>
             </div>
           </div>
@@ -94,7 +95,7 @@
         <!--高级查询结束-->
         <!--数据展示部分开始-->
         <h5 style="font-weight: bold;padding-left: 10px">实验课程表</h5>
-        <div style="height: 200px;overflow-y:auto"><!-- 为了能显示滚动条 -->
+        <div style="height: 380px;overflow-y:auto"><!-- 为了能显示滚动条 -->
 	        <table class="table table-striped table-hover text-center table-bordered">
 	          <thead>
 	          <tr>
@@ -134,43 +135,8 @@
         <c:if test="${pageResult.totalCount!=0}">
 	        <%@include file="/WEB-INF/views/common/pagination.jsp" %>
         </c:if>
-        <br>
 		<!--分页信息条结束  -->
-        <h5 style="font-weight: bold;padding-left: 10px">学生信息表</h5>
-        <div style="height: 200px;overflow-y:scroll;padding-bottom: 10px"><!-- 为了能显示滚动条 -->
-	        <table class="table table-striped table-hover text-center table-bordered">
-	          <thead>
-	          <tr>
-	            <th class="text-center">序号</th>
-	            <th class="text-center">学生学号</th>
-	            <th class="text-center">学生姓名</th>
-	            <th class="text-center">学期</th>
-	            <th class="text-center">学院</th>
-	            <th class="text-center">专业</th>
-	            <th class="text-center">班级</th>
-	          </tr>
-	          </thead>
-	          <tbody>
-	          <c:forEach items="${studentList}" var="student" varStatus="c">
-		          <tr>
-		            <td>${c.count}</td>
-		            <td>${student.studentNumber}</td>
-		            <td>${student.studentName}</td>
-		            <td>${student.currentTerm}</td>
-		            <td>${student.college}</td>
-		            <td>${student.profession}</td>
-		            <td>${student.classes}</td>
-		          </tr>
-	          </c:forEach>
-	          </tbody>
-	        </table>
-	      </div>
         <!--数据展示部分结束-->
-        <!--分页信息条开始-->
-<%--         <c:if test="${pageResult.totalCount!=0}">
-	        <%@include file="/WEB-INF/views/common/pagination.jsp" %>
-        </c:if> --%>
-		<!--分页信息条结束  -->
       </div>
       <!--主体部分结束-->
     </div>

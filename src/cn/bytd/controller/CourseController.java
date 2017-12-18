@@ -207,6 +207,7 @@ public class CourseController {
 		md.setViewName("redirect:/course/list");
 		return md;
 	}
+
 	
 /*	@RequestMapping(value="/update")
 	public ModelAndView update(Course course,int currentPage,RedirectAttributes ra){
