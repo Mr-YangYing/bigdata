@@ -59,11 +59,8 @@ public class CourseController {
 			 qo.setCurrentPage(currentPage);
 		}*/
 		PageResult pageResult = courseService.query(qo);
-		//查询所有学生
-		List<Student> studentList = studentService.list();
 		
 		ModelAndView md = new ModelAndView();
-		md.addObject("studentList",studentList);
 		md.addObject("qo", qo);
 		md.addObject("pageResult", pageResult);
 		md.setViewName("views/director/course");
@@ -206,6 +203,15 @@ public class CourseController {
 		ModelAndView md = new ModelAndView();
 		md.setViewName("redirect:/course/list");
 		return md;
+	}
+	/**
+	 * 设置班级
+	 * @return
+	 */
+	@RequestMapping(value="/setClasses")
+	public ModelAndView setClasses(Long[] ids,long courseId){
+		courseService.setClasses(ids,courseId);
+		return null;
 	}
 
 	

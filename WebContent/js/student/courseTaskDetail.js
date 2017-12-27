@@ -14,12 +14,23 @@ function addReport(taskId,courseId){
 		  btn1:function(index){
 				var fileValue = $("#uploadFile").val();//获取file下载框的值
 				if(fileValue!='' && fileValue.length > 1){//判断文件是否为空
-					document.forms['uploadForm'].submit();
-					layer.msg('上传成功',{
-						icon: 1,
-						time:2000
-					});
-					layer.close(index);
+					//获取上传的文件的扩展名,并判断
+					var file = document.getElementById('uploadFile').files[0];
+					var fileName = file.name;
+					var fileExt = fileName.substring(fileName.lastIndexOf('.') + 1).toLowerCase();
+					if((fileExt!="pdf")){
+						layer.msg('只支持上传pdf格式文件',{
+							icon: 1,
+							time:2000
+						});
+					}else{
+						document.forms['uploadForm'].submit();
+						layer.msg('上传成功',{
+							icon: 1,
+							time:2000
+						});
+						layer.close(index);
+					}
 				}else{
 					layer.msg('请选择文件!!',{
 						icon: 1,

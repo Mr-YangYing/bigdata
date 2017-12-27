@@ -85,5 +85,10 @@ public interface ICourseService {
 	 * @param id
 	 */
 	void openCourse(long id);
+	/**
+	 * 配置班级
+	 * @param ids
+	 */
+	void setClasses(Long[] ids,long courseId);
 	
 }

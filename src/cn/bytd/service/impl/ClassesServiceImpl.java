@@ -33,6 +33,24 @@ public class ClassesServiceImpl implements IClassesService{
 	}
 	
 	/**
+	 * 根据课程Id获取课程对应已经选择的所有班级
+	 * 
+	 * @param courseId
+	 * @return
+	 */
+	public List<Classes> getClassesByCourseId(long courseId){
+		return classesDao.getClassesByCourseId(courseId);
+	};
+	/**
+	 * 根据课程Id获取课程对应未选择的所有班级
+	 * @param courseId
+	 * @return
+	 */
+	public List<Classes> getClassesNotInCourseId(long courseId){
+		return classesDao.getClassesNotInCourseId(courseId);
+	};
+	
+	/**
 	 * 获取所有班级
 	 * @return
 	 */

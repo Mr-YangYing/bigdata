@@ -24,7 +24,10 @@
 		current_config.upload_file_name = fileName;
 		var fileExt = fileName.substring(fileName.lastIndexOf('.') + 1).toLowerCase();
 		if((fileExt!="xls")){
-			alert("只支持上传xls格式文件");
+			layer.msg('只支持上传xls格式文件',{
+				icon: 1,
+				time:2000
+			});
 			return;
 		}
 		var xhr = new XMLHttpRequest();
@@ -65,8 +68,12 @@
 	}
 	function next_step(index,domainName){
 		if(index==1){
-			if(current_config.upload_file_name==""){
-				alert("未选择文件不能进行下一步操作！");
+			if(current_config.upload_file_name==""||current_config.upload_file_name==undefined){
+				console.log(current_config.upload_file_name);
+				layer.msg('请选择文件!!!',{
+					icon: 1,
+					time:2000
+				});
 				return
 			}
 			$("#choose_file").removeClass("active");

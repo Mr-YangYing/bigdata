@@ -40,6 +40,29 @@ public class ClassesController {
 		md.setViewName("/views/teacher/taskScore");
 		return md;
 	}
+	
+	/**
+	 * 根据课程Id获取课程对应已经选择的所有班级
+	 * 
+	 * @param courseId
+	 * @return
+	 */
+	@RequestMapping(value="/getClassesByCourseId")
+	@ResponseBody
+	public List<Classes> getClassesByCourseId(long courseId){
+		return classesService.getClassesByCourseId(courseId);
+	};
+	/**
+	 * 根据课程Id获取课程对应未选择的所有班级
+	 * @param courseId
+	 * @return
+	 */
+	@RequestMapping(value="/getClassesNotInCourseId")
+	@ResponseBody
+	public List<Classes> getClassesNotInCourseId(long courseId){
+		return classesService.getClassesNotInCourseId(courseId);
+	};
+	
 	/**
 	 * 获取所有班级
 	 * @return
@@ -50,4 +73,5 @@ public class ClassesController {
 		List<Classes> classesList =classesService.getClassesList();
 		return classesList;
 	}
+	
 }

@@ -41,6 +41,18 @@ public class ClassesDaoImpl implements IClassesDao{
 	public List<Classes> getClassesByTeacherId(long teacherId) {
 		return jdbcTemplate.query("select * from classes where id in(select cla_id from teacher_classes_config where tea_id = ?)", rm, teacherId);
 	}
+	/**
+	 * 根据课程Id获取课程对应已经选择的所有班级
+	 */
+	public List<Classes> getClassesByCourseId(long courseId) {
+		return jdbcTemplate.query("select * from classes where id in(select cla_id from course_classes_config where cou_id = ?)", rm, courseId);
+	}
+	/**
+	 * 根据课程Id获取课程对应未选择的所有班级
+	 */
+	public List<Classes> getClassesNotInCourseId(long courseId) {
+		return jdbcTemplate.query("select * from classes where id not in(select cla_id from course_classes_config where cou_id = ?)", rm, courseId);
+	}
 
 	/**
 	 * 获取所有班级

@@ -116,4 +116,12 @@ public class CourseServiceImpl implements ICourseService{
 	public void openCourse(long id){
 		courseDao.openCourse(id);
 	};
+	
+	/**
+	 * 配置班级
+	 * @param ids
+	 */
+	public void setClasses(Long[] ids,long courseId){
+		courseDao.setClasses(ids,courseId);
+	};
 }

@@ -20,6 +20,19 @@ public interface IClassesService {
 	 */
 	List<Classes> getClassesByTeacherId(long teacherId);
 	/**
+	 * 根据课程Id获取课程对应已经选择的所有班级
+	 * 
+	 * @param courseId
+	 * @return
+	 */
+	List<Classes> getClassesByCourseId(long courseId);
+	/**
+	 * 根据课程Id获取课程对应未选择的所有班级
+	 * @param courseId
+	 * @return
+	 */
+	List<Classes> getClassesNotInCourseId(long courseId);
+	/**
 	 * 获取所有班级
 	 * @return
 	 */

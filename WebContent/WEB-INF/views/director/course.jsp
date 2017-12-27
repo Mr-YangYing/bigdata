@@ -123,6 +123,7 @@
 		              <c:if test="${course.courseOpen==1}">
 		                <a class="btn btn-danger btn-sm" href="javascript:closeCourseById(${course.id})" >课程关闭</a>
 		              </c:if>
+		                <a class="btn btn-info btn-sm " href="javascript:setClasses(${course.id})" style="margin-left: 10px">配置班级</a>
 		              </div>
 		            </td>
 		          </tr>
@@ -146,5 +147,40 @@
 <%@include file="/WEB-INF/views/common/footer.jsp" %>
 <!--页脚部分结束-->
 </body>
+<!-- 配置班级的表单 -->
+<div id="setClassesDiv" style="display:none;overflow: hidden;padding-top: 60px">
+	<!--水平表单-->
+	<form class="form-horizontal" action="" method="post" name="setClassesForm">
 
+		<!-- ---------------携带分页信息隐藏域 --------------------->
+		<input type="hidden" name="currentPage" value="${pageResult.currentPage}" id="currentPage">
+		<input type="hidden" name="pageSize" value="${pageResult.pageSize}" id="pageSize">
+		<!-- ---------------携带分页信息隐藏域 --------------------->
+	
+		<input type="hidden" name="ids" value="">
+		<!--当屏幕小于768时，变为两行-->
+		<div class="form-group">
+			<div class="col-sm-3 control-label">
+				<label>选择班级：</label>
+			</div>
+			<div class="col-sm-3">
+				<font color="green" face="宋体">可选择</font><br/>
+				<select name="classesId" class="form-control" id="left" multiple="multiple" style="height: 240px">
+                  	
+                </select>
+                <p><a href="#" style="padding-left: 20px;" id="selectOneToRight">&gt;&gt;</a></p>
+				<p><a href="#" style="padding-left: 20px;" id="selectAllToRight">&gt;&gt;&gt;</a></p>
+			</div>
+			<div class="col-sm-3">
+				<font color="green" face="宋体">已选择</font><br/>
+				<select name="classesId" class="form-control" id="right" multiple="multiple" style="height: 240px">
+                  	
+                </select>
+                <p><a href="#" style="padding-left: 20px;" id="selectOneToleft">&lt;&lt;</a></p>
+				<p><a href="#" style="padding-left: 20px;" id="selectAllToleft">&lt;&lt;&lt;</a></p>
+			</div>
+		</div>
+		
+	</form>
+</div>
 </html>

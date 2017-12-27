@@ -18,6 +18,7 @@ import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.jdbc.support.rowset.SqlRowSetMetaData;
 import org.springframework.stereotype.Repository;
 
+import cn.bytd.dao.IClassesDao;
 import cn.bytd.dao.ICourseDao;
 import cn.bytd.dao.ILaboratoryDao;
 import cn.bytd.dao.ITaskDao;
@@ -48,6 +49,9 @@ public class CourseDaoImpl implements ICourseDao {
 
 	@Autowired
 	private ITaskDao taskDao;
+	@Autowired
+	private IClassesDao classesDao;
+	
 	@Resource(name="laboratoryDao")
 	private ILaboratoryDao laboratoryDao;
 	
@@ -170,6 +174,21 @@ public class CourseDaoImpl implements ICourseDao {
 		jdbcTemplate.update("update course set courseOpen = 1 where id = ?", id);
 	}
 
+	/**
+	 * 配置班级
+	 * @param ids
+	 */
+	public void setClasses(Long[] ids,long courseId){
+		// 先清空
+		jdbcTemplate.update("delete from course_classes_config where cou_id = ?", courseId);
+
+		if (ids != null && ids.length > 0){
+			for (int i = 0; i < ids.length; i++) {
+				jdbcTemplate.update("insert into course_classes_config(cou_id,cla_id)values(?,?)", courseId, ids[i]);
+			}
+		}
+	};
+	
 
 	/**
 	 * 批量增加
@@ -227,6 +246,7 @@ public class CourseDaoImpl implements ICourseDao {
 			course.setCourseOpen(rs.getInt("courseOpen"));
 			course.setDescription(rs.getString("description"));
 			course.setTasks(taskDao.getTaskByCourseId(rs.getLong("id")));
+			course.setClassess(classesDao.getClassesByCourseId(rs.getLong("id")));
 			if(laboratoryDao.getById(rs.getLong("id"))!=null){
 				course.setLaboratory(laboratoryDao.getById(rs.getLong("id")));
 			}
