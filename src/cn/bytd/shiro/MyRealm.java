@@ -1,5 +1,6 @@
 package cn.bytd.shiro;
 
+import java.util.List;
 import java.util.Set;
 
 import javax.annotation.Resource;
@@ -14,7 +15,9 @@ import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
+import org.springframework.beans.factory.annotation.Autowired;
 
+import cn.bytd.dao.IRoleDao;
 import cn.bytd.dao.IUserDao;
 import cn.bytd.domain.Role;
 import cn.bytd.domain.User;
@@ -22,6 +25,8 @@ import cn.bytd.domain.User;
 public class MyRealm extends AuthorizingRealm{
 	@Resource(name="userDao")
 	private IUserDao userDao;
+	@Autowired
+	private IRoleDao roleDao;
 	
 	/**
 	 * 认证
@@ -55,19 +60,7 @@ public class MyRealm extends AuthorizingRealm{
 		if(roles!=null){
 			for (Role role : roles) {
 				permissionName = role.getCode();
-			}
-			//TODO 后期可以通过数据库查询权限
-			if("director".equals(permissionName)){
-				info.addStringPermission("director");
-			}
-			if("teacher".equals(permissionName)){
-				info.addStringPermission("teacher");
-			}
-			if("student".equals(permissionName)){
-				info.addStringPermission("student");
-			}
-			if("admin".equals(permissionName)){
-				info.addStringPermission("admin");
+				info.addStringPermission(permissionName);
 			}
 		}
 		return info;

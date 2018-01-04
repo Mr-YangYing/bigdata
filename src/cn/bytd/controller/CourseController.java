@@ -97,7 +97,7 @@ public class CourseController {
 	 */
 	@RequestMapping(value="/getCoursesByTeacherId",method={RequestMethod.GET})
 	@ResponseBody
-	public List<Course> getCoursesByTeacherId(long teacherId){
+	public List<Course> getCoursesByTeacherId(String teacherId){
 		return courseService.getCoursesByTeacherId(teacherId);
 	}
 	/**
@@ -107,7 +107,7 @@ public class CourseController {
 	 */
 	@RequestMapping(value="/getCoursesByOtherTeacherId",method={RequestMethod.GET})
 	@ResponseBody
-	public List<Course> getCoursesByOtherTeacherId(long teacherId){
+	public List<Course> getCoursesByOtherTeacherId(String teacherId){
 		return courseService.getCoursesByOtherTeacherId(teacherId);
 	}
 	
@@ -118,7 +118,7 @@ public class CourseController {
 	 */
 	@RequestMapping(value="/getCourseByStudentId",method={RequestMethod.GET})
 	@ResponseBody
-	public List<Course> getCourseByStudentId(long studentId){
+	public List<Course> getCourseByStudentId(String studentId){
 		return courseService.getByStudentId(studentId);
 	}
 	

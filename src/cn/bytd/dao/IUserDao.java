@@ -1,6 +1,8 @@
 package cn.bytd.dao;
 
 import cn.bytd.domain.User;
+import cn.bytd.queryPage.page.PageResult;
+import cn.bytd.queryPage.query.IQueryObject;
 
 /**
  * 
@@ -19,4 +21,55 @@ public interface IUserDao {
 	 */
 	User findUserByUserName(String username);
 
+	/**
+	 * 高级查询
+	 * @param qo
+	 * @return
+	 */
+	PageResult query(IQueryObject qo);
+	
+	/**
+	 * 根据id删除
+	 */
+	void delete(String id);
+	
+	
+	/**
+	 * 批量删除
+	 * 
+	 * @param ids
+	 */
+	public void batchDelete(String[] ids);
+
+	/**
+	 * 根据id获取
+	 * 
+	 * @param id
+	 */
+	User getById(String id);
+
+	/**
+	 * 修改
+	 * 
+	 * @param teacher
+	 */
+	void update(User user);
+
+	/**
+	 * 添加
+	 * 
+	 * @param student
+	 */
+	void insert(User user);
+	/**
+	 * 添加用户角色
+	 * @param userId
+	 * @param roleId
+	 */
+	void insertUserRole(String userId, String roleId);
+	/**
+	 * 删除用户角色
+	 * @param userId
+	 */
+	void deleteUserRole(String userId);
 }

@@ -133,9 +133,9 @@
 			            <td>
 			              <div class="btn-group">
 				             <c:if test="${task.completeStatus==1}">
-			                	<a class="btn btn-warning btn-sm" href="${pageContext.request.contextPath}/report/getReportByTaskId?taskId=${task.id}&studentId=${studentId}">查看报告</a>
+			                	<a class="btn btn-warning btn-sm" href="${pageContext.request.contextPath}/report/getReportByTaskId?taskId=${task.id}&studentId='${studentId}'">查看报告</a>
 							</c:if>
-			                	<a class="btn btn-warning btn-sm" href="javascript:setScoreByTaskId(${task.id},${studentId})" style="margin-left: 10px">评分</a>
+			                	<a class="btn btn-warning btn-sm" href="javascript:setScoreByTaskId(${task.id},'${studentId}')" style="margin-left: 10px">评分</a>
 			              </div>
 			            </td>
 			          </tr>

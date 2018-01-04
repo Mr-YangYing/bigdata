@@ -39,17 +39,17 @@ public interface ITeacherService {
 	/**
 	 * 根据id删除
 	 */
-     void delete(long id);
+     void delete(String id);
      /**
       * 批量删除
       * @param ids
       */
-     public void batchDelete(Long[] ids);
+     public void batchDelete(String[] ids);
      /**
       * 根据id获取
       * @param id
       */
-     Teacher getById(long id);
+     Teacher getById(String id);
      /**
       * 修改
       * @param teacher
@@ -70,4 +70,5 @@ public interface ITeacherService {
      */
 	
 	public void batchUpdate(List<Teacher> list);
+
 }

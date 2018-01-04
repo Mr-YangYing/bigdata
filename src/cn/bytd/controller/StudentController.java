@@ -76,7 +76,7 @@ public class StudentController {
 	 * @return
 	 */
 	@RequestMapping(value="/delete",method={RequestMethod.GET})
-	public ModelAndView delete(long id){
+	public ModelAndView delete(String id){
 		studentService.delete(id);
 		ModelAndView md = new ModelAndView();
 		md.setViewName("redirect:/student/list");
@@ -88,7 +88,7 @@ public class StudentController {
 	 * @return
 	 */
 	@RequestMapping(value="/batchDelete",method={RequestMethod.GET})
-	public ModelAndView batchDelete(Long[] ids){
+	public ModelAndView batchDelete(String[] ids){
 		studentService.batchDelete(ids);
 		return null;
 	}
@@ -99,7 +99,7 @@ public class StudentController {
 	 * @return
 	 */
 	@RequestMapping(value="/batchSetClasses",method={RequestMethod.GET})
-	public ModelAndView batchSetClasses(Long[] ids,long classesId){
+	public ModelAndView batchSetClasses(String[] ids,long classesId){
 		studentService.batchSetClasses(ids,classesId);
 		return null;
 	}
@@ -111,7 +111,7 @@ public class StudentController {
 	 */
 	@RequestMapping(value="/get",method={RequestMethod.GET})
 	@ResponseBody
-	public Student get(long id){
+	public Student get(String id){
 		return studentService.getById(id);
 	}
 	
@@ -134,7 +134,7 @@ public class StudentController {
 	@RequestMapping(value="/update")
 	public ModelAndView update(Student student/*,int currentPage,RedirectAttributes ra*/){
 		ModelAndView md = new ModelAndView();
-		if (student.getId()!=-1) {
+		if (!student.getId().equals("-1")) {
 			studentService.update(student);
 		}else {
 			studentService.insert(student);
@@ -159,7 +159,7 @@ public class StudentController {
 	 * @return
 	 */
 	@RequestMapping(value="/courseList")
-	public ModelAndView courseList(long studentId){
+	public ModelAndView courseList(String studentId){
 		List<Course> list = courseService.getByStudentId(studentId);
 		ModelAndView md = new ModelAndView();
 		md.addObject("list",list);

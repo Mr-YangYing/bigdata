@@ -5,6 +5,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import javax.sql.DataSource;
 
@@ -17,16 +18,20 @@ import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.jdbc.support.rowset.SqlRowSetMetaData;
 import org.springframework.stereotype.Repository;
 
+import cn.bytd.dao.IRoleDao;
 import cn.bytd.dao.IStudentDao;
 import cn.bytd.dao.ITeacherDao;
+import cn.bytd.dao.IUserDao;
 import cn.bytd.domain.Course;
 import cn.bytd.domain.Resource;
+import cn.bytd.domain.Role;
 import cn.bytd.domain.Student;
 import cn.bytd.domain.Teacher;
 import cn.bytd.queryPage.page.PageResult;
 import cn.bytd.queryPage.query.IQueryObject;
 import cn.bytd.queryPage.utils.QueryUtil;
 import cn.bytd.service.IClassesService;
+import cn.bytd.util.MD5Utils;
 
 /**
  * 
@@ -48,6 +53,11 @@ public class StudentDaoImpl implements IStudentDao {
 	}
 	@javax.annotation.Resource(name="classesService")
 	private IClassesService classesService;
+	
+	@Autowired
+	private IRoleDao roleDao;
+	@Autowired
+	private IUserDao userDao;
 
 	/**
 	 * 查询所有
@@ -93,10 +103,12 @@ public class StudentDaoImpl implements IStudentDao {
 	/**
 	 * 根据id删除
 	 */
-	public void delete(long id) {
+	public void delete(String id) {
 		//删除关联表的学生
 		jdbcTemplate.update("delete from course_student_config where stu_id = ?", id);
 		jdbcTemplate.update("delete from student where id = ?", id);
+		//删除学生对应的用户
+		userDao.delete(id);
 	}
 
 
@@ -104,8 +116,8 @@ public class StudentDaoImpl implements IStudentDao {
 	/**
 	 * 批量设置学生班级
 	 */
-	public void batchSetClasses(Long[] ids,long classesId) {
-		final List<Long> idList = new ArrayList<>();
+	public void batchSetClasses(String[] ids,long classesId) {
+		final List<String> idList = new ArrayList<>();
 		for (int i = 0; i < ids.length; i++) {
 			idList.add(ids[i]);
 		}
@@ -114,7 +126,7 @@ public class StudentDaoImpl implements IStudentDao {
 			@Override
 			public void setValues(PreparedStatement ps, int i) throws SQLException {
 				ps.setLong(1,classesId);
-				ps.setLong(2,idList.get(i));
+				ps.setString(2,idList.get(i));
 			}
 			
 			@Override
@@ -126,17 +138,19 @@ public class StudentDaoImpl implements IStudentDao {
 	/**
 	 * 批量删除
 	 */
-	public void batchDelete(Long[] ids) {
-		final List<Long> idList = new ArrayList<>();
+	public void batchDelete(String[] ids) {
+		final List<String> idList = new ArrayList<>();
 		for (int i = 0; i < ids.length; i++) {
 			idList.add(ids[i]);
+			//删除学生用户
+			userDao.delete(ids[i]);
 		}
 		//删除关联表的学生
 		jdbcTemplate.batchUpdate("delete from course_student_config where stu_id = ?",new BatchPreparedStatementSetter() {
 			
 			@Override
 			public void setValues(PreparedStatement ps, int i) throws SQLException {
-				ps.setLong(1,idList.get(i));
+				ps.setString(1,idList.get(i));
 			}
 			
 			@Override
@@ -149,7 +163,7 @@ public class StudentDaoImpl implements IStudentDao {
 			
 			@Override
 			public void setValues(PreparedStatement ps, int i) throws SQLException {
-				ps.setLong(1,idList.get(i));
+				ps.setString(1,idList.get(i));
 			}
 			
 			@Override
@@ -163,7 +177,7 @@ public class StudentDaoImpl implements IStudentDao {
 	/**
 	 * 根据id获取
 	 */
-	public Student getById(long id) {
+	public Student getById(String id) {
 		Student student = null;
 		//避免出现org.springframework.dao.EmptyResultDataAccessException: Incorrect result size: expected 1, actual 0
 		try {
@@ -199,9 +213,16 @@ public class StudentDaoImpl implements IStudentDao {
 	 * 添加
 	 */
 	public void insert(Student student) {
-		jdbcTemplate.update("insert into student(studentNumber,studentName,currentTerm,college)values(?,?,?,?)", 
-				student.getStudentNumber(),student.getStudentName(),student.getCurrentTerm(),
+		String userId = UUID.randomUUID().toString();
+		jdbcTemplate.update("insert into student(id,studentNumber,studentName,currentTerm,college)values(?,?,?,?,?)", 
+				userId,student.getStudentNumber(),student.getStudentName(),student.getCurrentTerm(),
 				student.getCollege());
+		//添加用户
+		jdbcTemplate.update("insert into user(id,username,password)values(?,?,?)",userId,
+				student.getStudentName(),MD5Utils.md5("123456"));
+		//添加用户角色为学生
+		Role role = roleDao.getRoleByCode("student");
+		jdbcTemplate.update("insert into user_role(user_id,role_id)values(?,?)",userId,role.getId());
 	}
 
 	/**
@@ -226,16 +247,28 @@ public class StudentDaoImpl implements IStudentDao {
 	public void batchUpdate(List<Student> list) {
 		
 		final List<Student> tempList = list;
-		
-		String sql = "insert into student(studentNumber,studentName,currentTerm,college)values(?,?,?,?)";
+		List<String> uuidList = new ArrayList<>();//存放id
+		//////添加学生用户
+		for (Student student : tempList) {
+			String userId = UUID.randomUUID().toString();
+			uuidList.add(userId);
+			jdbcTemplate.update("insert into user(id,username,password)values(?,?,?)",userId,
+					student.getStudentName(),MD5Utils.md5("123456"));
+			//添加用户角色为学生
+			Role role = roleDao.getRoleByCode("student");
+			jdbcTemplate.update("insert into user_role(user_id,role_id)values(?,?)",userId,role.getId());
+		}
+		///////添加学生
+		String sql = "insert into student(id,studentNumber,studentName,currentTerm,college)values(?,?,?,?,?)";
 		jdbcTemplate.batchUpdate(sql, new BatchPreparedStatementSetter() {
 			
 			@Override
 			public void setValues(PreparedStatement ps, int i) throws SQLException {
-				ps.setString(1, tempList.get(i).getStudentNumber());
-				ps.setString(2, tempList.get(i).getStudentName());
-				ps.setString(3, tempList.get(i).getCurrentTerm());
-				ps.setString(4, tempList.get(i).getCollege());
+				ps.setString(1, uuidList.get(i));
+				ps.setString(2, tempList.get(i).getStudentNumber());
+				ps.setString(3, tempList.get(i).getStudentName());
+				ps.setString(4, tempList.get(i).getCurrentTerm());
+				ps.setString(5, tempList.get(i).getCollege());
 			}
 			
 			@Override
@@ -243,6 +276,7 @@ public class StudentDaoImpl implements IStudentDao {
 				return tempList.size();
 			}
 		});
+
 	}
 
 
@@ -258,7 +292,7 @@ public class StudentDaoImpl implements IStudentDao {
 		@Override
 		public Student mapRow(ResultSet rs, int rowNum) throws SQLException {
 			Student student = new Student();
-			student.setId(rs.getLong("id"));
+			student.setId(rs.getString("id"));
 			student.setStudentNumber(rs.getString("studentNumber"));
 			student.setStudentName(rs.getString("studentName"));
 			student.setCurrentTerm(rs.getString("currentTerm"));

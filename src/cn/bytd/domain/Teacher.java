@@ -14,17 +14,17 @@ import java.util.List;
  */
 
 public class Teacher {
-	private long id;
+	private String id;
 	private String teacherAccount;//教师账号
 	private String teacherName;//教师姓名
 	private String positionalTitles;//职称
 	
 	private List<Student> students = new ArrayList<>();//教师对应的学生
 	private List<Course> courses = new ArrayList<>();//教师对应的课程
-	public long getId() {
+	public String getId() {
 		return id;
 	}
-	public void setId(long id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 	public String getTeacherAccount() {

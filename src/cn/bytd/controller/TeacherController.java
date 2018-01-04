@@ -67,7 +67,7 @@ public class TeacherController {
 	 * @return
 	 */
 	@RequestMapping(value="/delete",method={RequestMethod.GET})
-	public ModelAndView delete(long id){
+	public ModelAndView delete(String id){
 		teacherService.delete(id);
 		ModelAndView md = new ModelAndView();
 		md.setViewName("redirect:/teacher/list");
@@ -79,7 +79,7 @@ public class TeacherController {
 	 * @return
 	 */
 	@RequestMapping(value="/batchDelete",method={RequestMethod.GET})
-	public ModelAndView batchDelete(Long[] ids){
+	public ModelAndView batchDelete(String[] ids){
 		teacherService.batchDelete(ids);
 		return null;
 	}
@@ -91,7 +91,7 @@ public class TeacherController {
 	 */
 	@RequestMapping(value="/get",method={RequestMethod.GET})
 	@ResponseBody
-	public Teacher get(long id){
+	public Teacher get(String id){
 		return teacherService.getById(id);
 	}
 	/**
@@ -102,7 +102,7 @@ public class TeacherController {
 	@RequestMapping(value="/update")
 	public ModelAndView update(Teacher teacher/*,int currentPage,RedirectAttributes ra*/){
 		ModelAndView md = new ModelAndView();
-		if (teacher.getId()!= -1) {
+		if (!teacher.getId().equals("-1")) {
 			teacherService.update(teacher);
 		}else {
 			teacherService.insert(teacher);

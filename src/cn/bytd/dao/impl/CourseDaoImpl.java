@@ -123,7 +123,7 @@ public class CourseDaoImpl implements ICourseDao {
 	 * @param studentId
 	 * @return
 	 */
-	public List<Course> getByStudentId(long studentId){
+	public List<Course> getByStudentId(String studentId){
 		return jdbcTemplate.query("SELECT * from course WHERE id IN (select cou_id from course_student_config where stu_id = ?)", rm, studentId);
 	};
 
@@ -132,7 +132,7 @@ public class CourseDaoImpl implements ICourseDao {
 	 * @param id
 	 * @return
 	 */
-	public List<Course> getCoursesByTeacherId(long teacherId){
+	public List<Course> getCoursesByTeacherId(String teacherId){
 		return jdbcTemplate.query("select * from course where id In (select cou_id from course_teacher_config where tea_id = ?)", rm, teacherId);
 	};
 	/**
@@ -140,7 +140,7 @@ public class CourseDaoImpl implements ICourseDao {
 	 * @param id
 	 * @return
 	 */
-	public List<Course> getCoursesByOtherTeacherId(long teacherId){
+	public List<Course> getCoursesByOtherTeacherId(String teacherId){
 		return jdbcTemplate.query("select * from course where id not in (select cou_id from course_teacher_config where tea_id = ?)", rm, teacherId);
 	};
 	

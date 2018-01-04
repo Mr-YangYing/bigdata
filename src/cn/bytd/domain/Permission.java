@@ -14,13 +14,22 @@ public class Permission implements java.io.Serializable {
 	private String id;
 	private Permission parentPermission;//当前权限的上级权限
 	private String name;
-	private String code;
+	private String code;//关键字
 	private String description;
-	private String page;
+	private String page;//访问路径
 	private String generatemenu;//是否生成菜单，1：是 0：否
 	private Integer zindex;
 	private Set roles = new HashSet(0);//当前权限对应的多个角色
 	private Set children = new HashSet(0);//当前权限的下级权限
+	
+	private String pId;
+	
+	public String getpId() {
+		return pId;
+	}
+	public void setpId(String pId) {
+		this.pId = pId;
+	}
 	public String getId() {
 		return id;
 	}
@@ -82,4 +91,11 @@ public class Permission implements java.io.Serializable {
 	public void setChildren(Set children) {
 		this.children = children;
 	}
+	@Override
+	public String toString() {
+		return "Permission [id=" + id + ", parentPermission=" + parentPermission + ", name=" + name + ", code=" + code
+				+ ", description=" + description + ", page=" + page + ", generatemenu=" + generatemenu + ", zindex="
+				+ zindex + "]";
+	}
+	
 }

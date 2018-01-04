@@ -36,12 +36,18 @@
 		<!--注入URL拦截规则 -->
 		<property name="filterChainDefinitions">
 			<value>
-<!-- 				/css/** = anon
+				/bootstrop/** = anon
+				/css/** = anon
+				/easyui/** = anon
+				/html5shiv/** = anon
 				/js/** = anon
+				/ztree/** = anon
+				/respond/** = anon
+				/My97DatePicker/** = anon
+				/jquery/** = anon
 				/images/** = anon
 				/validatecode.jsp* = anon
 				/login.jsp = anon
-				/page_base/staff = perms["staff-list"] -->
 				/* = authc
 			</value>
 		</property>

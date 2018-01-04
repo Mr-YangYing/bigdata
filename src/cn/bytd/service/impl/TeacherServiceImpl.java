@@ -45,19 +45,19 @@ public class TeacherServiceImpl implements ITeacherService{
 	/**
 	 * 根据ID删除
 	 */
-	public void delete(long id) {
+	public void delete(String id) {
 		teacherDao.delete(id);
 	}
 	/**
 	 * 批量删除
 	 */
-	public void batchDelete(Long[] ids){
+	public void batchDelete(String[] ids){
 		teacherDao.batchDelete(ids);
 	}
 	/**
 	 * 根据id获取
 	 */
-	public Teacher getById(long id) {
+	public Teacher getById(String id) {
 		return teacherDao.getById(id);
 	}
 	/**
@@ -72,6 +72,7 @@ public class TeacherServiceImpl implements ITeacherService{
 	public void insert(Teacher teacher){
 		teacherDao.insert(teacher);
 	}
+	
 	/**
 	 * 获取列名
 	 */

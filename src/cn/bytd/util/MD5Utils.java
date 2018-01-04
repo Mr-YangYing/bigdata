@@ -24,8 +24,22 @@ public class MD5Utils {
 		return md5code;
 	}
 
+    
+    // 可逆的加密算法  
+    public static String KL(String inStr) {  
+        // String s = new String(inStr);  
+        char[] a = inStr.toCharArray();  
+        for (int i = 0; i < a.length; i++) {  
+            a[i] = (char) (a[i] ^ 't');  
+        }  
+        String s = new String(a);  
+        return s;  
+    } 
+
 	public static void main(String[] args) {
-		System.out.println(md5("123"));
+		String ss = KL("123456");
+		System.out.println(ss);
+		System.out.println(KL(ss));
 	}
 
 }

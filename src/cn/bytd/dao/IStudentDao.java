@@ -50,27 +50,27 @@ public interface IStudentDao {
 	 * 
 	 * @param id
 	 */
-	void delete(long id);
+	void delete(String id);
 	/**
 	 * 批量设置学生班级
 	 * @param ids
 	 * @param classesId
 	 */
-	void batchSetClasses(Long[] ids,long classesId);
+	void batchSetClasses(String[] ids,long classesId);
 
 	/**
 	 * 批量删除
 	 * 
 	 * @param ids
 	 */
-	void batchDelete(Long[] ids);
+	void batchDelete(String[] ids);
 
 	/**
 	 * 根据id获取
 	 * 
 	 * @param id
 	 */
-	Student getById(long id);
+	Student getById(String id);
 
 	/**
 	 * 修改

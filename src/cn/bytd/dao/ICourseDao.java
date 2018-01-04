@@ -51,7 +51,7 @@ public interface ICourseDao {
 	 * @param studentId
 	 * @return
 	 */
-	List<Course> getByStudentId(long studentId);
+	List<Course> getByStudentId(String studentId);
 	/**
 	 * 获取所有列名
 	 * @return
@@ -67,13 +67,13 @@ public interface ICourseDao {
 	 * @param id
 	 * @return
 	 */
-	List<Course> getCoursesByTeacherId(long teacherId);
+	List<Course> getCoursesByTeacherId(String teacherId);
 	/**
 	 * 根据教师id获取除去该教师的其他教师的课程
 	 * @param teacherId
 	 * @return
 	 */
-	List<Course> getCoursesByOtherTeacherId(long teacherId);
+	List<Course> getCoursesByOtherTeacherId(String teacherId);
 	/**
 	 * 关闭课程
 	 * @param id

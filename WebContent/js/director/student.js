@@ -58,7 +58,7 @@ function getStudentById(id){
 function addStudent(){
 	layer.open({
 		  type: 1,
-		  title:["教师添加","font-size:18px"],
+		  title:["学生添加","font-size:18px"],
 		  skin: 'layui-layer-rim', //加上边框
 		  area: ['600px', '500px'], //宽高
 		  content: $('#updateStudentDiv'), //这里content是一个DOM，注意：最好该元素要存放在body最外层，否则可能被其它的相对元素所影响
@@ -105,8 +105,9 @@ $(function(){
     			layer.msg('批量删除成功',{
 					icon: 1,
 					time:2000
+					},function(){
+						window.location.reload();//重新加载
 					});
-    			window.location.reload();//重新加载
     		}
     	});
     });

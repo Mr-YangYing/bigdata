@@ -46,7 +46,7 @@ public class StudentServiceImpl implements IStudentService{
 	/**
 	 * 根据ID删除
 	 */
-	public void delete(long id) {
+	public void delete(String id) {
 		studentDao.delete(id);
 	}
 	
@@ -55,20 +55,20 @@ public class StudentServiceImpl implements IStudentService{
 	 * @param ids
 	 * @param classesId
 	 */
-	public void batchSetClasses(Long[] ids,long classesId){
+	public void batchSetClasses(String[] ids,long classesId){
 		studentDao.batchSetClasses(ids, classesId);
 	};
 	
 	/**
 	 * 批量删除
 	 */
-	public void batchDelete(Long[] ids){
+	public void batchDelete(String[] ids){
 		studentDao.batchDelete(ids);
 	}
 	/**
 	 * 根据id获取
 	 */
-	public Student getById(long id) {
+	public Student getById(String id) {
 		return studentDao.getById(id);
 	}
 	/**

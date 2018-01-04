@@ -1,28 +1,32 @@
 package cn.bytd.controller;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Set;
+import java.util.UUID;
 
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationToken;
 import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.sun.xml.internal.bind.v2.TODO;
 
 import cn.bytd.domain.Role;
 import cn.bytd.domain.User;
+import cn.bytd.queryPage.UserQueryObject;
+import cn.bytd.queryPage.page.PageResult;
+import cn.bytd.service.IUserService;
 import cn.bytd.util.MD5Utils;
 
 /**
@@ -37,6 +41,9 @@ import cn.bytd.util.MD5Utils;
 @Controller
 @RequestMapping(value="/user")
 public class UserController {
+	
+	@Autowired
+	private IUserService userService;
 	
 	@RequestMapping(value="/login")
 	public ModelAndView login(User user,HttpServletRequest request,HttpServletResponse response) throws IOException{
@@ -77,11 +84,90 @@ public class UserController {
 				md.setViewName("redirect:/student/courseList?studentId=1");
 			}
 			if("admin".equals(permissionName)){
-				//TODO studentId后面需要修改
-				md.setViewName("redirect:/student/courseList?studentId=1");
+				//TODO 
+				md.setViewName("redirect:/permission/list");
 			}
 		}
 		
 		return md;
 	}
+	
+	
+	@RequestMapping("/list")
+	public ModelAndView list(HttpServletRequest request,UserQueryObject qo){
+		//可以获取另一个方法传入的值
+/*		
+		Map<String, Object> modelMap = (Map<String, Object>)RequestContextUtils.getInputFlashMap(request);
+		 if (modelMap!=null) {
+			 int currentPage = (int) modelMap.get("currentPage");
+			 qo.setCurrentPage(currentPage);
+		}*/
+		PageResult pageResult = userService.query(qo);
+		ModelAndView md = new ModelAndView();
+		md.addObject("qo", qo);
+		md.addObject("pageResult", pageResult);
+		md.setViewName("views/admin/user");
+		return md;
+	}
+	
+	/**
+	 * 删除
+	 * @param request
+	 * @param qo
+	 * @return
+	 */
+	@RequestMapping(value="/delete",method={RequestMethod.GET})
+	public ModelAndView delete(String id){
+		userService.delete(id);
+		ModelAndView md = new ModelAndView();
+		md.setViewName("redirect:/user/list");
+		return md;
+	}
+	/**
+	 * 批量删除
+	 * @param ids
+	 * @return
+	 */
+	@RequestMapping(value="/batchDelete",method={RequestMethod.GET})
+	public ModelAndView batchDelete(String[] ids){
+		userService.batchDelete(ids);
+		return null;
+	}
+	
+	/**
+	 * 根据id获取
+	 * @param id
+	 * @return
+	 */
+	@RequestMapping(value="/get",method={RequestMethod.GET})
+	@ResponseBody
+	public User get(String id){
+		return userService.getById(id);
+	}
+	
+	/**
+	 * 修改或添加
+	 * @param student
+	 * @return
+	 */
+	@RequestMapping(value="/update")
+	public ModelAndView update(User user,String[] roleIds/*,int currentPage,RedirectAttributes ra*/){
+		ModelAndView md = new ModelAndView();
+		if (!user.getId().equals("-1")) {
+			userService.update(user);
+			String userId = user.getId();
+			userService.update(userId,roleIds);
+		}else {
+			String password = MD5Utils.md5(user.getPassword());
+			user.setPassword(password);
+			String userId = UUID.randomUUID().toString();
+			user.setId(userId);
+			userService.insert(user);
+			userService.insert(userId,roleIds);
+		}
+		//ra.addFlashAttribute("currentPage", currentPage);
+		md.setViewName("redirect:/user/list");
+		return md;
+	}
+
 }

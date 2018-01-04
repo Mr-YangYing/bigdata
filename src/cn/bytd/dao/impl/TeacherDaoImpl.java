@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.UUID;
 
 import javax.sql.DataSource;
 
@@ -18,13 +19,17 @@ import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.jdbc.support.rowset.SqlRowSetMetaData;
 import org.springframework.stereotype.Repository;
 
+import cn.bytd.dao.IRoleDao;
 import cn.bytd.dao.ITeacherDao;
+import cn.bytd.dao.IUserDao;
 import cn.bytd.domain.Course;
+import cn.bytd.domain.Role;
 import cn.bytd.domain.Task;
 import cn.bytd.domain.Teacher;
 import cn.bytd.queryPage.page.PageResult;
 import cn.bytd.queryPage.query.IQueryObject;
 import cn.bytd.queryPage.utils.QueryUtil;
+import cn.bytd.util.MD5Utils;
 
 /**
  * 
@@ -44,6 +49,11 @@ public class TeacherDaoImpl implements ITeacherDao {
 	public void setDataSource(DataSource dataSource) {
 		this.jdbcTemplate = new JdbcTemplate(dataSource);
 	}
+	
+	@Autowired
+	private IRoleDao roleDao;
+	@Autowired
+	private IUserDao userDao;
 
 	/**
 	 * 查询所有
@@ -88,26 +98,30 @@ public class TeacherDaoImpl implements ITeacherDao {
 	/**
 	 * 根据id删除
 	 */
-	public void delete(long id) {
+	public void delete(String id) {
 		//删除关联表的教师
 		jdbcTemplate.update("delete from course_teacher_config where tea_id = ?", id);
 		jdbcTemplate.update("delete from teacher where id = ?", id);
+		//删除教师用户
+		userDao.delete(id);
+		
 	}
 
 	/**
 	 * 批量删除
 	 */
-	public void batchDelete(Long[] ids) {
-		final List<Long> idList = new ArrayList<>();
+	public void batchDelete(String[] ids) {
+		final List<String> idList = new ArrayList<>();
 		for (int i = 0; i < ids.length; i++) {
 			idList.add(ids[i]);
+			userDao.delete(ids[i]);
 		}
 		//删除关联表的教师
 		jdbcTemplate.batchUpdate("delete from course_teacher_config where tea_id = ?",new BatchPreparedStatementSetter() {
 			
 			@Override
 			public void setValues(PreparedStatement ps, int i) throws SQLException {
-				ps.setLong(1,idList.get(i));
+				ps.setString(1,idList.get(i));
 			}
 			
 			@Override
@@ -120,7 +134,7 @@ public class TeacherDaoImpl implements ITeacherDao {
 			
 			@Override
 			public void setValues(PreparedStatement ps, int i) throws SQLException {
-				ps.setLong(1,idList.get(i));
+				ps.setString(1,idList.get(i));
 			}
 			
 			@Override
@@ -135,7 +149,7 @@ public class TeacherDaoImpl implements ITeacherDao {
 	/**
 	 * 根据id获取
 	 */
-	public Teacher getById(long id) {
+	public Teacher getById(String id) {
 		Teacher teacher = null;
 		//避免出现org.springframework.dao.EmptyResultDataAccessException: Incorrect result size: expected 1, actual 0
 		try {
@@ -159,9 +173,17 @@ public class TeacherDaoImpl implements ITeacherDao {
 	 * 添加
 	 */
 	public void insert(Teacher teacher){
-		jdbcTemplate.update("insert into teacher(teacherAccount,teacherName,positionalTitles)values(?,?,?)", teacher.getTeacherAccount(),
-				teacher.getTeacherName(),teacher.getPositionalTitles());
+		String userId = UUID.randomUUID().toString();
+		jdbcTemplate.update("insert into teacher(id,teacherAccount,teacherName,positionalTitles)values(?,?,?,?)"
+				,userId,teacher.getTeacherAccount(),teacher.getTeacherName(),teacher.getPositionalTitles());
+		//添加用户
+		jdbcTemplate.update("insert into user(id,username,password)values(?,?,?)",userId,
+				teacher.getTeacherName(),MD5Utils.md5("123456"));
+		//添加用户角色为教师
+		Role role = roleDao.getRoleByCode("teacher");
+		jdbcTemplate.update("insert into user_role(user_id,role_id)values(?,?)",userId,role.getId());
 	}
+
 	
 	
 	/**
@@ -186,15 +208,29 @@ public class TeacherDaoImpl implements ITeacherDao {
 	public void batchUpdate(List<Teacher> list) {
 		
 		final List<Teacher> tempList = list;
-		
-		String sql = "insert into teacher(teacherAccount,teacherName,positionalTitles)values(?,?,?)";
+		List<String> uuidList = new ArrayList<>();//存放id
+		////////////添加教师用户
+		for (Teacher teacher : tempList) {
+			String userId = UUID.randomUUID().toString();
+			uuidList.add(userId);
+			jdbcTemplate.update("insert into user(id,username,password)values(?,?,?)",userId,
+					teacher.getTeacherName(),MD5Utils.md5("123456"));
+			//添加用户角色为学生
+			Role role = roleDao.getRoleByCode("teacher");
+			jdbcTemplate.update("insert into user_role(user_id,role_id)values(?,?)",userId,role.getId());
+		}
+
+		/////////添加教师
+		String sql = "insert into teacher(id,teacherAccount,teacherName,positionalTitles)values(?,?,?,?)";
 		jdbcTemplate.batchUpdate(sql, new BatchPreparedStatementSetter() {
 			
 			@Override
 			public void setValues(PreparedStatement ps, int i) throws SQLException {
-				ps.setString(1, tempList.get(i).getTeacherAccount());
-				ps.setString(2, tempList.get(i).getTeacherName());
-				ps.setString(3, tempList.get(i).getPositionalTitles());
+				
+				ps.setString(1, uuidList.get(i));
+				ps.setString(2, tempList.get(i).getTeacherAccount());
+				ps.setString(3, tempList.get(i).getTeacherName());
+				ps.setString(4, tempList.get(i).getPositionalTitles());
 			}
 			
 			@Override
@@ -202,6 +238,7 @@ public class TeacherDaoImpl implements ITeacherDao {
 				return tempList.size();
 			}
 		});
+
 	}
 
 	
@@ -217,7 +254,7 @@ public class TeacherDaoImpl implements ITeacherDao {
 		@Override
 		public Teacher mapRow(ResultSet rs, int rowNum) throws SQLException {
 			Teacher teacher = new Teacher();
-			teacher.setId(rs.getLong("id"));
+			teacher.setId(rs.getString("id"));
 			teacher.setTeacherAccount(rs.getString("teacherAccount"));
 			teacher.setTeacherName(rs.getString("teacherName"));
 			teacher.setPositionalTitles(rs.getString("positionalTitles"));

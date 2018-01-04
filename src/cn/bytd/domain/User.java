@@ -18,7 +18,7 @@ public class User implements java.io.Serializable {
 	private String gender;
 	private String station;
 	private String telephone;
-	private String remark;
+	private String remark;//备注信息
 	private Set roles = new HashSet(0);
 
 	// Constructors

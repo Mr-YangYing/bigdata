@@ -40,17 +40,17 @@ public interface ITeacherDao {
 	 * 根据id删除
 	 * @param id
 	 */
-	void delete(long id);
+	void delete(String id);
 	/**
 	 * 批量删除
 	 * @param ids
 	 */
-	void batchDelete(Long[] ids);
+	void batchDelete(String[] ids);
 	/**
 	 * 根据id获取
 	 * @param id
 	 */
-	Teacher getById(long id);
+	Teacher getById(String id);
 	/**
 	 * 修改
 	 * @param teacher

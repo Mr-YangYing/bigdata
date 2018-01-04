@@ -99,8 +99,8 @@
 	            <td>${teacher.positionalTitles}</td>
 	            <td>
 	              <div class="btn-group">
-	                <a class="btn btn-warning btn-sm" href="javascript:getTeacherById(${teacher.id})" style="margin-right: 20px">修改</a>
-	                <a class="btn btn-danger btn-sm" href="javascript:deleteById(${teacher.id})" >删除</a>
+	                <a class="btn btn-warning btn-sm" href="javascript:getTeacherById('${teacher.id}')" style="margin-right: 20px">修改</a>
+	                <a class="btn btn-danger btn-sm" href="javascript:deleteById('${teacher.id}')" >删除</a>
 	              </div>
 	            </td>
 	          </tr>

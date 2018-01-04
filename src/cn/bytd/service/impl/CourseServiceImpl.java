@@ -64,7 +64,7 @@ public class CourseServiceImpl implements ICourseService{
  	 * @param studentId
  	 * @return
  	 */
- 	public List<Course> getByStudentId(long studentId){
+ 	public List<Course> getByStudentId(String studentId){
  		return courseDao.getByStudentId(studentId);
  	};
  	/**
@@ -72,7 +72,7 @@ public class CourseServiceImpl implements ICourseService{
  	 * @param id
  	 * @return
  	 */
-	public List<Course> getCoursesByTeacherId(long teacherId){
+	public List<Course> getCoursesByTeacherId(String teacherId){
 		return courseDao.getCoursesByTeacherId(teacherId);
 	}
 	/**
@@ -80,7 +80,7 @@ public class CourseServiceImpl implements ICourseService{
 	 * @param teacherId
 	 * @return
 	 */
-	public List<Course> getCoursesByOtherTeacherId(long teacherId){
+	public List<Course> getCoursesByOtherTeacherId(String teacherId){
 		return courseDao.getCoursesByOtherTeacherId(teacherId);
 	};
 	

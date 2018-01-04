@@ -102,8 +102,9 @@ $(function(){
     			layer.msg('批量删除成功',{
 					icon: 1,
 					time:2000
+					},function(){
+						window.location.reload();//重新加载
 					});
-    			window.location.reload();//重新加载
     		}
     	});
     });

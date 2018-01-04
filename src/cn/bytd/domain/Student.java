@@ -13,7 +13,7 @@ import java.util.List;
  */
 
 public class Student {
-	private long id;
+	private String id;
 	private String studentNumber;//学号
 	private String studentName;//姓名
 	private String currentTerm;//所在学期
@@ -23,10 +23,10 @@ public class Student {
 	private Classes classes;//学生对应的班级
 	private List<Teacher> teachers = new ArrayList<>();//学生对应的教师
 	private List<Course> courses = new ArrayList<>();//学生对应的课程
-	public long getId() {
+	public String getId() {
 		return id;
 	}
-	public void setId(long id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 	public String getStudentNumber() {
