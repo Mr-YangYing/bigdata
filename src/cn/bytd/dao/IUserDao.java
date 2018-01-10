@@ -78,4 +78,14 @@ public interface IUserDao {
 	 * @param id
 	 */
 	void editPassword(String password, String id);
+	/**
+	 * 修改学生用户
+	 * @param user
+	 */
+	void updateStudentUser(User user);
+	/**
+	 * 修改教师用户
+	 * @param user
+	 */
+	void updateTeacherUser(User user);
 }

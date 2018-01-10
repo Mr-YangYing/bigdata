@@ -43,6 +43,6 @@
   		//获取每页显示的条数,并存储到高级表单中
   		document.getElementById("pageSize").value = document.getElementById("pageSizeItem").value;
   		//提交高级查询表单
-  		document.forms[0].submit();
+  		document.forms["searchForm"].submit();
   	}
   </script>

@@ -1,3 +1,15 @@
+//失去焦点事件.检查用户是否存在
+function checkUsername(){
+	//发送ajax请求，获取所有的角色数据
+	$.post('/user/checkUsername', {username:$("#updateUsername").val()},function(data){
+		if(data==0){
+				layer.msg('您用户已存在,请重新输入用户名!!!',{
+					icon: 1,
+					time:3000
+				});
+			}
+	});
+}
 //删除用户	
 function deleteById(id){
 		//询问框
@@ -117,12 +129,32 @@ function addUser(){
 		  },
 		  btn:['提交','取消'],
 		  btn1:function(index){
-			document.forms['updateForm'].submit();
-			layer.msg('添加成功',{
-				icon: 1,
-				time:1000
+				//发送ajax请求，获取所有的角色数据
+				$.post('/user/checkUsername', {username:$("#updateUsername").val()},function(data){
+					if(data==0){
+							layer.msg('您用户已存在,请重新输入用户名!!!',{
+								icon: 1,
+								time:3000
+							});
+						}else{
+							if($("#updatePassword").val()==""||$("#updatePassword").val()==" "){
+								layer.msg('密码不能为空,请输入密码!!!',{
+									icon: 1,
+									time:3000
+								});
+							}else{
+								document.forms['updateForm'].submit();
+								layer.msg('添加成功',{
+									icon: 1,
+									time:1000
+								});
+								layer.close(index);
+							}
+
+
+							//layer.close(index);
+						}
 				});
-			layer.close(index);
 			},
 		  btn2:function(){
 				
@@ -141,18 +173,28 @@ $(function(){
     		layer.msg('您还没有选中!!!');
     		return;
     	}
-    	$.ajax({
-    		type:"get",
-    		url:"/user/batchDelete",
-    		data:{ids:ids},//数组参数会多一个方括号,此时需要禁用将表单元素数组或者对象序列化
-    		success:function(){
-    			layer.msg('批量删除成功',{
-					icon: 1,
-					time:2000
-					},function(){
-						window.location.reload();//重新加载
-					});
-    		}
-    	});
+    	
+    	//询问框
+		layer.confirm('您确定要批量删除么？', {
+		  btn: ['确定','取消'],//按钮
+		  icon:3
+		}, function(){
+			$.ajax({
+	    		type:"get",
+	    		url:"/user/batchDelete",
+	    		data:{ids:ids},//数组参数会多一个方括号,此时需要禁用将表单元素数组或者对象序列化
+	    		success:function(){
+	    			layer.msg('批量删除成功',{
+						icon: 1,
+						time:2000
+						},function(){
+							window.location.reload();//重新加载
+						});
+	    		}
+	    	});
+		}, function(){
+		});
+    	
+    	
     });
 });

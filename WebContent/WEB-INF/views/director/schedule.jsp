@@ -41,7 +41,7 @@
         <div class="container-fluid" style="border: 1px solid gainsboro;margin-bottom: 10px;height: 50px">
           <div class="row" style="padding-top: 8px">
             <div class="col-sm-10" style="padding-left: 0">
-              <form class="form-inline" action="${pageContext.request.contextPath}/course/list" method="post"><!--当屏幕小于768时，变为两行-->
+              <form class="form-inline" name="searchForm" action="${pageContext.request.contextPath}/course/list" method="post"><!--当屏幕小于768时，变为两行-->
               
 
                 <div class="form-group col-sm-1" >

@@ -78,4 +78,8 @@ public class UserServiceImpl implements IUserService {
 		password = MD5Utils.md5(password);
 		userDao.editPassword(password, id);
 	};
+	
+	public User getByUsername(String username){
+		return userDao.findUserByUserName(username);
+	}
 }

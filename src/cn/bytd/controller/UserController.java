@@ -17,6 +17,7 @@ import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -177,6 +178,21 @@ public class UserController {
 	public User get(String id){
 		return userService.getById(id);
 	}
+	/**
+	 * 根据id获取
+	 * @param id
+	 * @return
+	 */
+	@RequestMapping(value="/checkUsername")
+	@ResponseBody
+	public String checkUsername(String username){
+		 User user = userService.getByUsername(username);
+		 if(user!=null){
+			 return "0";
+		 }else{
+			 return "1";
+		 }
+	}
 	
 	/**
 	 * 修改或添加
@@ -189,14 +205,19 @@ public class UserController {
 		if (!user.getId().equals("-1")) {
 			userService.update(user);
 			String userId = user.getId();
-			userService.update(userId,roleIds);
+			if(roleIds!=null){
+				userService.update(userId,roleIds);
+			}
 		}else {
 			String password = MD5Utils.md5(user.getPassword());
 			user.setPassword(password);
 			String userId = UUID.randomUUID().toString();
 			user.setId(userId);
 			userService.insert(user);
-			userService.insert(userId,roleIds);
+			if(roleIds!=null){
+				userService.insert(userId,roleIds);
+			}
+			
 		}
 		//ra.addFlashAttribute("currentPage", currentPage);
 		md.setViewName("redirect:/user/list");

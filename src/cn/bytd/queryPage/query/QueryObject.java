@@ -8,8 +8,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
-
-
+import cn.bytd.util.StringUtils;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -90,10 +89,12 @@ public class QueryObject implements IQueryObject{
 	}
 
 	public Integer getCurrentPage() {
+
 		return currentPage;
 	}
 
 	public void setCurrentPage(Integer currentPage) {
+
 		this.currentPage = currentPage;
 	}
 

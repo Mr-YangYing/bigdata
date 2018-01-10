@@ -27,6 +27,7 @@ import cn.bytd.domain.Resource;
 import cn.bytd.domain.Role;
 import cn.bytd.domain.Student;
 import cn.bytd.domain.Teacher;
+import cn.bytd.domain.User;
 import cn.bytd.queryPage.page.PageResult;
 import cn.bytd.queryPage.query.IQueryObject;
 import cn.bytd.queryPage.utils.QueryUtil;
@@ -203,9 +204,15 @@ public class StudentDaoImpl implements IStudentDao {
 	 * 修改
 	 */
 	public void update(Student student) {
+		//修改学生
 		jdbcTemplate.update("update student set studentNumber = ?,studentName = ?,currentTerm = ?,college = ? where id = ?",
 				student.getStudentNumber(),student.getStudentName(),student.getCurrentTerm(),
 				student.getCollege(),student.getId());
+		//修改学生用户
+		User user = new User();
+		user.setId(student.getId());
+		user.setUsername(student.getStudentNumber());
+		userDao.updateStudentUser(user);
 	}
 
 
@@ -219,7 +226,7 @@ public class StudentDaoImpl implements IStudentDao {
 				student.getCollege());
 		//添加用户
 		jdbcTemplate.update("insert into user(id,username,password)values(?,?,?)",userId,
-				student.getStudentName(),MD5Utils.md5("123456"));
+				student.getStudentNumber(),MD5Utils.md5("123456"));
 		//添加用户角色为学生
 		Role role = roleDao.getRoleByCode("student");
 		jdbcTemplate.update("insert into user_role(user_id,role_id)values(?,?)",userId,role.getId());
@@ -253,7 +260,7 @@ public class StudentDaoImpl implements IStudentDao {
 			String userId = UUID.randomUUID().toString();
 			uuidList.add(userId);
 			jdbcTemplate.update("insert into user(id,username,password)values(?,?,?)",userId,
-					student.getStudentName(),MD5Utils.md5("123456"));
+					student.getStudentNumber(),MD5Utils.md5("123456"));
 			//添加用户角色为学生
 			Role role = roleDao.getRoleByCode("student");
 			jdbcTemplate.update("insert into user_role(user_id,role_id)values(?,?)",userId,role.getId());

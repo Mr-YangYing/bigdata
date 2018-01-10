@@ -39,7 +39,7 @@
         <div class="container-fluid" style="border: 1px solid gainsboro;margin-bottom: 10px;height: 50px">
           <div class="row" style="padding-top: 8px">
             <div class="col-sm-7">
-              <form class="form-inline" action="${pageContext.request.contextPath}/user/list" method="post"><!--当屏幕小于768时，变为两行-->
+              <form class="form-inline" name="searchForm" action="${pageContext.request.contextPath}/user/list" method="post"><!--当屏幕小于768时，变为两行-->
               <!-- ---------------携带分页信息隐藏域 --------------------->
               	<input type="hidden" name ="currentPage" value="1" id="currentPage">
               	<input type="hidden" name ="pageSize" value="${pageResult.pageSize}" id="pageSize">
@@ -138,7 +138,7 @@
 				<label>用户名称：</label>
 			</div>
 			<div class="col-sm-7">
-				<input type="text" name="username" class="form-control" value="" id="updateUsername">
+				<input type="text" name="username" class="form-control" value="" id="updateUsername" onblur="checkUsername()">
 			</div>
 		</div>
 		<div class="form-group" id="passwordDIV">

@@ -97,19 +97,29 @@ $(function(){
     		layer.msg('您还没有选中!!!');
     		return;
     	}
-    	$.ajax({
-    		type:"get",
-    		url:"/student/batchDelete",
-    		data:{ids:ids},//数组参数会多一个方括号,此时需要禁用将表单元素数组或者对象序列化
-    		success:function(){
-    			layer.msg('批量删除成功',{
-					icon: 1,
-					time:2000
-					},function(){
-						window.location.reload();//重新加载
-					});
-    		}
-    	});
+    	
+    	//询问框
+		layer.confirm('您确定要批量删除么？', {
+		  btn: ['确定','取消'],//按钮
+		  icon:3
+		}, function(){
+	    	$.ajax({
+	    		type:"get",
+	    		url:"/student/batchDelete",
+	    		data:{ids:ids},//数组参数会多一个方括号,此时需要禁用将表单元素数组或者对象序列化
+	    		success:function(){
+	    			layer.msg('批量删除成功',{
+						icon: 1,
+						time:2000
+						},function(){
+							window.location.reload();//重新加载
+						});
+	    		}
+	    	});
+		}, function(){
+		});
+    	
+
     });
     //点击配置班级按钮
     $(".btn_batch_setClasses").on("click",function(){

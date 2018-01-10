@@ -64,4 +64,10 @@ public interface IUserService {
 	 * @param password
 	 */
 	void editPassword(String id, String password);
+	/**
+	 * 根据用户名查询用户
+	 * @param username
+	 * @return
+	 */
+	User getByUsername(String username);
 }

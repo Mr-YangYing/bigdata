@@ -61,6 +61,7 @@ public class UserDaoImpl implements IUserDao {
 		
 		jdbcTemplate.update("delete from user_role where user_id = ?", id);
 		jdbcTemplate.update("delete from user where id = ?", id);
+		
 	}
 
 
@@ -127,10 +128,24 @@ public class UserDaoImpl implements IUserDao {
 	 * 修改
 	 */
 	public void update(User user) {
-		jdbcTemplate.update("update user set username = ?,password = ?,gender = ?,station = ?,"
+		jdbcTemplate.update("update user set username = ?,gender = ?,station = ?,"
 				+ "telephone = ?,remark = ? where id = ?",
-				user.getUsername(),user.getPassword(),user.getGender(),user.getStation(),
+				user.getUsername(),user.getGender(),user.getStation(),
 				user.getTelephone(),user.getRemark(),user.getId());
+	}
+	/**
+	 * 修改学生用户
+	 */
+	public void updateStudentUser(User user) {
+		jdbcTemplate.update("update user set username = ? where id = ?",
+				user.getUsername(),user.getId());
+	}
+	/**
+	 * 修改教师用户
+	 */
+	public void updateTeacherUser(User user) {
+		jdbcTemplate.update("update user set username = ? where id = ?",
+				user.getUsername(),user.getId());
 	}
 
 

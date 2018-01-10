@@ -25,6 +25,9 @@ public class QueryUtil {
 		String baseSql = "select * from " + tableName + qo.getQuery(true)
 				+ " limit ?,?";
 		List<Object> newParames = new ArrayList<>(qo.getParameters());
+/*		if(qo.getCurrentPage()==null){
+			qo.setCurrentPage(1);
+		}*/
 		newParames.add((qo.getCurrentPage() - 1) * qo.getPageSize());
 		newParames.add(qo.getPageSize());
 		List listData = jdbcTemplate.query(baseSql, rm, newParames.toArray());
