@@ -8,12 +8,14 @@
           <div class="panel panel-default"><!--这个表示第一个整块儿的-->
               <div class="panel-heading"><!--第一部分，被点击部分-->
                 <h4 class="panel-title">
-                  <a href="#collapseOne" data-toggle="collapse" data-parent="#accordion">基础功能管理</a>
+                  <a href="#collapseOne" data-toggle="collapse" data-parent="#accordion">
+                  	基础功能<span id="updateSpanOne" style="margin-left: 90px;font-size: 18px">-</span>
+                  </a>
                 </h4>
               </div>
               <div class="panel-collapse collapse in" id="collapseOne"><!--第二部分，折叠部分-->
                 <div class="panel-body" style="padding-left: 30px;">
-                 		<a href="${pageContext.request.contextPath}/teacher/list" style="width: 100%;height: 100px">教师管理</a> 
+                 		<a href="${pageContext.request.contextPath}/teacher/list">教师管理</a> 
                 </div>
                 <div class="panel-body" style="padding-left: 30px;">
                 		<a href="${pageContext.request.contextPath}/student/list">学生管理</a> 
@@ -35,7 +37,9 @@
            <div class="panel panel-default"><!--这个表示第一个整块儿的-->
               <div class="panel-heading"><!--第一部分，被点击部分-->
                 <h4 class="panel-title">
-                  <a href="#collapseTwo" data-toggle="collapse" data-parent="#accordion">学习任务</a>
+                  <a href="#collapseTwo" data-toggle="collapse" data-parent="#accordion">
+                  	学习任务<span id="updateSpanTwo" style="margin-left: 98px;font-size: 18px">-</span>
+                  </a>
                 </h4>
               </div>
               <div class="panel-collapse collapse in" id="collapseTwo"><!--第二部分，折叠部分-->
@@ -43,14 +47,16 @@
                  		<a href="${pageContext.request.contextPath}/task/courseList">任务管理</a> 
                 </div>
                 <div class="panel-body" style="padding-left: 30px;">
-                 		<a href="${pageContext.request.contextPath}/classes/getClassesByTeacherId?teacherId=1">成绩管理</a> 
+                 		<a href="${pageContext.request.contextPath}/classes/getClassesByTeacherId?teacherId=${loginUser.id}">成绩管理</a> 
                 </div>
               </div>
           </div>
           <div class="panel panel-default"><!--这个表示第二个整块儿的-->
               <div class="panel-heading"><!--第一部分，被点击部分-->
                 <h4 class="panel-title">
-                  <a href="#collapseThree" data-toggle="collapse" data-parent="#accordion">教学资源</a>
+                  <a href="#collapseThree" data-toggle="collapse" data-parent="#accordion">
+                  	教学资源<span id="updateSpanThree" style="margin-left: 98px;font-size: 18px">-</span>
+                  </a>
                 </h4>
               </div>
               <div class="panel-collapse collapse in" id="collapseThree"><!--第二部分，折叠部分-->
@@ -65,12 +71,14 @@
           <div class="panel panel-default"><!--这个表示第一个整块儿的-->
               <div class="panel-heading"><!--第一部分，被点击部分-->
                 <h4 class="panel-title">
-                  <a href="#collapseFour" data-toggle="collapse" data-parent="#accordion">学习管理</a>
+                  <a href="#collapseFour" data-toggle="collapse" data-parent="#accordion">
+                  		学习管理<span id="updateSpanFour" style="margin-left: 98px;font-size: 18px">-</span>
+                  </a>
                 </h4>
               </div>
               <div class="panel-collapse collapse in" id="collapseFour"><!--第二部分，折叠部分-->
                 <div class="panel-body" style="padding-left: 30px;">
-                 		<a href="${pageContext.request.contextPath}/student/courseList?studentId=1">课程管理</a> 
+                 		<a href="${pageContext.request.contextPath}/student/courseList?studentId=${loginUser.id}">课程管理</a> 
                 </div>
               </div>
           </div>
@@ -80,7 +88,9 @@
           <div class="panel panel-default"><!--这个表示第一个整块儿的-->
               <div class="panel-heading"><!--第一部分，被点击部分-->
                 <h4 class="panel-title">
-                  <a href="#collapseFive" data-toggle="collapse" data-parent="#accordion">系统管理</a>
+                  <a href="#collapseFive" data-toggle="collapse" data-parent="#accordion">
+                  	系统管理<span id="updateSpanFive" style="margin-left: 98px;font-size: 18px">-</span>
+                  </a>
                 </h4>
               </div>
               <div class="panel-collapse collapse in" id="collapseFive"><!--第二部分，折叠部分-->
@@ -98,3 +108,4 @@
           </shiro:hasPermission>
         </div>
       </div>
+ 

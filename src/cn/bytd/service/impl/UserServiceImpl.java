@@ -13,6 +13,7 @@ import cn.bytd.queryPage.page.PageResult;
 import cn.bytd.queryPage.query.IQueryObject;
 import cn.bytd.service.IRoleService;
 import cn.bytd.service.IUserService;
+import cn.bytd.util.MD5Utils;
 import cn.bytd.util.StringUtils;
 
 @Service(value = "userService")
@@ -69,5 +70,12 @@ public class UserServiceImpl implements IUserService {
 		for (String roleId : roleIds) {
 			userDao.insertUserRole(userId, roleId);
 		}
+	}
+
+	@Override
+	public void editPassword(String id, String password) {
+		// 使用MD5加密密码
+		password = MD5Utils.md5(password);
+		userDao.editPassword(password, id);
 	};
 }

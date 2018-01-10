@@ -58,4 +58,10 @@ public interface IUserService {
 	 * @param roleIds
 	 */
 	void update(String userId, String[] roleIds);
+	/**
+	 * 修改密码
+	 * @param id
+	 * @param password
+	 */
+	void editPassword(String id, String password);
 }

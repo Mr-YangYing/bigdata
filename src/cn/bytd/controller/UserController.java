@@ -16,6 +16,7 @@ import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -80,16 +81,48 @@ public class UserController {
 				md.setViewName("redirect:/task/courseList");
 			}
 			if("student".equals(permissionName)){
-				//TODO studentId后面需要修改
-				md.setViewName("redirect:/student/courseList?studentId=1");
+				md.setViewName("redirect:/student/courseList?studentId="+loginUser.getId());
 			}
 			if("admin".equals(permissionName)){
-				//TODO 
 				md.setViewName("redirect:/permission/list");
 			}
 		}
 		
 		return md;
+	}
+	/**
+	 * 登出
+	 */
+	@RequestMapping(value="/loginOut")
+	public ModelAndView loginOut(HttpServletRequest request){
+		request.getSession().invalidate();
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.setViewName("views/login");
+		return modelAndView;
+	}
+	/**
+	 * 修改密码
+	 * @param request
+	 * @param response
+	 * @param user
+	 * @return
+	 * @throws IOException 
+	 */
+	@RequestMapping(value="/updatePassword")
+	public String updatePassword(HttpServletRequest request,HttpServletResponse response,User user) throws IOException{
+		String f = "1";
+		//获取当前登录用户
+		User loginUser = (User) request.getSession().getAttribute("loginUser");
+		try{
+			userService.editPassword(loginUser.getId(),user.getPassword());
+		}catch(Exception e){
+			f = "0";
+			e.printStackTrace();
+		}
+		response.setContentType("text/html;charset=utf-8");
+		response.getWriter().print(f);
+		return null;
+
 	}
 	
 	

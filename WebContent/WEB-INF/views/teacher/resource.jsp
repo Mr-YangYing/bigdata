@@ -12,6 +12,7 @@
   <title>资源列表</title>
   <link rel="stylesheet" href="${pageContext.request.contextPath}/bootstrap/css/bootstrap.css">
   <link rel="stylesheet" href="${pageContext.request.contextPath}/css/layer.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/menu.css">
   <!--[if lt IE 9]>
     <script src="${pageContext.request.contextPath}/html5shiv/html5shiv.min.js"></script>
     <script src="${pageContext.request.contextPath}/respond/respond.min.js"></script>
@@ -21,10 +22,11 @@
   <script src="${pageContext.request.contextPath}/js/layer.js"></script>
   <script src="${pageContext.request.contextPath}/js/teacher/resource.js"></script>
   <script type="text/javascript" src="${pageContext.request.contextPath}/My97DatePicker/WdatePicker.js"></script>
+  <script type="text/javascript" src="${pageContext.request.contextPath}/js/menu.js"></script> 
 </head>
 <body style="font-family: Microsoft YaHei">
 <!--页头部分开始-->
- <%@include file="/WEB-INF/views/common/teacher/header.jsp" %>
+ <%@include file="/WEB-INF/views/common/header.jsp" %>
 <!--页头部分结束-->
 <hr style="margin-bottom: 4px;margin-top: 4px">
 <!--中间部分开始-->
@@ -113,12 +115,12 @@
 		        		</div>
 		        		<div class="col-sm-1 text-center" style="margin-top: 16px;">
 		        			<c:if test="${qo.courseType=='我的课程'}">
-			        			<a class="btn btn-xs btn-info" style="margin-bottom: 5px" href="javascript:editResource(${resource.id},${qo.taskId})">编辑</a>
-			        			<a class="btn btn-xs btn-info" style="margin-bottom: 5px" href="${pageContext.request.contextPath }/resource/resourceDownload?id=${resource.id}">下载</a>
-			        			<a class="btn btn-xs btn-info" href="javascript:deleteResource(${resource.id})">删除</a>
+			        			<a class="" style="margin-bottom: 5px" href="javascript:editResource(${resource.id},${qo.taskId})">编辑</a>
+			        			<a class="" style="margin-bottom: 5px" href="${pageContext.request.contextPath }/resource/resourceDownload?id=${resource.id}">下载</a>
+			        			<a class="" href="javascript:deleteResource(${resource.id})">删除</a>
 		        			</c:if>
 		        			<c:if test="${qo.courseType=='其他课程'}">
-			        			<a class="btn btn-xs btn-info" style="margin-top: 26px" href="${pageContext.request.contextPath }/resource/resourceDownload?id=${resource.id}">下载</a>
+			        			<a class="" style="margin-top: 26px" href="${pageContext.request.contextPath }/resource/resourceDownload?id=${resource.id}">下载</a>
 		        			</c:if>
 		        		</div>
 		        	</div>

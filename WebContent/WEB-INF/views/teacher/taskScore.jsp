@@ -12,6 +12,7 @@
   <title>任务打分</title>
   <link rel="stylesheet" href="${pageContext.request.contextPath}/bootstrap/css/bootstrap.css">
   <link rel="stylesheet" href="${pageContext.request.contextPath}/css/layer.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/menu.css">
   <!--[if lt IE 9]>
     <script src="${pageContext.request.contextPath}/html5shiv/html5shiv.min.js"></script>
     <script src="${pageContext.request.contextPath}/respond/respond.min.js"></script>
@@ -21,10 +22,11 @@
   <script src="${pageContext.request.contextPath}/js/layer.js"></script>
   <script src="${pageContext.request.contextPath}/js/teacher/taskScore.js"></script>
   <script type="text/javascript" src="${pageContext.request.contextPath}/My97DatePicker/WdatePicker.js"></script>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/js/menu.js"></script> 
 </head>
 <body style="font-family: Microsoft YaHei">
 <!--页头部分开始-->
- <%@include file="/WEB-INF/views/common/teacher/header.jsp" %>
+ <%@include file="/WEB-INF/views/common/header.jsp" %>
 <!--页头部分结束-->
 <hr style="margin-bottom: 4px;margin-top: 4px">
 <!--中间部分开始-->
@@ -133,9 +135,9 @@
 			            <td>
 			              <div class="btn-group">
 				             <c:if test="${task.completeStatus==1}">
-			                	<a class="btn btn-warning btn-sm" href="${pageContext.request.contextPath}/report/getReportByTaskId?taskId=${task.id}&studentId='${studentId}'">查看报告</a>
+			                	<a class="" href="${pageContext.request.contextPath}/report/getReportByTaskId?taskId=${task.id}&studentId='${studentId}'">查看报告</a>
 							</c:if>
-			                	<a class="btn btn-warning btn-sm" href="javascript:setScoreByTaskId(${task.id},'${studentId}')" style="margin-left: 10px">评分</a>
+			                	<a class="" href="javascript:setScoreByTaskId(${task.id},'${studentId}')" style="margin-left: 10px">评分</a>
 			              </div>
 			            </td>
 			          </tr>

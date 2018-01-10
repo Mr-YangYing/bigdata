@@ -10,6 +10,7 @@
   <title>权限管理</title>
   <link rel="stylesheet" href="${pageContext.request.contextPath}/bootstrap/css/bootstrap.css">
   <link rel="stylesheet" href="${pageContext.request.contextPath}/css/layer.css">
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/css/menu.css">
   <!--[if lt IE 9]>
     <script src="${pageContext.request.contextPath}/html5shiv/html5shiv.min.js"></script>
     <script src="${pageContext.request.contextPath}/respond/respond.min.js"></script>
@@ -19,10 +20,11 @@
   <script src="${pageContext.request.contextPath}/js/layer.js"></script>
   <script src="${pageContext.request.contextPath}/js/common/common.js"></script>
   <script src="${pageContext.request.contextPath}/js/admin/permission.js"></script>
+  <script src="${pageContext.request.contextPath}/js/menu.js"></script>
 </head>
 <body style="font-family: Microsoft YaHei">
 <!--页头部分开始-->
- <%@include file="/WEB-INF/views/common/admin/header.jsp" %>
+ <%@include file="/WEB-INF/views/common/header.jsp" %>
 <!--页头部分结束-->
 <hr style="margin-bottom: 4px;margin-top: 4px">
 <!--中间部分开始-->
@@ -53,10 +55,10 @@
                 </div>
 
                 <div class="form-group col-sm-4">
-                  <div class="col-sm-5 control-label" style="text-align: center;padding: 6px 0px">
+                  <div class="col-sm-5 control-label" style="text-align: center;padding: 6px 0px;">
                     <label>名称：</label>
                   </div>
-                  <div class="col-sm-7" style="padding: 0">
+                  <div class="col-sm-7" style="padding: 0;margin-left: -6px;">
                     <input type="text" placeholder="请输入权限名称" name="name" value ="${qo.name}" class="form-control" size="12">
                   </div>
                 </div>
@@ -102,8 +104,8 @@
 	            <td>${permission.description}</td>
 	            <td>
 	              <div class="btn-group">
-	                <a class="btn btn-warning btn-sm" href="javascript:getPermissionById('${permission.id}')" style="margin-right: 20px">修改</a>
-	                <a class="btn btn-danger btn-sm" href="javascript:deleteById('${permission.id}')">删除</a>
+	                <a class="" href="javascript:getPermissionById('${permission.id}')" style="margin-right: 20px">修改</a>
+	                <a class="" href="javascript:deleteById('${permission.id}')">删除</a>
 	              </div>
 	            </td>
 	          </tr>

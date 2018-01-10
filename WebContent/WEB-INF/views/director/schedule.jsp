@@ -11,6 +11,7 @@
   <title>课程表列表</title>
   <link rel="stylesheet" href="${pageContext.request.contextPath}/bootstrap/css/bootstrap.css">
   <link rel="stylesheet" href="${pageContext.request.contextPath}/css/layer.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/menu.css">
   <!--[if lt IE 9]>
     <script src="${pageContext.request.contextPath}/html5shiv/html5shiv.min.js"></script>
     <script src="${pageContext.request.contextPath}/respond/respond.min.js"></script>
@@ -21,10 +22,11 @@
   <script src="${pageContext.request.contextPath}/My97DatePicker/WdatePicker.js"></script>
   <script src="${pageContext.request.contextPath}/js/common/common.js"></script>
   <script src="${pageContext.request.contextPath}/js/director/schedule.js"></script>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/js/menu.js"></script>
 </head>
 <body style="font-family: Microsoft YaHei">
 <!--页头部分开始-->
- <%@include file="/WEB-INF/views/common/director/header.jsp" %>
+ <%@include file="/WEB-INF/views/common/header.jsp" %>
 <!--页头部分结束-->
 <hr style="margin-bottom: 4px;margin-top: 4px">
 <!--中间部分开始-->
@@ -72,10 +74,10 @@
 		            <td>
 		              <div class="btn-group">
 		              <c:if test="${course.courseOpen==0}">
-		                <a class="btn btn-warning btn-sm" href="javascript:openCourseById(${course.id})" >课程开启</a>
+		                <a class="" href="javascript:openCourseById(${course.id})" >课程开启</a>
 		              </c:if>
 		              <c:if test="${course.courseOpen==1}">
-		                <a class="btn btn-danger btn-sm" href="javascript:closeCourseById(${course.id})" >课程关闭</a>
+		                <a class="" href="javascript:closeCourseById(${course.id})" >课程关闭</a>
 		              </c:if>
 		              </div>
 		            </td>

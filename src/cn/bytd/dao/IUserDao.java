@@ -72,4 +72,10 @@ public interface IUserDao {
 	 * @param userId
 	 */
 	void deleteUserRole(String userId);
+	/**
+	 * 修改密码
+	 * @param password
+	 * @param id
+	 */
+	void editPassword(String password, String id);
 }

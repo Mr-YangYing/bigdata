@@ -12,16 +12,20 @@
   <title>我的课程</title>
   <link rel="stylesheet" href="${pageContext.request.contextPath}/bootstrap/css/bootstrap.css">
   <link rel="stylesheet" href="${pageContext.request.contextPath}/css/layer.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/menu.css">
   <!--[if lt IE 9]>
     <script src="${pageContext.request.contextPath}/html5shiv/html5shiv.min.js"></script>
     <script src="${pageContext.request.contextPath}/respond/respond.min.js"></script>
   <![endif]-->
-  <style type="text/css">
-  </style>
+    <script src="${pageContext.request.contextPath}/jquery/jquery.js"></script>
+  <script src="${pageContext.request.contextPath}/bootstrap/js/bootstrap.js"></script>
+  <script src="${pageContext.request.contextPath}/js/layer.js"></script>
+  <script type="text/javascript" src="${pageContext.request.contextPath}/My97DatePicker/WdatePicker.js"></script>
+  <script type="text/javascript" src="${pageContext.request.contextPath}/js/menu.js"></script> 
 </head>
 <body style="font-family: Microsoft YaHei">
 <!--页头部分开始-->
- <%@include file="/WEB-INF/views/common/student/header.jsp" %>
+ <%@include file="/WEB-INF/views/common/header.jsp" %>
 <!--页头部分结束-->
 <hr style="margin-bottom: 4px;margin-top: 4px">
 <!--中间部分开始-->
@@ -56,7 +60,7 @@
 		            <td>${fn:length(course.tasks)}</td>
 		            <td>
 		              <div class="btn-group">
-		                <a class="btn btn-info btn-sm" href="${pageContext.request.contextPath}/student/courseTaskDetail?courseId=${course.id}">查看</a>
+		                <a class="" href="${pageContext.request.contextPath}/student/courseTaskDetail?courseId=${course.id}">查看</a>
 		              </div>
 		            </td>
 		          </tr>
@@ -78,21 +82,18 @@
 <!--页脚部分开始-->
 <%@include file="/WEB-INF/views/common/footer.jsp" %>
 <!--页脚部分结束-->
-  <script src="${pageContext.request.contextPath}/jquery/jquery.js"></script>
-  <script src="${pageContext.request.contextPath}/bootstrap/js/bootstrap.js"></script>
-  <script src="${pageContext.request.contextPath}/js/layer.js"></script>
-  <script type="text/javascript" src="${pageContext.request.contextPath}/My97DatePicker/WdatePicker.js"></script>
-  <script type="text/javascript">
-  $(function () {
-	    //处理日期控件
-	    $("input[name='startTime']").addClass("Wdate").click(function () {
-	        WdatePicker({
-	            maxDate: new Date()
-	        });
-	    });
-	    
 
-	});
+  <script type="text/javascript">
+	  $(function () {
+		    //处理日期控件
+		    $("input[name='startTime']").addClass("Wdate").click(function () {
+		        WdatePicker({
+		            maxDate: new Date()
+		        });
+		    });
+		    
+	
+		});
   </script>
 </body>
 

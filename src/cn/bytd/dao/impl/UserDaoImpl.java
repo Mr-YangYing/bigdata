@@ -148,6 +148,13 @@ public class UserDaoImpl implements IUserDao {
 				userId,roleId);
 	};
 	
+
+	@Override
+	public void editPassword(String password, String id) {
+		jdbcTemplate.update("UPDATE User SET password = ? WHERE id = ?",password,id);
+	}
+
+	
 	/**
 	 * 
 	 * 内部类:User类结果集处理器

@@ -12,6 +12,7 @@
   <title>课程详情</title>
   <link rel="stylesheet" href="${pageContext.request.contextPath}/bootstrap/css/bootstrap.css">
   <link rel="stylesheet" href="${pageContext.request.contextPath}/css/layer.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/menu.css">
   <!--[if lt IE 9]>
     <script src="${pageContext.request.contextPath}/html5shiv/html5shiv.min.js"></script>
     <script src="${pageContext.request.contextPath}/respond/respond.min.js"></script>
@@ -21,7 +22,7 @@
 </head>
 <body style="font-family: Microsoft YaHei">
 <!--页头部分开始-->
- <%@include file="/WEB-INF/views/common/teacher/header.jsp" %>
+ <%@include file="/WEB-INF/views/common/header.jsp" %>
 <!--页头部分结束-->
 <hr style="margin-bottom: 4px;margin-top: 4px">
 <!--中间部分开始-->
@@ -111,7 +112,7 @@
 			            </c:choose>
 			            <td>
 			              <div class="btn-group">
-			                <a class="btn btn-warning btn-sm" href="javascript:getTaskDetailById(${task.id})">查看</a>
+			                <a class="" href="javascript:getTaskDetailById(${task.id})">查看</a>
 			              </div>
 			            </td>
 			          </tr>
@@ -138,6 +139,7 @@
   <script src="${pageContext.request.contextPath}/js/layer.js"></script>
   <script type="text/javascript" src="${pageContext.request.contextPath}/My97DatePicker/WdatePicker.js"></script>
   <script src="${pageContext.request.contextPath}/js/teacher/courseTaskDetail.js"></script>
+  <script type="text/javascript" src="${pageContext.request.contextPath}/js/menu.js"></script> 
 </body>
 
 <!-- 任务详情的表单 -->

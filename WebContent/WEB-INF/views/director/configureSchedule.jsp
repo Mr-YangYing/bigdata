@@ -14,6 +14,7 @@
   <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/easyui/themes/default/easyui.css">
   <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/easyui/themes/icon.css">
   <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/configureSchedule.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/menu.css">
   <!--[if lt IE 9]>
     <script src="${pageContext.request.contextPath}/html5shiv/html5shiv.min.js"></script>
     <script src="${pageContext.request.contextPath}/respond/respond.min.js"></script>
@@ -24,6 +25,7 @@
   <script src="${pageContext.request.contextPath}/My97DatePicker/WdatePicker.js"></script>
   <script src="${pageContext.request.contextPath}/js/common/common.js"></script>
   <script src="${pageContext.request.contextPath}/js/director/schedule.js"></script>
+      <script type="text/javascript" src="${pageContext.request.contextPath}/js/menu.js"></script>
   
   <script type="text/javascript" src="${pageContext.request.contextPath}/easyui/jquery.easyui.min.js"></script>
   <script type="text/javascript" src="${pageContext.request.contextPath}/easyui/locale/easyui-lang-zh_CN.js"></script>
