@@ -19,6 +19,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 
 import cn.bytd.domain.Teacher;
+import cn.bytd.domain.User;
 import cn.bytd.queryPage.TeacherQueryObject;
 import cn.bytd.queryPage.page.PageResult;
 import cn.bytd.service.ITeacherService;
@@ -94,6 +95,23 @@ public class TeacherController {
 	public Teacher get(String id){
 		return teacherService.getById(id);
 	}
+	
+	/**
+	 * 根据teacherAccount获取
+	 * @param teacherAccount
+	 * @return
+	 */
+	@RequestMapping(value="/checkTeacherAccount")
+	@ResponseBody
+	public String checkTeacherAccount(String teacherAccount){
+		 Teacher teacher = teacherService.getByTeacherAccount(teacherAccount);
+		 if(teacher!=null){
+			 return "0";//用户已经存在
+		 }else{
+			 return "1";//用户不存在
+		 }
+	}
+	
 	/**
 	 * 修改/添加
 	 * @param teacher

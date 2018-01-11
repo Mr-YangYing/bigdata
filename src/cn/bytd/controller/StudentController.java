@@ -22,6 +22,7 @@ import com.alibaba.fastjson.JSONArray;
 import cn.bytd.domain.Course;
 import cn.bytd.domain.Student;
 import cn.bytd.domain.Task;
+import cn.bytd.domain.Teacher;
 import cn.bytd.queryPage.StudentQueryObject;
 import cn.bytd.queryPage.page.PageResult;
 import cn.bytd.service.ICourseService;
@@ -69,6 +70,24 @@ public class StudentController {
 		md.setViewName("views/director/student");
 		return md;
 	}
+	
+	/**
+	 * 根据studentNumber获取
+	 * @param studentNumber
+	 * @return
+	 */
+	@RequestMapping(value="/checkStudentNumber")
+	@ResponseBody
+	public String checkStudentNumber(String studentNumber){
+		 Student student = studentService.getByStudentNumber(studentNumber);
+		 if(student!=null){
+			 return "0";//用户已经存在
+		 }else{
+			 return "1";//用户不存在
+		 }
+	}
+	
+	
 	/**
 	 * 删除
 	 * @param request

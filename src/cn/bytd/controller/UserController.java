@@ -179,8 +179,8 @@ public class UserController {
 		return userService.getById(id);
 	}
 	/**
-	 * 根据id获取
-	 * @param id
+	 * 根据username获取
+	 * @param username
 	 * @return
 	 */
 	@RequestMapping(value="/checkUsername")
@@ -188,9 +188,9 @@ public class UserController {
 	public String checkUsername(String username){
 		 User user = userService.getByUsername(username);
 		 if(user!=null){
-			 return "0";
+			 return "0";//用户已经存在
 		 }else{
-			 return "1";
+			 return "1";//用户不存在
 		 }
 	}
 	
@@ -203,7 +203,12 @@ public class UserController {
 	public ModelAndView update(User user,String[] roleIds/*,int currentPage,RedirectAttributes ra*/){
 		ModelAndView md = new ModelAndView();
 		if (!user.getId().equals("-1")) {
-			userService.update(user);
+			try {
+				userService.update(user);
+			} catch (Exception e) {
+				System.out.println("修改的用户名与数据库重复");
+				e.printStackTrace();
+			}
 			String userId = user.getId();
 			if(roleIds!=null){
 				userService.update(userId,roleIds);

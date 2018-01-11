@@ -178,7 +178,7 @@ public class TaskController {
 	 * @return
 	 */
 	@RequestMapping(value="/taskList")
-	public ModelAndView taskList(long courseId,long teacherId,long studentId){
+	public ModelAndView taskList(long courseId,String teacherId,long studentId){
 		List<Task> taskList = taskService.getTaskByCourseId(courseId);
 		List<Classes> classesList =classesService.getClassesByTeacherId(teacherId);
 		for (int i = 0; i < taskList.size(); i++) {

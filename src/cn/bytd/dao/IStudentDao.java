@@ -105,4 +105,10 @@ public interface IStudentDao {
 	 * @return
 	 */
 	List<Student> getStudentByClassesId(long classesId);
+	/**
+	 * 根据学生学号获取学生
+	 * @param studentNumber
+	 * @return
+	 */
+	Student getByStudentNumber(String studentNumber);
 }

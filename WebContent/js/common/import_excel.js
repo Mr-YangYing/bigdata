@@ -173,7 +173,7 @@
 		});
 	});
 	
-	
+	/*
 	function load_current_config(columns_text,data){
 		var column_line = columns_text.split(";");
 		var trs = "";
@@ -273,5 +273,5 @@
         $.post("analysisTaskNodeAction!run.do",{taskId: nodeData.taskId,nodeId:nodeData.nodeId,script:script,outputs:current_config.output_table},function(result){
         });
         window.parent.closeActionDialog();
-	}
+	}*/
 }

@@ -22,7 +22,6 @@ public class Course {
 	private int courseOpen;//是否开课 1:开课,0:未开课
 	private String description;
 	
-	private Laboratory laboratory;//课程对应实验室
 	private List<Teacher> teachers = new ArrayList<>();//课程对应老师
 	private List<Student> students = new ArrayList<>();//课程对应学生
 	private List<Task> tasks = new ArrayList<>();//课程对应任务
@@ -93,12 +92,6 @@ public class Course {
 	}
 	public void setClassess(List<Classes> classess) {
 		this.classess = classess;
-	}
-	public Laboratory getLaboratory() {
-		return laboratory;
-	}
-	public void setLaboratory(Laboratory laboratory) {
-		this.laboratory = laboratory;
 	}
 
 }

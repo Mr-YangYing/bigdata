@@ -101,6 +101,17 @@ public class StudentDaoImpl implements IStudentDao {
 	}
 
 
+	public Student getByStudentNumber(String studentNumber){
+		Student student = null;
+		//避免出现org.springframework.dao.EmptyResultDataAccessException: Incorrect result size: expected 1, actual 0
+		try {
+			student = jdbcTemplate.queryForObject("select * from student where studentNumber = ?",rm,studentNumber);
+		} catch (EmptyResultDataAccessException e) {
+			return null;
+		}
+		return student;
+	}
+	
 	/**
 	 * 根据id删除
 	 */
@@ -240,7 +251,7 @@ public class StudentDaoImpl implements IStudentDao {
 		SqlRowSet sqlRowSet = jdbcTemplate.queryForRowSet("select * from student");
 		SqlRowSetMetaData metaData = sqlRowSet.getMetaData();
 		int columnCount = metaData.getColumnCount();
-		for (int i = 2; i <=columnCount; i++) {
+		for (int i = 2; i <=columnCount-1; i++) {
 			list.add(metaData.getColumnName(i));
 		}
 		return list;

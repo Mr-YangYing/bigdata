@@ -28,7 +28,7 @@ public class ClassesServiceImpl implements IClassesService{
 	/**
 	 * 根据教师Id获取教师教的所有班级
 	 */
-	public List<Classes> getClassesByTeacherId(long teacherId) {
+	public List<Classes> getClassesByTeacherId(String teacherId) {
 		return classesDao.getClassesByTeacherId(teacherId);
 	}
 	

@@ -1,15 +1,15 @@
 //失去焦点事件.检查用户是否存在
-function checkUsername(){
+/*function checkUsername(){
 	//发送ajax请求，获取所有的角色数据
 	$.post('/user/checkUsername', {username:$("#updateUsername").val()},function(data){
 		if(data==0){
-				layer.msg('您用户已存在,请重新输入用户名!!!',{
-					icon: 1,
+				layer.msg('您输入的用户名已存在,请重新输入用户名!!!',{
+					icon: 2,
 					time:3000
 				});
 			}
 	});
-}
+}*/
 //删除用户	
 function deleteById(id){
 		//询问框
@@ -62,7 +62,7 @@ function getUserById(id){
 							  success: function(data){
 									//在ajax回调函数中，解析json数据，展示为checkbox
 									$("#roleDIV").empty();
-									for(var i=0;i<data.length;i++){
+									for(var i=0;i<data.length-2;i++){
 										var id = data[i].id;
 										var name = data[i].name;
 										$("#roleDIV").append('<input id="'+id+'" type="checkbox" name="roleIds" value="'+id+'"><label for="'+id+'">'+name+'</label>');
@@ -84,13 +84,56 @@ function getUserById(id){
 			  },
 			  btn:['提交','取消'],
 			  btn1:function(index){
-				document.forms['updateForm'].submit();
-				layer.msg('修改成功',{
-					icon: 1,
-					time:1000
-					});
-				layer.close(index);
-				},
+				  //判断用户名是否为空
+					if($("#updateUsername").val()==""||$("#updateUsername").val()==" "){
+						layer.msg('用户名不能为空,请输入账号!!!',{
+							icon: 2,
+							time:3000
+							});
+					}else{
+						//判断用户名是否修改
+						$.ajax({
+							  type: "get",
+							  url: "/user/get",
+							  data: "id="+id,
+							  success: function(user){
+								  //如果用户名已经修改
+								 if(user.username!=$("#updateUsername").val()){
+
+										//判断用户名是否已经存在
+									  	$.post('/user/checkUsername', {username:$("#updateUsername").val()},function(data){
+										  if(data==0){
+											  //已存在
+											  layer.msg('您输入的用户名已存在,请重新输入!!!',{
+												  icon: 2,
+												  time:3000
+											  });
+										  }else{
+											  //不存在
+												 document.forms['updateForm'].submit();
+													layer.msg('修改成功',{
+														icon: 1,
+														time:1000
+														});
+													layer.close(index); 
+											  
+										  }	
+									  	});
+								 }else {
+								  //如果用户名没有修改,就可以修改用户名
+									  document.forms['updateForm'].submit();
+									  layer.msg('修改成功',{
+										  icon: 1,
+										  time:1000
+									  });
+									  layer.close(index);
+								}
+							  }
+							});
+
+					}
+						//window.location.reload();//重新加载,刷新当前页面
+				  },
 			  btn2:function(){
 					
 				}
@@ -119,7 +162,7 @@ function addUser(){
 				$.post('/role/roleList',function(data){
 					//在ajax回调函数中，解析json数据，展示为checkbox
 					$("#roleDIV").empty();
-					for(var i=0;i<data.length;i++){
+					for(var i=0;i<data.length-2;i++){//这里只展示管理员和主任
 						var id = data[i].id;
 						var name = data[i].name;
 
@@ -129,32 +172,39 @@ function addUser(){
 		  },
 		  btn:['提交','取消'],
 		  btn1:function(index){
-				//发送ajax请求，获取所有的角色数据
-				$.post('/user/checkUsername', {username:$("#updateUsername").val()},function(data){
-					if(data==0){
-							layer.msg('您用户已存在,请重新输入用户名!!!',{
-								icon: 1,
-								time:3000
-							});
-						}else{
-							if($("#updatePassword").val()==""||$("#updatePassword").val()==" "){
-								layer.msg('密码不能为空,请输入密码!!!',{
-									icon: 1,
-									time:3000
-								});
-							}else{
-								document.forms['updateForm'].submit();
-								layer.msg('添加成功',{
-									icon: 1,
-									time:1000
-								});
-								layer.close(index);
-							}
+			  //判断用户名是否为空
+			  if($("#updateUsername").val()==""||$("#updateUsername").val()==" "){
+				  layer.msg('用户名不能为空,请输入用户名!!!',{
+						icon: 2,
+						time:3000
+					});
+			  }else{
+					//判断用户名是否已经存在
+				  $.post('/user/checkUsername', {username:$("#updateUsername").val()},function(data){
+					  if(data==0){
+						  layer.msg('您输入的用户名已存在,请重新输入用户名!!!',{
+							  icon: 2,
+							  time:3000
+						  });
+					  }else{
+						  //判断密码不能为空
+						  if($("#updatePassword").val()==""||$("#updatePassword").val()==" "){
+							  layer.msg('密码不能为空,请输入密码!!!',{
+								  icon: 2,
+								  time:3000
+							  });
+						  }else{
+							  document.forms['updateForm'].submit();
+							  layer.msg('添加成功',{
+								  icon: 1,
+								  time:1000
+							  });
+							  layer.close(index);
+						  }
+					  }
+				  });
+			  }
 
-
-							//layer.close(index);
-						}
-				});
 			},
 		  btn2:function(){
 				

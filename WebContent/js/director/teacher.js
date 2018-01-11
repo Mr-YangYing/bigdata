@@ -1,3 +1,15 @@
+//失去焦点事件.检查用户是否存在
+/*function checkTeacherAccount(){
+	//发送ajax请求，获取所有的角色数据
+	$.post('/teacher/checkTeacherAccount', {teacherAccount:$("#updateTeacherAccount").val()},function(data){
+		if(data==0){
+				layer.msg('您输入的教师账号已存在,请重新输入!!!',{
+					icon: 2,
+					time:3000
+				});
+			}
+	});
+}*/
 //删除教师
 	function deleteById(id){
 		//询问框
@@ -38,14 +50,56 @@
 			  },
 			  btn:['提交','取消'],
 			  btn1:function(index){
-				document.forms['updateForm'].submit();
-				layer.msg('修改成功',{
-					icon: 1,
-					time:1000
-					});
-					layer.close(index);
+				  //判断教师账号是否为空
+				if($("#updateTeacherAccount").val()==""||$("#updateTeacherAccount").val()==" "){
+					layer.msg('教师账号不能为空,请输入账号!!!',{
+						icon: 2,
+						time:3000
+						});
+				}else{
+					//判断教师账号是否修改
+					$.ajax({
+						  type: "get",
+						  url: "/teacher/get",
+						  data: "id="+id,
+						  success: function(teacher){
+							  //如果账户已经修改
+							 if(teacher.teacherAccount!=$("#updateTeacherAccount").val()){
+
+									//判断教师账号是否已经存在
+								  	$.post('/teacher/checkTeacherAccount', {teacherAccount:$("#updateTeacherAccount").val()},function(data){
+									  if(data==0){
+										  //已存在
+										  layer.msg('您输入的教师账号已存在,请重新输入!!!',{
+											  icon: 2,
+											  time:3000
+										  });
+									  }else{
+										  //不存在
+											 document.forms['updateForm'].submit();
+												layer.msg('修改成功',{
+													icon: 1,
+													time:1000
+													});
+												layer.close(index); 
+										  
+									  }	
+								  	});
+							 }else {
+							  //如果账号没有修改,就可以直接修改教师数据
+								 document.forms['updateForm'].submit();
+									layer.msg('修改成功',{
+										icon: 1,
+										time:1000
+										});
+									layer.close(index); 
+							}
+						  }
+						});
+
+				}
 					//window.location.reload();//重新加载,刷新当前页面
-				},
+			  },
 			  btn2:function(){
 					
 				}
@@ -68,12 +122,31 @@
 			  },
 			  btn:['提交','取消'],
 			  btn1:function(index){
-				document.forms['updateForm'].submit();
-				layer.msg('添加成功',{
-					icon: 1,
-					time:1000
-					});
-				layer.close(index);
+				  //判断用户名是否为空
+				  if($("#updateTeacherAccount").val()==""||$("#updateTeacherAccount").val()==" "){
+					  layer.msg('教师账号不能为空,请输入账号!!!',{
+							icon: 2,
+							time:3000
+						});
+				  }else{
+						//判断教师账号是否已经存在
+					  $.post('/teacher/checkTeacherAccount', {teacherAccount:$("#updateTeacherAccount").val()},function(data){
+						  if(data==0){
+							  layer.msg('您输入的教师账号已存在,请重新输入!!!',{
+								  icon: 2,
+								  time:3000
+							  });
+						  }else{
+								  document.forms['updateForm'].submit();
+								  layer.msg('添加成功',{
+									  icon: 1,
+									  time:1000
+								  });
+								  layer.close(index);
+						  }
+					  });
+				  }
+
 				},
 			  btn2:function(){
 					

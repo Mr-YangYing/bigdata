@@ -41,13 +41,56 @@ function getStudentById(id){
 			  },
 			  btn:['提交','取消'],
 			  btn1:function(index){
-				document.forms['updateForm'].submit();
-				layer.msg('修改成功',{
-					icon: 1,
-					time:1000
-					});
-				layer.close(index);
-				},
+				  //判断学生学号是否为空
+					if($("#updateStudentNumber").val()==""||$("#updateStudentNumber").val()==" "){
+						layer.msg('学生学号不能为空,请输入账号!!!',{
+							icon: 2,
+							time:3000
+							});
+					}else{
+						//判断教师账号是否修改
+						$.ajax({
+							  type: "get",
+							  url: "/student/get",
+							  data: "id="+id,
+							  success: function(student){
+								  //如果账户已经修改
+								 if(student.studentNumber!=$("#updateStudentNumber").val()){
+
+										//判断教师账号是否已经存在
+									  	$.post('/student/checkStudentNumber', {studentNumber:$("#updateStudentNumber").val()},function(data){
+										  if(data==0){
+											  //已存在
+											  layer.msg('您输入的学生学号已存在,请重新输入!!!',{
+												  icon: 2,
+												  time:3000
+											  });
+										  }else{
+											  //不存在
+												 document.forms['updateForm'].submit();
+													layer.msg('修改成功',{
+														icon: 1,
+														time:1000
+														});
+													layer.close(index); 
+											  
+										  }	
+									  	});
+								 }else {
+								  //如果账号没有修改,就可以直接修改学生数据
+									 document.forms['updateForm'].submit();
+										layer.msg('修改成功',{
+											icon: 1,
+											time:1000
+											});
+										layer.close(index); 
+								}
+							  }
+							});
+
+					}
+						//window.location.reload();//重新加载,刷新当前页面
+				  },
 			  btn2:function(){
 					
 				}
@@ -73,12 +116,31 @@ function addStudent(){
 		  },
 		  btn:['提交','取消'],
 		  btn1:function(index){
-			document.forms['updateForm'].submit();
-			layer.msg('添加成功',{
-				icon: 1,
-				time:1000
-				});
-			layer.close(index);
+			  //判断学生学号是否为空
+			  if($("#updateStudentNumber").val()==""||$("#updateStudentNumber").val()==" "){
+				  layer.msg('学生学号不能为空,请输入学号!!!',{
+						icon: 2,
+						time:3000
+					});
+			  }else{
+					//判断学生学号是否已经存在
+				  $.post('/student/checkStudentNumber', {studentNumber:$("#updateStudentNumber").val()},function(data){
+					  if(data==0){
+						  layer.msg('您输入的学生学号已存在,请重新输入!!!',{
+							  icon: 2,
+							  time:3000
+						  });
+					  }else{
+							  document.forms['updateForm'].submit();
+							  layer.msg('添加成功',{
+								  icon: 1,
+								  time:1000
+							  });
+							  layer.close(index);
+					  }
+				  });
+			  }
+
 			},
 		  btn2:function(){
 				

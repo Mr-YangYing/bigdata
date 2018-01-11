@@ -247,9 +247,6 @@ public class CourseDaoImpl implements ICourseDao {
 			course.setDescription(rs.getString("description"));
 			course.setTasks(taskDao.getTaskByCourseId(rs.getLong("id")));
 			course.setClassess(classesDao.getClassesByCourseId(rs.getLong("id")));
-			if(laboratoryDao.getById(rs.getLong("id"))!=null){
-				course.setLaboratory(laboratoryDao.getById(rs.getLong("id")));
-			}
 			return course;
 		}
 

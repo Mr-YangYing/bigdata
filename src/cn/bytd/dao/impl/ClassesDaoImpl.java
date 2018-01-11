@@ -38,7 +38,7 @@ public class ClassesDaoImpl implements IClassesDao{
 	/**
 	 * 根据教师Id获取教师教的所有班级
 	 */
-	public List<Classes> getClassesByTeacherId(long teacherId) {
+	public List<Classes> getClassesByTeacherId(String teacherId) {
 		return jdbcTemplate.query("select * from classes where id in(select cla_id from teacher_classes_config where tea_id = ?)", rm, teacherId);
 	}
 	/**

@@ -71,4 +71,10 @@ public interface ITeacherDao {
 	 * 批量增加
 	 */
 	void batchUpdate(List<Teacher> list);
+	/**
+	 *根据账户获取教师
+	 * @param teacherAccount
+	 * @return
+	 */
+	Teacher getByTeacherAccount(String teacherAccount);
 }

@@ -18,7 +18,7 @@ public interface IClassesService {
 	 * 根据教师Id获取教师教的所有班级
 	 * @return
 	 */
-	List<Classes> getClassesByTeacherId(long teacherId);
+	List<Classes> getClassesByTeacherId(String teacherId);
 	/**
 	 * 根据课程Id获取课程对应已经选择的所有班级
 	 * 

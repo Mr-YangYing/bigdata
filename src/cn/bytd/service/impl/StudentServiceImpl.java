@@ -109,4 +109,8 @@ public class StudentServiceImpl implements IStudentService{
 	public List<Student> getStudentByClassesId(long classesId){
 		return studentDao.getStudentByClassesId(classesId);
 	};
+	
+	public Student getByStudentNumber(String studentNumber){
+		return studentDao.getByStudentNumber(studentNumber);
+	}
 }

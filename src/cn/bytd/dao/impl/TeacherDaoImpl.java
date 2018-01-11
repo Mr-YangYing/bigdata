@@ -95,6 +95,16 @@ public class TeacherDaoImpl implements ITeacherDao {
 		return new PageResult(listData, Integer.valueOf(count), currentPage, pageSize);
 	}
 
+	public Teacher getByTeacherAccount(String teacherAccount){
+		Teacher teacher = null;
+		//避免出现org.springframework.dao.EmptyResultDataAccessException: Incorrect result size: expected 1, actual 0
+		try {
+			teacher = jdbcTemplate.queryForObject("select * from teacher where teacherAccount = ?",rm,teacherAccount);
+		} catch (EmptyResultDataAccessException e) {
+			return null;
+		}
+		return teacher;
+	}
 
 	/**
 	 * 根据id删除

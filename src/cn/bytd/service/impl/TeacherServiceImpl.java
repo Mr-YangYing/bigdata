@@ -89,4 +89,8 @@ public class TeacherServiceImpl implements ITeacherService{
 	public void batchUpdate(List<Teacher> list) {
 		 teacherDao.batchUpdate(list);
 	}
+	@Override
+	public Teacher getByTeacherAccount(String teacherAccount) {
+		return teacherDao.getByTeacherAccount(teacherAccount);
+	}
 }

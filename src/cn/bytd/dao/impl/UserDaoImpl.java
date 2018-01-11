@@ -58,10 +58,12 @@ public class UserDaoImpl implements IUserDao {
 	 * 根据id删除
 	 */
 	public void delete(String id) {
-		
+		//删除用户
 		jdbcTemplate.update("delete from user_role where user_id = ?", id);
 		jdbcTemplate.update("delete from user where id = ?", id);
-		
+		//删除用户对应的教师或者学生
+		jdbcTemplate.update("delete from student where id = ?",id);
+		jdbcTemplate.update("delete from teacher where id = ?",id);
 	}
 
 
@@ -92,8 +94,34 @@ public class UserDaoImpl implements IUserDao {
 				return idList.size();
 			}
 		});
-		//删除
+		//删除用户
 		jdbcTemplate.batchUpdate("delete from user where id = ?",new BatchPreparedStatementSetter() {
+			
+			@Override
+			public void setValues(PreparedStatement ps, int i) throws SQLException {
+				ps.setString(1,idList.get(i));
+			}
+			
+			@Override
+			public int getBatchSize() {
+				return idList.size();
+			}
+		});
+		//删除用户对应的教师
+		jdbcTemplate.batchUpdate("delete from teacher where id = ?",new BatchPreparedStatementSetter() {
+			
+			@Override
+			public void setValues(PreparedStatement ps, int i) throws SQLException {
+				ps.setString(1,idList.get(i));
+			}
+			
+			@Override
+			public int getBatchSize() {
+				return idList.size();
+			}
+		});
+		//删除用户对应的学生
+		jdbcTemplate.batchUpdate("delete from student where id = ?",new BatchPreparedStatementSetter() {
 			
 			@Override
 			public void setValues(PreparedStatement ps, int i) throws SQLException {
@@ -128,10 +156,14 @@ public class UserDaoImpl implements IUserDao {
 	 * 修改
 	 */
 	public void update(User user) {
+		//修改用户
 		jdbcTemplate.update("update user set username = ?,gender = ?,station = ?,"
 				+ "telephone = ?,remark = ? where id = ?",
 				user.getUsername(),user.getGender(),user.getStation(),
 				user.getTelephone(),user.getRemark(),user.getId());
+		//修改用户对应的教师或者学生
+		jdbcTemplate.update("update teacher set teacherAccount =? where id = ?",user.getUsername(),user.getId());
+		jdbcTemplate.update("update student set studentNumber =? where id = ?",user.getUsername(),user.getId());
 	}
 	/**
 	 * 修改学生用户

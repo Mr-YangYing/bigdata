@@ -21,7 +21,7 @@ public interface IClassesDao {
 	 * @param teacherId
 	 * @return
 	 */
-	List<Classes> getClassesByTeacherId(long teacherId);
+	List<Classes> getClassesByTeacherId(String teacherId);
 
 	/**
 	 * 根据课程Id获取课程对应已经选择的所有班级

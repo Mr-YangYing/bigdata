@@ -138,7 +138,7 @@
 				<label>用户名称：</label>
 			</div>
 			<div class="col-sm-7">
-				<input type="text" name="username" class="form-control" value="" id="updateUsername" onblur="checkUsername()">
+				<input type="text" name="username" class="form-control" value="" id="updateUsername">
 			</div>
 		</div>
 		<div class="form-group" id="passwordDIV">

@@ -33,7 +33,7 @@ public class ClassesController {
 	 * @return
 	 */
 	@RequestMapping(value="/getClassesByTeacherId")
-	public ModelAndView getClassesByTeacherId(long teacherId){
+	public ModelAndView getClassesByTeacherId(String teacherId){
 		List<Classes> classesList =classesService.getClassesByTeacherId(teacherId);
 		ModelAndView md = new ModelAndView();
 		md.addObject("classesList", classesList);

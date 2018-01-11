@@ -104,7 +104,7 @@
 	            <th class="text-center">序号</th>
 	            <th class="text-center">课程</th>
 	            <th class="text-center">开课日期</th>
-	            <th class="text-center">实验室</th>
+	            <th class="text-center">节课日期</th>
 	            <th class="text-center">负责老师</th>
 	            <th class="text-center">操作</th>
 	          </tr>
@@ -115,7 +115,7 @@
 		            <td>${c.count}</td>
 		            <td>${course.courseName}</td>
 		            <td>${course.startDate}</td>
-		            <td>${course.laboratory.labAddress}</td>
+		            <td>${course.endDate}</td>
 		            <td>${course.teacherName}</td>
 		            <td>
 		              <div class="btn-group">
