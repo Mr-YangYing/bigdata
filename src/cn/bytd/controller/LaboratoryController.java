@@ -135,8 +135,10 @@ public class LaboratoryController {
 		List<Laboratory> laboratoryList = new ArrayList<>();//存放课程表数据
 		
 		JSONArray excelDataArrays = (JSONArray) JSON.parse(excelData);//页面传入的Excel表的所有数据
+		System.out.println("页面传入的Excel表的所有数据"+excelDataArrays.size());
 		int arraySize = excelDataArrays.size();
 		JSONArray databaseFiledArray = (JSONArray) JSON.parse(databaseFiled);//页面传入的选中的数据库字段数据
+		System.out.println("页面传入的选中的数据库字段数据"+databaseFiledArray.size());
 		for (int i = 0; i < arraySize ; i++) {
 			JSONArray excelDataArray = (JSONArray) excelDataArrays.get(i);
 			Laboratory Laboratory = new Laboratory();

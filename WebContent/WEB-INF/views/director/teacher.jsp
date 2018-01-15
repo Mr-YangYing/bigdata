@@ -102,7 +102,8 @@
 	            <td>
 	              <div class="btn-group">
 	                <a class="" href="javascript:getTeacherById('${teacher.id}')" style="margin-right: 20px">修改</a>
-	                <a class="" href="javascript:deleteById('${teacher.id}')" >删除</a>
+	                <a class="" href="javascript:deleteById('${teacher.id}')" style="margin-right: 20px">删除</a>
+	                <a class="" href="javascript:setCourses('${teacher.id}')" >选课</a>
 	              </div>
 	            </td>
 	          </tr>
@@ -168,6 +169,42 @@
 				</select>
 			</div>
 		</div>
+	</form>
+</div>
+<!-- 配置课程的表单 -->
+<div id="setCourseDiv" style="display:none;overflow: hidden;padding-top: 60px">
+	<!--水平表单-->
+	<form class="form-horizontal" action="" method="post" name="setCourseForm">
+
+		<!-- ---------------携带分页信息隐藏域 --------------------->
+		<input type="hidden" name="currentPage" value="${pageResult.currentPage}" id="currentPage">
+		<input type="hidden" name="pageSize" value="${pageResult.pageSize}" id="pageSize">
+		<!-- ---------------携带分页信息隐藏域 --------------------->
+	
+		<input type="hidden" name="ids" value="">
+		<!--当屏幕小于768时，变为两行-->
+		<div class="form-group">
+			<div class="col-sm-3 control-label">
+				<label>选择课程：</label>
+			</div>
+			<div class="col-sm-3">
+				<font color="green" face="宋体">可选择</font><br/>
+				<select name="courseId" class="form-control" id="left" multiple="multiple" style="height: 240px">
+                  	
+                </select>
+                <p><a href="#" style="padding-left: 20px;" id="selectOneToRight">&gt;&gt;</a></p>
+				<p><a href="#" style="padding-left: 20px;" id="selectAllToRight">&gt;&gt;&gt;</a></p>
+			</div>
+			<div class="col-sm-3">
+				<font color="green" face="宋体">已选择</font><br/>
+				<select name="courseId" class="form-control" id="right" multiple="multiple" style="height: 240px">
+                  	
+                </select>
+                <p><a href="#" style="padding-left: 20px;" id="selectOneToleft">&lt;&lt;</a></p>
+				<p><a href="#" style="padding-left: 20px;" id="selectAllToleft">&lt;&lt;&lt;</a></p>
+			</div>
+		</div>
+		
 	</form>
 </div>
 </html>

@@ -153,10 +153,91 @@
 				}
 			});
 	}
-	
+
+	function setCourses(teacherId){
+		layer.open({
+			  type: 1,
+			  title:["配置课程","font-size:18px"],
+			  skin: 'layui-layer-rim', //加上边框
+			  area: ['600px', '500px'], //宽高
+			  content: $('#setCourseDiv'), //这里content是一个DOM，注意：最好该元素要存放在body最外层，否则可能被其它的相对元素所影响
+			  success: function(){
+				 $.ajax({
+					  type: 'get',
+					  url: '/course/getCoursesByOtherTeacherId',
+					  data:"teacherId="+teacherId,
+					  success: function(courseList){
+						  $("#left").empty();
+							for(var i = 0 ;i < courseList.length ; i++){
+								$("#left").append("<option value = '"+courseList[i].id+"'>"+courseList[i].courseName+"</option>");
+							}
+					  }
+					});
+				 $.ajax({
+					 type: 'get',
+					 url: '/course/getCoursesByTeacherId',
+					 data:"teacherId="+teacherId,
+					 success: function(courseList){
+						 $("#right").empty();
+						 for(var i = 0 ;i < courseList.length ; i++){
+							 $("#right").append("<option value = '"+courseList[i].id+"'>"+courseList[i].courseName+"</option>");
+						 }
+					 }
+				 });
+			  },
+			  btn:['提交','取消'],
+			  btn1:function(index){
+				//获取已选择课程Id
+			   	var ids = $.map($("#right option"),function(item){
+			   		return $(item).val();
+			   	});
+			   	//配置课程
+			   	$.post("/teacher/setCourses",{"ids":ids,"teacherId":teacherId},function(){
+			   		layer.msg('设置课程成功', {
+			   			icon : 1,
+			   			time : 2000
+			   		},function(){
+			   			window.location.reload();//重新加载
+			   		});
+			   	});
+
+			},
+			  btn2:function(){
+					
+				}
+			});
+	}
 	
 
 $(function(){
+	
+	//配置课程的时候,点击单选和多选的按钮
+	/*1.选中单击去右边*/
+	$("#selectOneToRight").click(function(){
+		console.log($("#left option:selected"));
+		console.log($("#right"));
+		$("#left option:selected").appendTo($("#right"));
+	});
+	
+	/*2.单击全部去右边*/
+	$("#selectAllToRight").click(function(){
+		$("#left option").appendTo($("#right"));
+	});
+	
+	/*1.选中单击去左边*/
+	$("#selectOneToleft").click(function(){
+		$("#right option:selected").appendTo($("#left"));
+	});
+	
+	/*2.单击全部去左边*/
+	$("#selectAllToleft").click(function(){
+		$("#right option").appendTo($("#left"));
+	});
+	
+	
+	
+	
+	
 	 //点击批量删除按钮
     $(".btn_batch_delete").on("click",function(){
     	var ids = $.map($(".currentCheckbox:checked"),function(item){

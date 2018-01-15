@@ -76,5 +76,11 @@ public interface ITeacherService {
 	 * @return
 	 */
 	Teacher getByTeacherAccount(String teacherAccount);
+	/**
+	 * 配置课程
+	 * @param ids
+	 * @param teacherId
+	 */
+	void setCourses(Long[] ids, String teacherId);
 
 }

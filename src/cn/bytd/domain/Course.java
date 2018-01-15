@@ -18,7 +18,6 @@ public class Course {
 	private String courseName;//课程名称
 	private Date startDate;//开课日期
 	private Date endDate;//节课日期
-	private String teacherName;//课程对应老师姓名
 	private int courseOpen;//是否开课 1:开课,0:未开课
 	private String description;
 	
@@ -50,12 +49,6 @@ public class Course {
 	}
 	public void setEndDate(Date endDate) {
 		this.endDate = endDate;
-	}
-	public String getTeacherName() {
-		return teacherName;
-	}
-	public void setTeacherName(String teacherName) {
-		this.teacherName = teacherName;
 	}
 	public int getCourseOpen() {
 		return courseOpen;

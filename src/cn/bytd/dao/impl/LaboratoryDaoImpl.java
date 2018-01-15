@@ -79,7 +79,6 @@ public class LaboratoryDaoImpl implements ILaboratoryDao {
 	 */
 	public void delete(long id) {
 		//解除course关联表
-		jdbcTemplate.update("update course set laboratoryId = null where laboratoryId = ?", id);
 		jdbcTemplate.update("delete from laboratory where id = ?", id);
 	}
 

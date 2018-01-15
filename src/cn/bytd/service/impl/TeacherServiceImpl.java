@@ -93,4 +93,8 @@ public class TeacherServiceImpl implements ITeacherService{
 	public Teacher getByTeacherAccount(String teacherAccount) {
 		return teacherDao.getByTeacherAccount(teacherAccount);
 	}
+	@Override
+	public void setCourses(Long[] ids, String teacherId) {
+		teacherDao.setCourses(ids,teacherId);
+	}
 }

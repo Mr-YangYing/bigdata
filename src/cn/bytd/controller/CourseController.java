@@ -186,9 +186,6 @@ public class CourseController {
 				if (databaseFiledArray.get(j).toString().equals(Course.class.getDeclaredField("endDate").getName())) {
 					course.setEndDate(DateUtil.string2date(excelDataArray.get(j).toString(),"yyyy-MM-dd"));
 				}
-				if (databaseFiledArray.get(j).toString().equals(Course.class.getDeclaredField("teacherName").getName())) {
-					course.setTeacherName((String)excelDataArray.get(j));
-				}
 				if (databaseFiledArray.get(j).toString().equals(Course.class.getDeclaredField("courseOpen").getName())) {
 					course.setCourseOpen(excelDataArray.get(j).toString().equals("是")?1:0);
 				}

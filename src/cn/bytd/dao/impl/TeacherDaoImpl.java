@@ -258,7 +258,20 @@ public class TeacherDaoImpl implements ITeacherDao {
 
 	}
 
-	
+	/**
+	 * 配置课程
+	 * @param ids
+	 */
+	public void setCourses(Long[] ids,String teacherId){
+		// 先清空
+		jdbcTemplate.update("delete from course_teacher_config where tea_id = ?", teacherId);
+
+		if (ids != null && ids.length > 0){
+			for (int i = 0; i < ids.length; i++) {
+				jdbcTemplate.update("insert into course_teacher_config(tea_id,cou_id)values(?,?)", teacherId, ids[i]);
+			}
+		}
+	};
 	
 	
 	/**

@@ -179,4 +179,14 @@ public class TeacherController {
 		return md;
 	}
 	
+	/**
+	 * 设置课程
+	 * @return
+	 */
+	@RequestMapping(value="/setCourses")
+	public ModelAndView setCourses(Long[] ids,String teacherId){
+		teacherService.setCourses(ids,teacherId);
+		return null;
+	}
+	
 }

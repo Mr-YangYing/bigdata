@@ -161,9 +161,9 @@
 								});
 						},
 						error:function(){
-							layer.msg('导入出错!!', {
-								  icon: 1,
-								  time: 2000 //2秒关闭（如果不配置，默认是3秒）
+							layer.msg('Excel文件格式不正确,导入出错', {
+								  icon: 2,
+								  time: 3000 //3秒关闭（如果不配置，默认是3秒）
 								}, function(){
 								});
 						}

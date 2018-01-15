@@ -197,7 +197,7 @@ public class CourseDaoImpl implements ICourseDao {
 		
 		final List<Course> tempList = list;
 		
-		String sql = "insert into course(courseName,startDate,endDate,teacherName,courseOpen,description)values(?,?,?,?,?,?)";
+		String sql = "insert into course(courseName,startDate,endDate,courseOpen,description)values(?,?,?,?,?)";
 		jdbcTemplate.batchUpdate(sql, new BatchPreparedStatementSetter() {
 			
 			@Override
@@ -205,7 +205,6 @@ public class CourseDaoImpl implements ICourseDao {
 				ps.setString(1, tempList.get(i).getCourseName());
 				ps.setDate(2,new java.sql.Date(tempList.get(i).getStartDate().getTime()));
 				ps.setDate(3,new java.sql.Date(tempList.get(i).getEndDate().getTime()));
-				ps.setString(4, tempList.get(i).getTeacherName());
 				ps.setInt(5, tempList.get(i).getCourseOpen());
 				ps.setString(6, tempList.get(i).getDescription());
 			}
@@ -222,8 +221,8 @@ public class CourseDaoImpl implements ICourseDao {
 	 * 修改
 	 */
 /*	public void update(Course course) {
-		jdbcTemplate.update("update course set teacherAccount = ?,teacherName = ?,positionalTitles = ? where id = ?",
-				teacher.getTeacherAccount(),teacher.getTeacherName(),teacher.getPositionalTitles(),teacher.getId());
+		jdbcTemplate.update("update course set teacherAccount = ?,positionalTitles = ? where id = ?",
+				teacher.getTeacherAccount(),teacher.getPositionalTitles(),teacher.getId());
 	}*/
 
 	
@@ -242,7 +241,6 @@ public class CourseDaoImpl implements ICourseDao {
 			course.setCourseName(rs.getString("courseName"));
 			course.setStartDate(rs.getDate("startDate"));
 			course.setEndDate(rs.getDate("endDate"));
-			course.setTeacherName(rs.getString("teacherName"));
 			course.setCourseOpen(rs.getInt("courseOpen"));
 			course.setDescription(rs.getString("description"));
 			course.setTasks(taskDao.getTaskByCourseId(rs.getLong("id")));
