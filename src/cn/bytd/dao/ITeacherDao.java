@@ -83,4 +83,10 @@ public interface ITeacherDao {
 	 * @param teacherId
 	 */
 	void setCourses(Long[] ids, String teacherId);
+	/**
+	 *通过课程Id获取教师
+	 * @param long
+	 * @return
+	 */
+	List<Teacher> getTeacherByCourseId(long courseId);
 }

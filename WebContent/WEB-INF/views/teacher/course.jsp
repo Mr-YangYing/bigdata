@@ -55,15 +55,15 @@
                   </div>
                 </div>
 
-                <div class="form-group col-sm-3">
+<%--                 <div class="form-group col-sm-3">
                   <div class="col-sm-5 control-label" style="text-align: center;padding: 6px 0px">
                     <label>任课老师：</label>
                   </div>
                   <div class="col-sm-4" style="padding: 0">
                     <input type="text" placeholder="请输入负责老师" name="teacherName" value ="${qo.teacherName}" class="form-control" size="12">
                   </div>
-                </div>
-                <div class="form-group col-sm-3" style="padding-left: 0">
+                </div> --%>
+                <div class="form-group col-sm-3" style="padding-left: 23">
                   <div class="col-sm-5 control-label" style="text-align: center;padding: 6px 0px;">
                     <label>开课时间：</label>
                   </div>
@@ -92,7 +92,7 @@
 	           <!--  <th class="text-center">序号</th> -->
 	            <th class="text-center">课程编号</th>
 	            <th class="text-center">课程名称</th>
-	            <th class="text-center">任课老师</th>
+	            <!-- <th class="text-center">任课老师</th> -->
 	            <th class="text-center">教学任务数</th>
 	            <th class="text-center">操作</th>
 	          </tr>
@@ -103,7 +103,7 @@
 		        <%--     <td>${c.count}</td> --%>
 		            <td>${course.id}</td>
 		            <td>${course.courseName}</td>
-		            <td>${course.teacherName}</td>
+<%-- 		            <td>${course.teacherName}</td> --%>
 		            <td>${fn:length(course.tasks)}</td>
 		            <td>
 		              <div class="btn-group">

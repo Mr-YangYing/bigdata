@@ -27,7 +27,6 @@ public class CourseQueryObject extends QueryObject{
 	private Date startTime;//开始时间
 	private Date endTime;//结束时间
 	private String courseName;//课程名称
-	//private String teacherName;//课程对应老师姓名
 	private String keywords;//关键字查询
 	
 	/**
@@ -46,13 +45,9 @@ public class CourseQueryObject extends QueryObject{
 		if (StringUtils.hasLength(courseName)) {
 			super.addQuery("courseName like ?", "%" + courseName + "%");
 		}
-		//课程对应的教师名称
-/*		if (StringUtils.hasLength(teacherName)) {
-			super.addQuery("teacherName like ?", "%" + teacherName + "%");
-		}*/
 		//增加关键字查询
 		if (StringUtils.hasLength(keywords)) {
-			super.addQuery("courseName like ? or teacherName like ?","%"+keywords+"%","%"+keywords+"%");
+			super.addQuery("courseName like ?","%"+keywords+"%");
 		}
 		
 		//增加排序功能(也可以先从前台输入,根据判断再动态添加)
@@ -83,14 +78,6 @@ public class CourseQueryObject extends QueryObject{
 	public void setCourseName(String courseName) {
 		this.courseName = courseName;
 	}
-
-/*	public String getTeacherName() {
-		return teacherName;
-	}
-
-	public void setTeacherName(String teacherName) {
-		this.teacherName = teacherName;
-	}*/
 
 	public String getKeywords() {
 		return keywords;

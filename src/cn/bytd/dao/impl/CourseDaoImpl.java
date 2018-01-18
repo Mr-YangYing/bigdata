@@ -22,6 +22,7 @@ import cn.bytd.dao.IClassesDao;
 import cn.bytd.dao.ICourseDao;
 import cn.bytd.dao.ILaboratoryDao;
 import cn.bytd.dao.ITaskDao;
+import cn.bytd.dao.ITeacherDao;
 import cn.bytd.domain.Course;
 import cn.bytd.domain.Laboratory;
 import cn.bytd.queryPage.page.PageResult;
@@ -51,6 +52,8 @@ public class CourseDaoImpl implements ICourseDao {
 	private ITaskDao taskDao;
 	@Autowired
 	private IClassesDao classesDao;
+	@Autowired
+	private ITeacherDao teacherDao;
 	
 	@Resource(name="laboratoryDao")
 	private ILaboratoryDao laboratoryDao;
@@ -245,6 +248,7 @@ public class CourseDaoImpl implements ICourseDao {
 			course.setDescription(rs.getString("description"));
 			course.setTasks(taskDao.getTaskByCourseId(rs.getLong("id")));
 			course.setClassess(classesDao.getClassesByCourseId(rs.getLong("id")));
+			course.setTeachers(teacherDao.getTeacherByCourseId(rs.getLong("id")));
 			return course;
 		}
 

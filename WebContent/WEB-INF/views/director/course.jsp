@@ -71,16 +71,6 @@
                     <input type="text" placeholder="请输入课程名称" name="courseName" value ="${qo.courseName}" class="form-control" size="12">
                   </div>
                 </div>
-
-<%--                 <div class="form-group col-sm-3">
-                  <div class="col-sm-5 control-label" style="text-align: center;padding: 6px 0px">
-                    <label>负责老师：</label>
-                  </div>
-                  <div class="col-sm-4" style="padding: 0">
-                    <input type="text" placeholder="请输入负责老师" name="teacherName" value ="${qo.teacherName}" class="form-control" size="12">
-                  </div>
-                </div> --%>
-
                 <div class="form-group col-sm-1" >
                   <input type="submit" class="btn btn-info" value="查询"/>
                 </div>
@@ -105,7 +95,6 @@
 	            <th class="text-center">课程</th>
 	            <th class="text-center">开课日期</th>
 	            <th class="text-center">节课日期</th>
-	           <!--  <th class="text-center">负责老师</th> -->
 	            <th class="text-center">操作</th>
 	          </tr>
 	          </thead>
@@ -116,7 +105,6 @@
 		            <td>${course.courseName}</td>
 		            <td>${course.startDate}</td>
 		            <td>${course.endDate}</td>
-		 <%--            <td>${course.teacherName}</td> --%>
 		            <td>
 		              <div class="btn-group">
 		              <c:if test="${course.courseOpen==0}">

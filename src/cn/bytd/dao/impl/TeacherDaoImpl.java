@@ -230,6 +230,13 @@ public class TeacherDaoImpl implements ITeacherDao {
 	}
 
 
+	@Override
+	public List<Teacher> getTeacherByCourseId(long courseId) {
+		return jdbcTemplate.query("select * from teacher where id in("
+				+ "select tea_id from course_teacher_config where cou_id = ?)",rm,courseId);
+	}
+
+
 
 	/**
 	 * 批量增加
@@ -304,6 +311,7 @@ public class TeacherDaoImpl implements ITeacherDao {
 		}
 
 	}
+
 
 
 
