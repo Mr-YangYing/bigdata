@@ -140,6 +140,18 @@ public class TeacherDaoImpl implements ITeacherDao {
 				return idList.size();
 			}
 		});
+		jdbcTemplate.batchUpdate("delete from teacher_classes_config where tea_id = ?",new BatchPreparedStatementSetter() {
+			
+			@Override
+			public void setValues(PreparedStatement ps, int i) throws SQLException {
+				ps.setString(1,idList.get(i));
+			}
+			
+			@Override
+			public int getBatchSize() {
+				return idList.size();
+			}
+		});
 		//删除教师
 		jdbcTemplate.batchUpdate("delete from teacher where id = ?",new BatchPreparedStatementSetter() {
 			

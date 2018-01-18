@@ -16,6 +16,10 @@
 			build_current_config(nodeData);
 		});
 	});*/
+			//点击取消按钮，关闭弹出框
+	function btn_cancel(){
+		parent.location.reload(); //刷新父窗口中的网页
+	}
 	
 	function fileSelected(e) {
 		var pathName=window.document.location.pathname;
@@ -151,28 +155,51 @@
 						//contentType:"application/json",
 						url:"/"+golbleDomainName+"/batchUpdate",
 						data:{"excelData":JSON.stringify(excelData),"databaseFiled":JSON.stringify(databaseFiled)},
-						success:function(){
-							layer.msg('导入成功!!!', {
-								  icon: 1,
-								  time: 2000 //2秒关闭（如果不配置，默认是3秒）
+						
+						success:function(message){
+							if(message==0){
+								layer.msg('导入成功!!!', {
+									icon: 1,
+									time: 2000 //2秒关闭（如果不配置，默认是3秒）
 								}, function(){
-								  //do something
+									//do something
 									parent.location.reload(); 
 								});
-						},
+							}
+							if(message==1){
+								layer.msg('您导入的账号有重复,请修改!!!', {
+									icon: 2,
+									time: 3000 //2秒关闭（如果不配置，默认是3秒）
+								}, function(){
+									//do something
+									//parent.location.reload(); 
+								});
+							}
+							if(message==2){
+								layer.msg('您导入的Excel格式有问题,请修改!!!', {
+									icon: 2,
+									time: 3000 //2秒关闭（如果不配置，默认是3秒）
+								}, function(){
+									//do something
+									//parent.location.reload(); 
+								});
+							}
+							
+						}
+						/*,
 						error:function(){
 							layer.msg('Excel文件格式不正确,导入出错', {
 								  icon: 2,
 								  time: 3000 //3秒关闭（如果不配置，默认是3秒）
 								}, function(){
 								});
-						}
+						}*/
 					});
 				}
 			});
 		});
 	});
-	
+
 	/*
 	function load_current_config(columns_text,data){
 		var column_line = columns_text.split(";");

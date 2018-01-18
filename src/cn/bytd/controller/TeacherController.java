@@ -8,7 +8,9 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -148,7 +150,8 @@ public class TeacherController {
 	 * @throws ParseException 
 	 */
 	@RequestMapping(value="/batchUpdate")
-	public ModelAndView batchUpdate(@RequestParam(value="excelData") String excelData,@RequestParam(value="databaseFiled") String databaseFiled) throws NoSuchFieldException, SecurityException, ParseException{
+	@ResponseBody
+	public String batchUpdate(@RequestParam(value="excelData") String excelData,@RequestParam(value="databaseFiled") String databaseFiled,Model model) throws NoSuchFieldException, SecurityException, ParseException{
 		List<Teacher> teacherList = new ArrayList<>();//存放课程表数据
 		
 		JSONArray excelDataArrays = (JSONArray) JSON.parse(excelData);//页面传入的Excel表的所有数据
@@ -173,10 +176,14 @@ public class TeacherController {
 			teacherList.add(teacher);
 		}
 		System.out.println(teacherList);
-		teacherService.batchUpdate(teacherList);
-		ModelAndView md = new ModelAndView();
-		md.setViewName("redirect:/teacher/list");
-		return md;
+		try {
+			teacherService.batchUpdate(teacherList);
+		} catch (DuplicateKeyException e) {
+			return "1";//导入重复的教师
+		} catch (Exception e) {
+			return "2";//Excel格式有问题
+		}
+		return "0";//导入成功
 	}
 	
 	/**
