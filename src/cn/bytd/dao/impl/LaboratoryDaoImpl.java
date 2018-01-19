@@ -92,19 +92,6 @@ public class LaboratoryDaoImpl implements ILaboratoryDao {
 		for (int i = 0; i < ids.length; i++) {
 			idList.add(ids[i]);
 		}
-		//解除course关联表
-		jdbcTemplate.batchUpdate("update course set laboratoryId = null where laboratoryId = ?",new BatchPreparedStatementSetter() {
-			
-			@Override
-			public void setValues(PreparedStatement ps, int i) throws SQLException {
-				ps.setLong(1,idList.get(i));
-			}
-			
-			@Override
-			public int getBatchSize() {
-				return idList.size();
-			}
-		});
 		//删除实验室
 		jdbcTemplate.batchUpdate("delete from laboratory where id = ?",new BatchPreparedStatementSetter() {
 			

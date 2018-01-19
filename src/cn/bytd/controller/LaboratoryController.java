@@ -8,6 +8,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -131,7 +132,8 @@ public class LaboratoryController {
 	 * @throws ParseException 
 	 */
 	@RequestMapping(value="/batchUpdate")
-	public ModelAndView batchUpdate(@RequestParam(value="excelData") String excelData,@RequestParam(value="databaseFiled") String databaseFiled) throws NoSuchFieldException, SecurityException, ParseException{
+	@ResponseBody
+	public String batchUpdate(@RequestParam(value="excelData") String excelData,@RequestParam(value="databaseFiled") String databaseFiled) throws NoSuchFieldException, SecurityException, ParseException{
 		List<Laboratory> laboratoryList = new ArrayList<>();//存放课程表数据
 		
 		JSONArray excelDataArrays = (JSONArray) JSON.parse(excelData);//页面传入的Excel表的所有数据
@@ -150,10 +152,14 @@ public class LaboratoryController {
 			laboratoryList.add(Laboratory);
 		}
 		System.out.println(laboratoryList);
-		laboratoryService.batchUpdate(laboratoryList);
-		ModelAndView md = new ModelAndView();
-		md.setViewName("redirect:/laboratory/list");
-		return md;
+		try {
+			laboratoryService.batchUpdate(laboratoryList);
+		} catch (DuplicateKeyException e) {
+			return "1";// 导入重复的课程
+		} catch (Exception e) {
+			return "2";// Excel格式有问题
+		}
+		return "0";// 导入成功
 	}
 	
 }

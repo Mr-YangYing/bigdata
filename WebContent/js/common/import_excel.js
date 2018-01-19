@@ -114,6 +114,14 @@
 						url:"/"+domainName+"/getColumnName",
 						async: false,//ajax异步导致局部变量不能复制给外部变量,所以要设置成false
 						success:function(columnName){
+							if(data.length>columnName.length){
+								layer.msg('excel文件不合规范,请修改!!!', {
+									icon: 2,
+									time: 3000 //2秒关闭（如果不配置，默认是3秒）
+								}, function(){
+									parent.location.reload(); 
+								});
+							}
 							for(var j=0;j<columnName.length;j++){
 								optionString+="<option value='"+columnName[j]+"' >"+columnName[j]+"</option>";
 							}
