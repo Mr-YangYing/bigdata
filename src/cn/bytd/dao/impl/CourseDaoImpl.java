@@ -157,7 +157,9 @@ public class CourseDaoImpl implements ICourseDao {
 		SqlRowSetMetaData metaData = sqlRowSet.getMetaData();
 		int columnCount = metaData.getColumnCount();
 		for (int i = 2; i <=columnCount; i++) {
-			list.add(metaData.getColumnName(i));
+			if(!metaData.getColumnName(i).equals("courseOpen")){
+				list.add(metaData.getColumnName(i));
+			}
 		}
 		return list;
 	}
@@ -208,8 +210,8 @@ public class CourseDaoImpl implements ICourseDao {
 				ps.setString(1, tempList.get(i).getCourseName());
 				ps.setDate(2,new java.sql.Date(tempList.get(i).getStartDate().getTime()));
 				ps.setDate(3,new java.sql.Date(tempList.get(i).getEndDate().getTime()));
-				ps.setInt(5, tempList.get(i).getCourseOpen());
-				ps.setString(6, tempList.get(i).getDescription());
+				ps.setInt(4, 0);
+				ps.setString(5, tempList.get(i).getDescription());
 			}
 			
 			@Override

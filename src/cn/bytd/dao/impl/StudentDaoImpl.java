@@ -232,9 +232,9 @@ public class StudentDaoImpl implements IStudentDao {
 	 */
 	public void insert(Student student) {
 		String userId = UUID.randomUUID().toString();
-		jdbcTemplate.update("insert into student(id,studentNumber,studentName,currentTerm,college)values(?,?,?,?,?)", 
+		jdbcTemplate.update("insert into student(id,studentNumber,studentName,currentTerm,college,profession)values(?,?,?,?,?,?)", 
 				userId,student.getStudentNumber(),student.getStudentName(),student.getCurrentTerm(),
-				student.getCollege());
+				student.getCollege(),student.getProfession());
 		//添加用户
 		jdbcTemplate.update("insert into user(id,username,password)values(?,?,?)",userId,
 				student.getStudentNumber(),MD5Utils.md5("123456"));
@@ -277,7 +277,7 @@ public class StudentDaoImpl implements IStudentDao {
 			jdbcTemplate.update("insert into user_role(user_id,role_id)values(?,?)",userId,role.getId());
 		}
 		///////添加学生
-		String sql = "insert into student(id,studentNumber,studentName,currentTerm,college)values(?,?,?,?,?)";
+		String sql = "insert into student(id,studentNumber,studentName,currentTerm,college,profession)values(?,?,?,?,?,?)";
 		jdbcTemplate.batchUpdate(sql, new BatchPreparedStatementSetter() {
 			
 			@Override
@@ -287,6 +287,7 @@ public class StudentDaoImpl implements IStudentDao {
 				ps.setString(3, tempList.get(i).getStudentName());
 				ps.setString(4, tempList.get(i).getCurrentTerm());
 				ps.setString(5, tempList.get(i).getCollege());
+				ps.setString(6, tempList.get(i).getProfession());
 			}
 			
 			@Override
