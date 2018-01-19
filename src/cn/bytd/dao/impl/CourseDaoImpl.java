@@ -136,7 +136,7 @@ public class CourseDaoImpl implements ICourseDao {
 	 * @return
 	 */
 	public List<Course> getCoursesByTeacherId(String teacherId){
-		return jdbcTemplate.query("select * from course where id In (select cou_id from course_teacher_config where tea_id = ?)", rm, teacherId);
+		return jdbcTemplate.query("select * from course where id In (select cou_id from course_teacher_config where tea_id = ?) AND courseOpen=1", rm, teacherId);
 	};
 	/**
 	 * 根据教师id获取除去该教师的其他教师的课程
@@ -144,7 +144,7 @@ public class CourseDaoImpl implements ICourseDao {
 	 * @return
 	 */
 	public List<Course> getCoursesByOtherTeacherId(String teacherId){
-		return jdbcTemplate.query("select * from course where id not in (select cou_id from course_teacher_config where tea_id = ?)", rm, teacherId);
+		return jdbcTemplate.query("select * from course where id not in (select cou_id from course_teacher_config where tea_id = ?) AND courseOpen=1", rm, teacherId);
 	};
 	
 	

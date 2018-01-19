@@ -53,10 +53,10 @@
               	
                 <div class="form-group col-sm-3" style="padding-top: 6px;">
 	                <label class="radio-inline">
-						<input type="radio" name="courseRadio" value="1"><span>我的课程</span>
+						<input type="radio" name="courseRadio" value="${loginUser.id}"><span>我的课程</span>
 					</label>
 					<label class="radio-inline">
-						<input type="radio" name="courseRadio" value="1" ><span>其他课程</span>
+						<input type="radio" name="courseRadio" value="${loginUser.id}" ><span>其他课程</span>
 					</label>
                 </div>
                 

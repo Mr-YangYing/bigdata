@@ -79,7 +79,7 @@ public class UserController {
 				md.setViewName("redirect:/teacher/list");
 			}
 			if("teacher".equals(permissionName)){
-				md.setViewName("redirect:/task/courseList");
+				md.setViewName("redirect:/task/courseList?courseOpen=1");
 			}
 			if("student".equals(permissionName)){
 				md.setViewName("redirect:/student/courseList?studentId="+loginUser.getId());

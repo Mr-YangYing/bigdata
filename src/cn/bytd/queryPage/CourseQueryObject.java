@@ -28,7 +28,9 @@ public class CourseQueryObject extends QueryObject{
 	private Date endTime;//结束时间
 	private String courseName;//课程名称
 	private String keywords;//关键字查询
+	private Integer courseOpen;
 	
+
 	/**
 	 * 定义自身对象的查询条件和参数
 	 */
@@ -40,6 +42,9 @@ public class CourseQueryObject extends QueryObject{
 		//时间范围查询的结束
 		if (endTime!=null) {
 			super.addQuery("startDate <= ?",DateUtil.getEndTime(endTime));
+		}
+		if (courseOpen!=null) {
+			super.addQuery("courseOpen = ?",courseOpen);
 		}
 		//课程的名称
 		if (StringUtils.hasLength(courseName)) {
@@ -88,4 +93,12 @@ public class CourseQueryObject extends QueryObject{
 	}
 	
 	
+	public Integer getCourseOpen() {
+		return courseOpen;
+	}
+
+	public void setCourseOpen(Integer courseOpen) {
+		this.courseOpen = courseOpen;
+	}
+
 }

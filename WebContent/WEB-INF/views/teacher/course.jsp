@@ -44,6 +44,7 @@
               <!-- ---------------携带分页信息隐藏域 --------------------->
               	<input type="hidden" name ="currentPage" value="1" id="currentPage">
               	<input type="hidden" name ="pageSize" value="${pageResult.pageSize}" id="pageSize">
+              	<input type="hidden" name ="courseOpen" value="1">
               <!-- ---------------携带分页信息隐藏域 --------------------->
               	
                 <div class="form-group col-sm-3">
@@ -107,8 +108,14 @@
 		            <td>${fn:length(course.tasks)}</td>
 		            <td>
 		              <div class="btn-group">
-		                <a class="" href="${pageContext.request.contextPath}/task/courseTaskDetail?courseId=${course.id}" style="margin-right: 20px">查看</a>
-		                <a class="" href="${pageContext.request.contextPath}/task/courseTaskEdit?courseId=${course.id}" >编辑</a>
+		              <c:choose>
+		              	<c:when test="${course.teachers[0].id == loginUser.id }">
+		                	<a class="" href="${pageContext.request.contextPath}/task/courseTaskEdit?courseId=${course.id}" >编辑</a>
+		              	</c:when>
+		              	<c:otherwise>
+		                	<a class="" href="${pageContext.request.contextPath}/task/courseTaskDetail?courseId=${course.id}">查看</a>
+		              	</c:otherwise>
+		              </c:choose>
 		              </div>
 		            </td>
 		          </tr>

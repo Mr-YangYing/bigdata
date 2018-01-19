@@ -44,7 +44,7 @@
               </div>
               <div class="panel-collapse collapse in" id="collapseTwo"><!--第二部分，折叠部分-->
                 <div class="panel-body" style="padding-left: 30px;">
-                 		<a href="${pageContext.request.contextPath}/task/courseList">任务管理</a> 
+                 		<a href="${pageContext.request.contextPath}/task/courseList?courseOpen=1">任务管理</a> 
                 </div>
                 <div class="panel-body" style="padding-left: 30px;">
                  		<a href="${pageContext.request.contextPath}/course/getCourseListByTeacherId?teacherId=${loginUser.id}">成绩管理</a> 
