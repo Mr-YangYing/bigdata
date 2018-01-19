@@ -70,4 +70,11 @@ public interface ITaskService {
 	 * @param taskId
 	 */
 	void setScoreByTaskId(Integer score,long taskId,long studentId);
+	/**
+	 * 根据课程和学生查询任务
+	 * @param courseId
+	 * @param studentId
+	 * @return
+	 */
+	List<Task> getTaskByCourseStudentId(long courseId, String studentId);
 }

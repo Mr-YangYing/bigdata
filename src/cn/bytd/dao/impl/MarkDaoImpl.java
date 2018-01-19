@@ -40,7 +40,7 @@ public class MarkDaoImpl implements IMarkDao{
 	 * @param studentId
 	 * @return
 	 */
-	public Mark getMarkById(Long studentId,Long taskId){
+	public Mark getMarkById(String studentId,Long taskId){
 		Mark mark = null;
 		//避免出现org.springframework.dao.EmptyResultDataAccessException: Incorrect result size: expected 1, actual 0
 		try {

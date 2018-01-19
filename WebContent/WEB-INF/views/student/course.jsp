@@ -45,7 +45,7 @@
 	           <!--  <th class="text-center">序号</th> -->
 	            <th class="text-center">课程编号</th>
 	            <th class="text-center">课程名称</th>
-	            <th class="text-center">任课老师</th>
+<!-- 	            <th class="text-center">任课老师</th> -->
 	            <th class="text-center">教学任务数</th>
 	            <th class="text-center">操作</th>
 	          </tr>
@@ -56,7 +56,7 @@
 		        <%--     <td>${c.count}</td> --%>
 		            <td>${course.id}</td>
 		            <td>${course.courseName}</td>
-		            <td>${course.teacherName}</td>
+<%-- 		            <td>${course.teacherName}</td> --%>
 		            <td>${fn:length(course.tasks)}</td>
 		            <td>
 		              <div class="btn-group">

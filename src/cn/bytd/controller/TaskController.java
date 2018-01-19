@@ -178,9 +178,9 @@ public class TaskController {
 	 * @return
 	 */
 	@RequestMapping(value="/taskList")
-	public ModelAndView taskList(long courseId,String teacherId,long studentId){
-		List<Task> taskList = taskService.getTaskByCourseId(courseId);
-		List<Classes> classesList =classesService.getClassesByTeacherId(teacherId);
+	public ModelAndView taskList(long courseId,String teacherId,String studentId){
+		List<Task> taskList = taskService.getTaskByCourseStudentId(courseId,studentId);
+		List<Course> courseList =courseService.getCoursesByTeacherId(teacherId);
 		for (int i = 0; i < taskList.size(); i++) {
 			long taskId = taskList.get(i).getId();
 			Mark mark = markService.getMarkById(studentId, taskId);
@@ -188,7 +188,7 @@ public class TaskController {
 		}
 		ModelAndView md = new ModelAndView();
 		md.addObject("taskList", taskList);
-		md.addObject("classesList", classesList);
+		md.addObject("courseList", courseList);
 		md.addObject("studentId", studentId);
 		md.setViewName("/views/teacher/taskScore");
 		return md;

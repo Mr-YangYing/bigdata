@@ -53,7 +53,7 @@
         		<div class="col-sm-6">
         			<div class="col-sm-6">
         				<div style="padding: 10px 0px;">
-        					主讲老师: ${course.teacherName}
+        					主讲老师: ${course.teachers[0].teacherName}
         				</div>
         				<div style="padding: 10px 0px;">
         					开课时间: ${course.startDate}

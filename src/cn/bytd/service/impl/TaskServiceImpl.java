@@ -101,5 +101,12 @@ public class TaskServiceImpl implements ITaskService{
 		 */
 	 public void setScoreByTaskId(Integer score,long taskId,long studentId){
 		 taskDao.setScoreByTaskId(score,taskId,studentId);
-	 };
+	 }
+
+
+		@Override
+		public List<Task> getTaskByCourseStudentId(long courseId, String studentId) {
+			// TODO Auto-generated method stub
+			return taskDao.getTaskByCourseStudentId(courseId, studentId);
+		};
 }

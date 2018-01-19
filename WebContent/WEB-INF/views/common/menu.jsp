@@ -47,7 +47,7 @@
                  		<a href="${pageContext.request.contextPath}/task/courseList">任务管理</a> 
                 </div>
                 <div class="panel-body" style="padding-left: 30px;">
-                 		<a href="${pageContext.request.contextPath}/classes/getClassesByTeacherId?teacherId=${loginUser.id}">成绩管理</a> 
+                 		<a href="${pageContext.request.contextPath}/course/getCourseListByTeacherId?teacherId=${loginUser.id}">成绩管理</a> 
                 </div>
               </div>
           </div>

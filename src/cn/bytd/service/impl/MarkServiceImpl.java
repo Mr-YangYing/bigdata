@@ -29,7 +29,7 @@ public class MarkServiceImpl implements IMarkService{
 	 * @param studentId
 	 * @return
 	 */
-	public Mark getMarkById(Long studentId, Long taskId){
+	public Mark getMarkById(String studentId, Long taskId){
 		return markDao.getMarkById(studentId, taskId);
 	};
 	

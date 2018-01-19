@@ -46,9 +46,23 @@
 <%--               	<input type="hidden" name ="currentPage" value="1" id="currentPage">
               	<input type="hidden" name ="pageSize" value="${pageResult.pageSize}" id="pageSize"> --%>
               <!-- ---------------携带分页信息隐藏域 --------------------->
-              	<input type="hidden" name ="courseId" value="" id="courseId"><!--课程ID  -->
-              	<input type="hidden" name ="teacherId" value="1" id="teacherId"><!--教师ID  -->
-              	<input type="hidden" name ="studentId" id="studentId" value=""><!-- 用于存放学生ID,评分的时候需要 -->
+              	<input type="hidden" name ="teacherId" value="${loginUser.id}" id="teacherId"><!--教师ID  -->
+<!--               	<input type="hidden" name ="courseId" value="" id="courseId">课程ID 
+              	<input type="hidden" name ="studentId" value="" id="studentId">学生ID  -->
+              	
+              	<div class="form-group col-sm-4">
+                  <div class="col-sm-6 control-label" style="text-align: center;padding: 6px 0px;">
+                    <label>选择课程：</label>
+                  </div>
+                  <div class="col-sm-6" style="padding: 0;margin-left: -18px;">
+                  	<select name="courseId" class="form-control" id="courseSelect">
+                  		<option>------请选择------</option>
+                  		<c:forEach items="${courseList}" var="course">
+                  			<option value="${course.id}">${course.courseName}</option>
+                  		</c:forEach>
+                  	</select>
+                  </div>
+                </div>	
               	
                 <div class="form-group col-sm-4">
 	              <div class="col-sm-6 control-label" style="text-align: center;padding: 6px 0px;">
@@ -57,9 +71,6 @@
                   <div class="col-sm-6" style="padding: 0">
                   	<select name="classesNumber" class="form-control" id="classesSelect">
                   		<option>------请选择------</option>
-                  		<c:forEach items="${classesList}" var="classes">
-                  			<option value="${classes.id}">${classes.classesNumber}</option>
-                  		</c:forEach>
                   	</select>
                   </div>
                 </div>
@@ -69,22 +80,13 @@
                     <label>选择学生：</label>
                   </div>
                   <div class="col-sm-6" style="padding: 0">
-                  	<select name="studentName" class="form-control" id="studentSelect">
+                  	<select name="studentId" class="form-control" id="studentSelect">
                   		<option>------请选择------</option>
                   	</select>
                   </div>
                 </div>
                 
-				 <div class="form-group col-sm-4">
-                  <div class="col-sm-6 control-label" style="text-align: center;padding: 6px 0px;">
-                    <label>选择课程：</label>
-                  </div>
-                  <div class="col-sm-6" style="padding: 0;margin-left: -18px;">
-                  	<select name="courseName" class="form-control" id="courseSelect">
-                  		<option>------请选择------</option>
-                  	</select>
-                  </div>
-                </div>				
+			
 
               </form>
             </div>

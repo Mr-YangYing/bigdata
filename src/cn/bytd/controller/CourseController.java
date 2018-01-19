@@ -102,6 +102,20 @@ public class CourseController {
 		return courseService.getCoursesByTeacherId(teacherId);
 	}
 	/**
+	 * 根据教师id获取
+	 * @param id
+	 * @return
+	 */
+	@RequestMapping(value="/getCourseListByTeacherId",method={RequestMethod.GET})
+	public ModelAndView getCourseListByTeacherId(String teacherId){
+		List<Course> courseList = courseService.getCoursesByTeacherId(teacherId);
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.addObject("courseList", courseList);
+		modelAndView.setViewName("views/teacher/taskScore");
+		return modelAndView;
+		
+	}
+	/**
 	 * 根据教师id获取除去该教师的其他教师的课程
 	 * @param id
 	 * @return

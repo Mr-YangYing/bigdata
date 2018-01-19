@@ -67,6 +67,22 @@ public class TaskDaoImpl implements ITaskDao{
 		return jdbcTemplate.query("select * from task where courseId = ? and publishTask = 1", rm,courseId);
 	};
 	
+
+	@Override
+	public void setScoreByTaskId(Integer score, long taskId, long studentId) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public List<Task> getTaskByCourseStudentId(long courseId, String studentId) {
+		// TODO Auto-generated method stub
+		return jdbcTemplate.query("select * from task as t "
+				+ "left join (select * from mark where studentId=?) as m on t.id=m.taskId "
+				+ "left join (select * from report where studentId=?) as s on t.id=s.taskId "
+				+ "where t.courseId=? and publishTask=1;",rm,studentId,studentId,courseId);
+	}
+	
 	/**
 	 * 根据任务Id获取任务
 	 * @param taskId
@@ -124,7 +140,7 @@ public class TaskDaoImpl implements ITaskDao{
 		 * 给指定任务打分
 		 * @param taskId
 		 */
-	 public void setScoreByTaskId(Integer score,long taskId,long studentId){
+	 public void setScoreByTaskId(Integer score,long taskId,String studentId){
 		 if(markDao.getMarkById(studentId, taskId)==null){
 			 jdbcTemplate.update("insert into mark(score,studentId,taskId)values(?,?,?)",score,studentId,taskId);
 		 }
@@ -156,4 +172,5 @@ public class TaskDaoImpl implements ITaskDao{
 		}
 		
 	}
+
 }

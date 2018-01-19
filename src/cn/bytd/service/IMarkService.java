@@ -22,7 +22,7 @@ public interface IMarkService {
 	 * @param studentId
 	 * @return
 	 */
-	Mark getMarkById(Long studentId, Long taskId);
+	Mark getMarkById(String studentId, Long taskId);
 	
 	/**
 	 * 根据任务Id获取分数

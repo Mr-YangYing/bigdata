@@ -1,4 +1,21 @@
 $(function(){
+		
+	//根据选择的课程,得到课程下的班级
+	$("#courseSelect").change(function(){
+		var courseId = $(this).children('option:selected').val();
+		$.ajax({
+			type:"post",
+			url:"/classes/getClassesByCourseId",
+			data:"courseId="+courseId,
+			success:function(classesList){
+				$("#classesSelect").empty();
+				$("#classesSelect").append("<option>------请选择------</option>");
+				for(var i = 0 ;i < classesList.length ; i++){
+					$("#classesSelect").append("<option value = '"+classesList[i].id+"'>"+classesList[i].classesNumber+"</option>");
+				}
+			}
+		});
+	});
 	//根据选择的班级,得到班级下的学生
 	$("#classesSelect").change(function(){
 		var classesId = $(this).children('option:selected').val();
@@ -15,7 +32,7 @@ $(function(){
 			}
 		});
 	});
-	
+/*	
 	//根据选择的学生,得到学生选择的课程
 	$("#studentSelect").change(function(){
 		var studentId = $(this).children('option:selected').val();
@@ -33,10 +50,10 @@ $(function(){
 				}
 			}
 		});
-	});
+	});*/
 	//根据选择的课程,提交表单,查询到对应的任务
-	$("#courseSelect").change(function(){
-		$("#courseId").val($(this).val());
+	$("#studentSelect").change(function(){
+		/*$("#courseId").val($(this).val());*/
 		document.forms["searchForm"].submit();
 	});
 });
