@@ -53,7 +53,10 @@
         		<div class="col-sm-6">
         			<div class="col-sm-6">
         				<div style="padding: 10px 0px;">
-        					主讲老师: ${course.teachers[0].teacherName}
+        					主讲老师: 
+        					<c:forEach items="${course.teachers}" var="teacher">
+        						${teacher.teacherName}&nbsp;&nbsp;&nbsp;&nbsp;
+        					</c:forEach> 
         				</div>
         				<div style="padding: 10px 0px;">
         					开课时间: ${course.startDate}

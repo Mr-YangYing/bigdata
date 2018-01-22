@@ -130,6 +130,16 @@ public class CourseDaoImpl implements ICourseDao {
 		return jdbcTemplate.query("SELECT * from course WHERE id IN (select cou_id from course_student_config where stu_id = ?)", rm, studentId);
 	};
 
+
+
+	@Override
+	public List<Course> getCourseByStudentId(String studentId) {
+		return jdbcTemplate.query("SELECT * FROM course WHERE id IN "
+				+ "( SELECT cou_id FROM course_classes_config WHERE cla_id = "
+				+ "( SELECT classesId FROM student WHERE id = ? ));", rm,studentId);
+	}
+
+	
 	/**
 	 * 根据教师Id获取课程
 	 * @param id

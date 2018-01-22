@@ -90,5 +90,11 @@ public interface ICourseService {
 	 * @param ids
 	 */
 	void setClasses(Long[] ids,long courseId);
+	/**
+	 * 根据学生Id获取课程列表
+	 * @param studentId
+	 * @return
+	 */
+	List<Course> getCourseByStudentId(String studentId);
 	
 }

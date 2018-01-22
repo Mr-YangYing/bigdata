@@ -180,7 +180,7 @@ public class StudentController {
 	 */
 	@RequestMapping(value="/courseList")
 	public ModelAndView courseList(String studentId){
-		List<Course> list = courseService.getByStudentId(studentId);
+		List<Course> list = courseService.getCourseByStudentId(studentId);
 		ModelAndView md = new ModelAndView();
 		md.addObject("list",list);
 		md.setViewName("views/student/course");

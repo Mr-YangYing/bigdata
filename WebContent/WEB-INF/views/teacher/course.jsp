@@ -108,14 +108,25 @@
 		            <td>${fn:length(course.tasks)}</td>
 		            <td>
 		              <div class="btn-group">
-		              <c:choose>
-		              	<c:when test="${course.teachers[0].id == loginUser.id }">
-		                	<a class="" href="${pageContext.request.contextPath}/task/courseTaskEdit?courseId=${course.id}" >编辑</a>
-		              	</c:when>
-		              	<c:otherwise>
-		                	<a class="" href="${pageContext.request.contextPath}/task/courseTaskDetail?courseId=${course.id}">查看</a>
-		              	</c:otherwise>
-		              </c:choose>
+		              <c:forEach items="${course.teachers}" var="teacher">
+		              <!-- 设置一个标志位,标志是否是当前教师选择的课程 -->
+		             	<c:choose>
+		              		<c:when test="${teacher.id == loginUser.id }">
+		              			<c:set var="flag" value="true"></c:set>
+		              		</c:when>
+		              		<c:otherwise>
+		              			<c:set var="flag" value="false"></c:set>
+		              		</c:otherwise>
+		              	</c:choose>
+		              </c:forEach>
+						<c:choose>
+		              		<c:when test="${flag==true}">
+		                		<a class="" href="${pageContext.request.contextPath}/task/courseTaskEdit?courseId=${course.id}" >编辑</a>
+		              		</c:when>
+		              		<c:otherwise>
+		                		<a class="" href="${pageContext.request.contextPath}/task/courseTaskDetail?courseId=${course.id}">查看</a>
+		              		</c:otherwise>
+		              	</c:choose>	
 		              </div>
 		            </td>
 		          </tr>

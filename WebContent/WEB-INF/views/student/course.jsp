@@ -36,7 +36,7 @@
       <!--导航条菜单结束-->
       <!--主体部分开始-->
       <div class="content col-md-10">
-        <h5 style="font-weight: bold;padding-left: 10px">我的课程</h5>
+        <h5 style="font-weight: bold;padding-left: 10px">课程列表</h5>
         <div style="height: 450px;overflow-y:auto"><!-- 为了能显示滚动条 -->
         <!--数据展示部分开始-->
 	        <table class="table table-striped table-hover text-center table-bordered">

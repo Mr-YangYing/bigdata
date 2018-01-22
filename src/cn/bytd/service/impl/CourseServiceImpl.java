@@ -123,5 +123,9 @@ public class CourseServiceImpl implements ICourseService{
 	 */
 	public void setClasses(Long[] ids,long courseId){
 		courseDao.setClasses(ids,courseId);
+	}
+	@Override
+	public List<Course> getCourseByStudentId(String studentId) {
+		return courseDao.getCourseByStudentId(studentId);
 	};
 }
