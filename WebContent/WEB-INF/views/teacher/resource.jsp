@@ -113,7 +113,7 @@
 		        				</div>
 		        			</div>
 		        		</div>
-		        		<div class="col-sm-1 text-center" style="margin-top: 16px;">
+		        		<div class="col-sm-2 text-center" style="margin-top: 44px;">
 		        			<c:if test="${qo.courseType=='我的课程'}">
 			        			<a class="" style="margin-bottom: 5px" href="javascript:editResource(${resource.id},${qo.taskId})">编辑</a>
 			        			<a class="" style="margin-bottom: 5px" href="${pageContext.request.contextPath }/resource/resourceDownload?id=${resource.id}">下载</a>

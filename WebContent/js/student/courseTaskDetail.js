@@ -63,16 +63,22 @@ function getTaskDetailById(taskId){
 					  $("input[name='taskType']").each(function(){
 						  if($(this).val()==task.taskType){
 							  $(this).attr("checked","checked");
+						  }else{
+							  $(this).attr("disabled","disabled");
 						  }
 					  });
 					  $("input[name='uploadReport']").each(function(){
 						  if($(this).val()==task.uploadReport){
 							  $(this).attr("checked","checked");
+						  }else{
+							  $(this).attr("disabled","disabled");
 						  }
 					  });
 					  $("input[name='difficulty']").each(function(){
 						  if($(this).val()==task.difficulty){
 							  $(this).attr("checked","checked");
+						  }else{
+							  $(this).attr("disabled","disabled");
 						  }
 					  });
 					  

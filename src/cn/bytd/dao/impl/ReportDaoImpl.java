@@ -42,7 +42,7 @@ public class ReportDaoImpl implements IReportDao{
 	 * @param report
 	 * @param taskId
 	 */
-	public void addReport(Report report, long taskId,long studentId){
+	public void addReport(Report report, long taskId,String studentId){
 		if(this.getReportByTaskId(taskId,studentId)==null){
 			jdbcTemplate.update("insert into report(reportName,reportAddress,uploadDate,studentId,taskId)values(?,?,?,?,?)",
 				report.getReportName(),report.getReportAddress(),new Date(),studentId,taskId);
@@ -56,7 +56,7 @@ public class ReportDaoImpl implements IReportDao{
 	/**
 	 * 根据任务Id和学生Id获取报告
 	 */
-	public Report getReportByTaskId(long taskId,long studentId){
+	public Report getReportByTaskId(long taskId,String studentId){
 		Report report = null;
 		//避免出现org.springframework.dao.EmptyResultDataAccessException: Incorrect result size: expected 1, actual 0
 		try {

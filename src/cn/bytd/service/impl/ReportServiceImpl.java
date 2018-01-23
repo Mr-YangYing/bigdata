@@ -17,14 +17,14 @@ public class ReportServiceImpl implements IReportService{
 	/**
 	 * 上传报告
 	 */
-	public void addReport(Report report, long taskId,long studentId) {
+	public void addReport(Report report, long taskId,String studentId) {
 		reportDao.addReport(report,taskId,studentId);
 	}
 
 	/**
 	 * 根据任务Id获取报告
 	 */
-	public Report getReportByTaskId(long taskId,long studentId){
+	public Report getReportByTaskId(long taskId,String studentId){
 		return reportDao.getReportByTaskId(taskId,studentId);
 	};
 }

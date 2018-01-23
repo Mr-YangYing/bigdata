@@ -55,7 +55,7 @@ public class ReportController {
 	 * @return
 	 */
 	@RequestMapping(value="/reportUpload")
-	public ModelAndView reportUpload(MultipartFile uploadFile,Report report,HttpSession session,long taskId,long courseId,long studentId,RedirectAttributes ra){
+	public ModelAndView reportUpload(MultipartFile uploadFile,Report report,HttpSession session,long taskId,long courseId,String studentId,RedirectAttributes ra){
 		ModelAndView md = new ModelAndView();
 		String filename = uploadFile.getOriginalFilename();//文件原始名称
 		
@@ -94,7 +94,7 @@ public class ReportController {
 	 * @throws IOException 
 	 */
 	@RequestMapping(value="/getReportByTaskId",method={RequestMethod.GET})
-	public void getReportByTaskId(long taskId,long studentId,HttpServletResponse response) throws IOException{
+	public void getReportByTaskId(long taskId,String studentId,HttpServletResponse response) throws IOException{
 		Report report = reportService.getReportByTaskId(taskId,studentId);
 		//获取文件名
         String[] splits = report.getReportAddress().split("\\\\");

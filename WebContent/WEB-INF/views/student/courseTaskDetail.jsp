@@ -236,7 +236,7 @@
 		<!-- 隐藏域存放taskId -->
 		<input type="hidden" name="taskId" value="" id="taskId">
 		<!-- 隐藏域存放studentId,学生登录时能直接获取到 -->
-		<input type="hidden" name="studentId" value="1">
+		<input type="hidden" name="studentId" value="${loginUser.id}">
 	
 		<!--当屏幕小于768时，变为两行-->
 		<div class="form-group">

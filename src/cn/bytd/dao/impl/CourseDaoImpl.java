@@ -154,7 +154,7 @@ public class CourseDaoImpl implements ICourseDao {
 	 * @return
 	 */
 	public List<Course> getCoursesByOtherTeacherId(String teacherId){
-		return jdbcTemplate.query("select * from course where id not in (select cou_id from course_teacher_config)", rm);
+		return jdbcTemplate.query("select * from course where id not in (select cou_id from course_teacher_config) and courseOpen = 1", rm);
 	};
 	
 	

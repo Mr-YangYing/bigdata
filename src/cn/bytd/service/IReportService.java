@@ -18,12 +18,12 @@ public interface IReportService {
 	 * @param taskId
 	 * @param studentId
 	 */
-	void addReport(Report report, long taskId,long studentId);
+	void addReport(Report report, long taskId,String studentId);
 	/**
 	 * 根据任务Id获取报告
 	 * @param taskId
 	 * @param studentId
 	 * @return
 	 */
-	Report getReportByTaskId(long taskId,long studentId);
+	Report getReportByTaskId(long taskId,String studentId);
 }
