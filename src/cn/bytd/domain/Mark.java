@@ -11,7 +11,7 @@ package cn.bytd.domain;
 public class Mark {
 	private Long id;
 	private Integer score;
-	private Long studentId;
+	private String studentId;
 	private Long taskId;
 	public Long getId() {
 		return id;
@@ -25,10 +25,11 @@ public class Mark {
 	public void setScore(Integer score) {
 		this.score = score;
 	}
-	public Long getStudentId() {
+
+	public String getStudentId() {
 		return studentId;
 	}
-	public void setStudentId(Long studentId) {
+	public void setStudentId(String studentId) {
 		this.studentId = studentId;
 	}
 	public Long getTaskId() {

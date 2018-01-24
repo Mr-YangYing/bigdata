@@ -69,7 +69,7 @@ public interface ITaskService {
 	 * 打分
 	 * @param taskId
 	 */
-	void setScoreByTaskId(Integer score,long taskId,long studentId);
+	void setScoreByTaskId(Integer score,long taskId,String studentId);
 	/**
 	 * 根据课程和学生查询任务
 	 * @param courseId

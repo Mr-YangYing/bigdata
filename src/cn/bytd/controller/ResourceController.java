@@ -30,6 +30,7 @@ import cn.bytd.queryPage.ResourceQueryObject;
 import cn.bytd.queryPage.page.PageResult;
 import cn.bytd.service.ICourseService;
 import cn.bytd.service.IResourceService;
+import cn.bytd.service.ITeacherService;
 
 /**
  * 
@@ -46,6 +47,8 @@ public class ResourceController {
 	private IResourceService resourceService;
 	@Autowired
 	private ICourseService courseService;
+	@Autowired
+	private ITeacherService teacherService;
 	/**
 	 * 资源列表
 	 * @param qo
@@ -127,6 +130,9 @@ public class ResourceController {
         	filepath.getParentFile().mkdirs();
         }
 		resource.setResourceAddr(path + File.separator + filename);//设置文件的路径用于保存到数据库
+		//这里resource.getUploader()得到的是页面传入的教师的Id
+		resource.setUploader(teacherService.getById(resource.getUploader()).getTeacherName());
+		
 		if(resource.getId()!=-1){
 			resourceService.updateResource(resource);
 		}else {

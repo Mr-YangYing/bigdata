@@ -67,20 +67,12 @@ public class TaskDaoImpl implements ITaskDao{
 		return jdbcTemplate.query("select * from task where courseId = ? and publishTask = 1", rm,courseId);
 	};
 	
-
-	@Override
-	public void setScoreByTaskId(Integer score, long taskId, long studentId) {
-		// TODO Auto-generated method stub
-		
-	}
-
 	@Override
 	public List<Task> getTaskByCourseStudentId(long courseId, String studentId) {
 		// TODO Auto-generated method stub
 		return jdbcTemplate.query("select * from task as t "
-				+ "left join (select * from mark where studentId=?) as m on t.id=m.taskId "
-				+ "left join (select * from report where studentId=?) as s on t.id=s.taskId "
-				+ "where t.courseId=? and publishTask=1;",rm,studentId,studentId,courseId);
+				+ "right join (select * from report where studentId=?) as s on t.id=s.taskId "
+				+ "where t.courseId=? and publishTask=1;",rm,studentId,courseId);
 	}
 	
 	/**

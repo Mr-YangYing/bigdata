@@ -70,6 +70,12 @@ public interface ICourseService {
  	 */
 	List<Course> getCoursesByTeacherId(String teacherId);
 	/**
+	 * 获取未选的课程
+	 * @param teacherId
+	 * @return
+	 */
+	List<Course> getCoursesByOtherTeacherId();
+	/**
 	 * 根据教师id获取除去该教师的其他教师的课程
 	 * @param teacherId
 	 * @return

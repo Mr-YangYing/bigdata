@@ -5,10 +5,10 @@
 		<div class="logo col-md-4" style="height: 15%;line-height: 62px;">
 			<img alt="" src="/images/biaoti.png">
 		</div>
-		<div class="col-md-6">
+		<div class="col-md-5">
 
 		</div>
-		<div class="col-md-2" style="height: 15%; line-height: 62px;padding-left: 15px">
+		<div class="col-md-3" style="height: 15%; line-height: 62px;padding-left: 15px">
 			<div class="dropdown">
 				<button type="button" class="btn dropdown-toggle" id="dropdownMenu1"
 					data-toggle="dropdown" style="background-color: #3477CC; color: white; font-size: 14px">

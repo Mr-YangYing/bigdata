@@ -158,6 +158,8 @@
 		<input type="hidden" name="id" value="-1" id="updateId">
 		<!-- 隐藏域存放taskId -->
 		<input type="hidden" name="taskId" value="${qo.taskId}" id="taskId">
+		<!-- 隐藏域存放uploader -->
+		<input type="hidden" name="uploader" value="${loginUser.id}">
 	
 		<!--当屏幕小于768时，变为两行-->
 		<div class="form-group">

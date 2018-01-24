@@ -99,7 +99,7 @@ public class TaskServiceImpl implements ITaskService{
 		 * 打分
 		 * @param taskId
 		 */
-	 public void setScoreByTaskId(Integer score,long taskId,long studentId){
+	 public void setScoreByTaskId(Integer score,long taskId,String studentId){
 		 taskDao.setScoreByTaskId(score,taskId,studentId);
 	 }
 

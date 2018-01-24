@@ -74,7 +74,7 @@ public class MarkDaoImpl implements IMarkDao{
 			Mark mark = new Mark();
 			mark.setId(rs.getLong("id"));
 			mark.setScore(rs.getInt("score"));
-			mark.setStudentId(rs.getLong("studentId"));
+			mark.setStudentId(rs.getString("studentId"));
 			mark.setTaskId(rs.getLong("taskId"));
 			return mark;
 		}

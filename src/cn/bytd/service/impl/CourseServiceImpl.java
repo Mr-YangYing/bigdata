@@ -76,6 +76,14 @@ public class CourseServiceImpl implements ICourseService{
 		return courseDao.getCoursesByTeacherId(teacherId);
 	}
 	/**
+	 * 获取未选的课程
+	 * @param teacherId
+	 * @return
+	 */
+	public List<Course> getCoursesByOtherTeacherId(){
+		return courseDao.getCoursesByOtherTeacherId();
+	};
+	/**
 	 * 根据教师id获取除去该教师的其他教师的课程
 	 * @param teacherId
 	 * @return

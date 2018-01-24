@@ -114,7 +114,7 @@ public class TaskController {
 	 * @return
 	 */
 	@RequestMapping(value="/setScoreByTaskId")
-	public ModelAndView setScoreByTaskId(Integer score,long taskId,long studentId){
+	public ModelAndView setScoreByTaskId(Integer score,long taskId,String studentId){
 		taskService.setScoreByTaskId(score,taskId,studentId);
 		return null;
 	}

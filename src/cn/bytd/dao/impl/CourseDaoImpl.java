@@ -149,12 +149,20 @@ public class CourseDaoImpl implements ICourseDao {
 		return jdbcTemplate.query("select * from course where id In (select cou_id from course_teacher_config where tea_id = ?) AND courseOpen=1", rm, teacherId);
 	};
 	/**
+	 * 获取未选的课程
+	 * @param id
+	 * @return
+	 */
+	public List<Course> getCoursesByOtherTeacherId(){
+		return jdbcTemplate.query("select * from course where id not in (select cou_id from course_teacher_config) and courseOpen = 1", rm);
+	};
+	/**
 	 * 根据教师id获取除去该教师的其他教师的课程
 	 * @param id
 	 * @return
 	 */
 	public List<Course> getCoursesByOtherTeacherId(String teacherId){
-		return jdbcTemplate.query("select * from course where id not in (select cou_id from course_teacher_config) and courseOpen = 1", rm);
+		return jdbcTemplate.query("select * from course where id not in (select cou_id from course_teacher_config where tea_id = ?) and courseOpen = 1", rm,teacherId);
 	};
 	
 	

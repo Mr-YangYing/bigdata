@@ -66,7 +66,7 @@ public interface ITaskDao {
 	 * 打分
 	 * @param taskId
 	 */
-	void setScoreByTaskId(Integer score,long taskId,long studentId);
+	void setScoreByTaskId(Integer score,long taskId,String studentId);
 	/**
 	 * 根据课程学生获取任务
 	 * @param courseId

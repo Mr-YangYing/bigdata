@@ -62,7 +62,7 @@ function setScoreByTaskId(taskId,studentId){
 	//prompt层
 	layer.prompt({
 		title: '输入分数:1~100，并确认',
-		formType: 1
+		formType: 0
 		},function(score, index){
 			layer.close(index);
 			$.ajax({

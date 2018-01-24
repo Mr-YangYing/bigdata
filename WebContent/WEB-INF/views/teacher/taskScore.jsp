@@ -137,7 +137,7 @@
 			            <td>
 			              <div class="btn-group">
 				             <c:if test="${task.completeStatus==1}">
-			                	<a class="" href="${pageContext.request.contextPath}/report/getReportByTaskId?taskId=${task.id}&studentId='${studentId}'">查看报告</a>
+			                	<a class="" href="${pageContext.request.contextPath}/report/getReportByTaskId?taskId=${task.id}&studentId=${studentId}">查看报告</a>
 							</c:if>
 			                	<a class="" href="javascript:setScoreByTaskId(${task.id},'${studentId}')" style="margin-left: 10px">评分</a>
 			              </div>

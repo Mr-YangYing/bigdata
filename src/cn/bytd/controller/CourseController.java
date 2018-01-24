@@ -116,13 +116,23 @@ public class CourseController {
 		
 	}
 	/**
-	 * 根据教师id获取除去该教师的其他教师的课程
+	 * 获取未选的课程
 	 * @param id
 	 * @return
 	 */
 	@RequestMapping(value="/getCoursesByOtherTeacherId",method={RequestMethod.GET})
 	@ResponseBody
-	public List<Course> getCoursesByOtherTeacherId(String teacherId){
+	public List<Course> getCoursesByOtherTeacherId(){
+		return courseService.getCoursesByOtherTeacherId();
+	}
+	/**
+	 * 根据教师id获取除去该教师的其他教师的课程
+	 * @param id
+	 * @return
+	 */
+	@RequestMapping(value="/getOtherCoursesByTeacherId",method={RequestMethod.GET})
+	@ResponseBody
+	public List<Course> getOtherCoursesByTeacherId(String teacherId){
 		return courseService.getCoursesByOtherTeacherId(teacherId);
 	}
 	

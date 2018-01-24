@@ -12,7 +12,7 @@ $(function(){
 		if(courseType == "我的课程"){
 			courseURL = "/course/getCoursesByTeacherId";//我的课程
 		}else{
-			courseURL = "/course/getCoursesByOtherTeacherId";//其他课程
+			courseURL = "/course/getOtherCoursesByTeacherId";//其他课程
 		}
 		$.ajax({
 			type:"get",
