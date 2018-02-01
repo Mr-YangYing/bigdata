@@ -56,9 +56,11 @@
                   </div>
                   <div class="col-sm-6" style="padding: 0;margin-left: -18px;">
                   	<select name="courseId" class="form-control" id="courseSelect">
-                  		<option>------请选择------</option>
+                  		<option value="-1">------请选择------</option>
                   		<c:forEach items="${courseList}" var="course">
-                  			<option value="${course.id}">${course.courseName}</option>
+                  			<option ${course.id == courseId ? "selected='selected'" : ""} value="${course.id}">
+                  				${course.courseName}
+                  			</option>
                   		</c:forEach>
                   	</select>
                   </div>
@@ -69,8 +71,13 @@
                     <label>选择班级：</label>
                   </div>
                   <div class="col-sm-6" style="padding: 0">
-                  	<select name="classesNumber" class="form-control" id="classesSelect">
-                  		<option>------请选择------</option>
+                  	<select name="classesId" class="form-control" id="classesSelect">
+                  		<option value="-1">------请选择------</option>
+                  		<c:forEach items="${classesList}" var="classes">
+                  			<option ${classes.id == classesId ? "selected='selected'" : ""} value="${classes.id}">
+                  				${classes.classesNumber}
+                  			</option>
+                  		</c:forEach>
                   	</select>
                   </div>
                 </div>
@@ -82,6 +89,11 @@
                   <div class="col-sm-6" style="padding: 0">
                   	<select name="studentId" class="form-control" id="studentSelect">
                   		<option>------请选择------</option>
+                  		<c:forEach items="${studentList}" var="student">
+                  			<option ${student.id == studentId ? "selected='selected'" : ""} value="${student.id}">
+                  				${student.studentName}
+                  			</option>
+                  		</c:forEach>
                   	</select>
                   </div>
                 </div>
@@ -137,9 +149,9 @@
 			            <td>
 			              <div class="btn-group">
 				             <c:if test="${task.completeStatus==1}">
-			                	<a class="" href="${pageContext.request.contextPath}/report/getReportByTaskId?taskId=${task.id}&studentId=${studentId}">查看报告</a>
+			                	<a target="_blank" href="${pageContext.request.contextPath}/report/getReportByTaskId?taskId=${task.id}&studentId=${studentId}">查看报告</a>
 							</c:if>
-			                	<a class="" href="javascript:setScoreByTaskId(${task.id},'${studentId}')" style="margin-left: 10px">评分</a>
+			                	<a href="javascript:setScoreByTaskId(${task.id},'${studentId}')" style="margin-left: 10px">评分</a>
 			              </div>
 			            </td>
 			          </tr>

@@ -4,7 +4,7 @@
       <div class="menu col-md-2" style="padding: 0;">
         <div class="panel-group" id="accordion"><!--大容器-->
 		<!-- 主任 -->
-		<shiro:hasPermission name="director">
+		<shiro:hasPermission name="BasicFunctionManagement ">
           <div class="panel panel-default"><!--这个表示第一个整块儿的-->
               <div class="panel-heading"><!--第一部分，被点击部分-->
                 <h4 class="panel-title">
@@ -14,26 +14,37 @@
                 </h4>
               </div>
               <div class="panel-collapse collapse in" id="collapseOne"><!--第二部分，折叠部分-->
+              <shiro:hasPermission name="teacherManagement">
                 <div class="panel-body" style="padding-left: 30px;">
                  		<a href="${pageContext.request.contextPath}/teacher/list">教师管理</a> 
                 </div>
+                </shiro:hasPermission>
+                <shiro:hasPermission name="studentManagement">
                 <div class="panel-body" style="padding-left: 30px;">
                 		<a href="${pageContext.request.contextPath}/student/list">学生管理</a> 
                 </div>
+                </shiro:hasPermission>
+                <shiro:hasPermission name="courseManagement">
                 <div class="panel-body" style="padding-left: 30px;">
                 		<a href="${pageContext.request.contextPath}/course/list">实验课程管理</a> 
                 </div>
+                </shiro:hasPermission>
+                <shiro:hasPermission name="laboratoryManagement">
                 <div class="panel-body" style="padding-left: 30px;">
                 		<a href="${pageContext.request.contextPath}/laboratory/list">实验室管理</a> 
                 </div>
+                </shiro:hasPermission>
+                <!-- 课表管理还没有添加 -->
+                <shiro:hasPermission name="">
                 <div class="panel-body" style="padding-left: 30px;">
                 		<a href="${pageContext.request.contextPath}/schedule/list">课表管理</a> 
                 </div>
+                </shiro:hasPermission>
               </div>
           </div>
           </shiro:hasPermission>
           <!-- 教师 -->
-          <shiro:hasPermission name="teacher">
+          <shiro:hasPermission name="studyTask">
            <div class="panel panel-default"><!--这个表示第一个整块儿的-->
               <div class="panel-heading"><!--第一部分，被点击部分-->
                 <h4 class="panel-title">
@@ -43,14 +54,20 @@
                 </h4>
               </div>
               <div class="panel-collapse collapse in" id="collapseTwo"><!--第二部分，折叠部分-->
+              <shiro:hasPermission name="taskManagement">
                 <div class="panel-body" style="padding-left: 30px;">
                  		<a href="${pageContext.request.contextPath}/task/courseList?courseOpen=1">任务管理</a> 
                 </div>
+                </shiro:hasPermission>
+                <shiro:hasPermission name="markManagement">
                 <div class="panel-body" style="padding-left: 30px;">
                  		<a href="${pageContext.request.contextPath}/course/getCourseListByTeacherId?teacherId=${loginUser.id}">成绩管理</a> 
                 </div>
+                </shiro:hasPermission>
               </div>
           </div>
+            </shiro:hasPermission>
+            <shiro:hasPermission name="teachResource">
           <div class="panel panel-default"><!--这个表示第二个整块儿的-->
               <div class="panel-heading"><!--第一部分，被点击部分-->
                 <h4 class="panel-title">
@@ -60,14 +77,16 @@
                 </h4>
               </div>
               <div class="panel-collapse collapse in" id="collapseThree"><!--第二部分，折叠部分-->
+              <shiro:hasPermission name="resourceManagement">
                 <div class="panel-body" style="padding-left: 30px;">
-                		<a href="${pageContext.request.contextPath}/resource/resourceList?courseType=其他课程">资源管理</a> 
+                		<a href="${pageContext.request.contextPath}/resource/resourceList?courseType=other">资源管理</a> 
                 </div>
+                </shiro:hasPermission>
               </div>
           </div>
           </shiro:hasPermission>
           <!-- 学生 -->
-          <shiro:hasPermission name="student">
+          <shiro:hasPermission name="studyManagement">
           <div class="panel panel-default"><!--这个表示第一个整块儿的-->
               <div class="panel-heading"><!--第一部分，被点击部分-->
                 <h4 class="panel-title">
@@ -77,14 +96,16 @@
                 </h4>
               </div>
               <div class="panel-collapse collapse in" id="collapseFour"><!--第二部分，折叠部分-->
+              <shiro:hasPermission name="studentsCourseManagement">
                 <div class="panel-body" style="padding-left: 30px;">
                  		<a href="${pageContext.request.contextPath}/student/courseList?studentId=${loginUser.id}">课程管理</a> 
                 </div>
+                </shiro:hasPermission>
               </div>
           </div>
           </shiro:hasPermission>
           <!-- 管理员 -->
-          <shiro:hasPermission name="admin">
+          <shiro:hasPermission name="systemManagement">
           <div class="panel panel-default"><!--这个表示第一个整块儿的-->
               <div class="panel-heading"><!--第一部分，被点击部分-->
                 <h4 class="panel-title">
@@ -94,15 +115,21 @@
                 </h4>
               </div>
               <div class="panel-collapse collapse in" id="collapseFive"><!--第二部分，折叠部分-->
+              	<shiro:hasPermission name="permissionManagement">
                 <div class="panel-body" style="padding-left: 30px;">
                  		<a href="${pageContext.request.contextPath}/permission/list">权限管理</a> 
                 </div>
+                </shiro:hasPermission>
+                <shiro:hasPermission name="roleManagement">
                 <div class="panel-body" style="padding-left: 30px;">
                  		<a href="${pageContext.request.contextPath}/role/list">角色管理</a> 
                 </div>
+                </shiro:hasPermission>
+                <shiro:hasPermission name="userManagement">
                 <div class="panel-body" style="padding-left: 30px;">
                  		<a href="${pageContext.request.contextPath}/user/list">用户管理</a> 
                 </div>
+                </shiro:hasPermission>
               </div>
           </div>
           </shiro:hasPermission>

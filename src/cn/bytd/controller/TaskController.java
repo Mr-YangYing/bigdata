@@ -14,12 +14,14 @@ import org.springframework.web.servlet.ModelAndView;
 import cn.bytd.domain.Classes;
 import cn.bytd.domain.Course;
 import cn.bytd.domain.Mark;
+import cn.bytd.domain.Student;
 import cn.bytd.domain.Task;
 import cn.bytd.queryPage.CourseQueryObject;
 import cn.bytd.queryPage.page.PageResult;
 import cn.bytd.service.IClassesService;
 import cn.bytd.service.ICourseService;
 import cn.bytd.service.IMarkService;
+import cn.bytd.service.IStudentService;
 import cn.bytd.service.ITaskService;
 
 /**
@@ -41,6 +43,8 @@ public class TaskController {
 	private IClassesService classesService;
 	@Resource(name="markService")
 	private IMarkService markService;
+	@Autowired
+	private IStudentService studentServie;
 	/**
 	 * 课程列表,包含课程对应的任务数
 	 * @param request
@@ -178,9 +182,11 @@ public class TaskController {
 	 * @return
 	 */
 	@RequestMapping(value="/taskList")
-	public ModelAndView taskList(long courseId,String teacherId,String studentId){
+	public ModelAndView taskList(long courseId,String teacherId,String studentId,long classesId){
 		List<Task> taskList = taskService.getTaskByCourseStudentId(courseId,studentId);
 		List<Course> courseList =courseService.getCoursesByTeacherId(teacherId);
+		List<Classes> classesList = classesService.getClassesByCourseId(courseId);
+		List<Student> studentList = studentServie.getStudentByClassesId(classesId);
 		for (int i = 0; i < taskList.size(); i++) {
 			long taskId = taskList.get(i).getId();
 			Mark mark = markService.getMarkById(studentId, taskId);
@@ -189,6 +195,10 @@ public class TaskController {
 		ModelAndView md = new ModelAndView();
 		md.addObject("taskList", taskList);
 		md.addObject("courseList", courseList);
+		md.addObject("classesList", classesList);
+		md.addObject("studentList", studentList);
+		md.addObject("classesId", classesId);
+		md.addObject("courseId", courseId);
 		md.addObject("studentId", studentId);
 		md.setViewName("/views/teacher/taskScore");
 		return md;

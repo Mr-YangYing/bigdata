@@ -5,9 +5,9 @@ var courseType = "";//我的课程
 $(function(){
 	
 	//根据选择的课程类型,得到课程列表
-	$("input:radio[name='courseRadio']").change(function(){
+	$("input:radio[type='radio']").change(function(){
 		var courseURL;
-		var teacherId = $(this).val();
+		var teacherId = $("#teacherId").val();
 		courseType = $(this).next().text();
 		if(courseType == "我的课程"){
 			courseURL = "/course/getCoursesByTeacherId";//我的课程
@@ -20,7 +20,7 @@ $(function(){
 			data:"teacherId="+teacherId,
 			success:function(courseList){
 				$("#courseSelect").empty();
-				$("#courseSelect").append("<option>------请选择------</option>");
+				$("#courseSelect").append("<option value = '-1'>------请选择------</option>");
 				for(var i = 0 ;i < courseList.length ; i++){
 					$("#courseSelect").append("<option value = '"+courseList[i].id+"'>"+courseList[i].courseName+"</option>");
 				}
@@ -52,11 +52,15 @@ $(function(){
 	});
 	//根据选择的任务,提交表单,查询到对应的资源
 	$("#taskSelect").change(function(){
-		$("#courseType").val(courseType);
-		$("#taskId").val($(this).val());
-		$("#courseType").val(courseType);
-		console.log(courseType);
-		document.forms["searchForm"].submit();
+		if ($("#courseSelect").children('option:selected').val() == -1) {
+				layer.msg('请正确选择',{
+					icon: 0,
+					time:2000
+				});
+			}else{
+				document.forms["searchForm"].submit();
+			}
+		
 	});
 });
 //选择文件后
@@ -95,7 +99,7 @@ function addResource(taskId){
 					layer.close(index);
 				}else{
 					layer.msg('请选择文件!!',{
-						icon: 1,
+						icon: 0,
 						time:2000
 					});
 				}
@@ -143,7 +147,7 @@ function editResource(id,taskId){
 				layer.close(index);
 			}else{
 				layer.msg('请重新选择文件!!',{
-					icon: 1,
+					icon: 0,
 					time:2000
 				});
 			}

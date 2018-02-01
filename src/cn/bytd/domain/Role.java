@@ -74,13 +74,11 @@ public class Role implements java.io.Serializable {
 		this.description = description;
 	}
 
-
-
 	public Set getPermissions() {
 		return permissions;
 	}
 
-	public void setPermission(Set permissions) {
+	public void setPermissions(Set permissions) {
 		this.permissions = permissions;
 	}
 

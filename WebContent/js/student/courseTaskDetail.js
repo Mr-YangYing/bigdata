@@ -20,7 +20,7 @@ function addReport(taskId,courseId){
 					var fileExt = fileName.substring(fileName.lastIndexOf('.') + 1).toLowerCase();
 					if((fileExt!="pdf")){
 						layer.msg('只支持上传pdf格式文件',{
-							icon: 1,
+							icon: 0,
 							time:2000
 						});
 					}else{
@@ -33,7 +33,7 @@ function addReport(taskId,courseId){
 					}
 				}else{
 					layer.msg('请选择文件!!',{
-						icon: 1,
+						icon: 0,
 						time:2000
 					});
 				}

@@ -47,16 +47,17 @@
               	<input type="hidden" name ="pageSize" value="${pageResult.pageSize}" id="pageSize">
               <!-- ---------------携带分页信息隐藏域 --------------------->
               <!-- 隐藏域 ,隐藏课程的类型:"我的课程或者其他课程" -->
-              <input type="hidden" name="courseType" value="${qo.courseType}" id="courseType">
+              <%-- <input type="hidden" name="courseType" value="${qo.courseType}" id="courseType"> --%>
               <!-- 隐藏域 ,隐藏任务Id -->
-              <input type="hidden" name="taskId" value="${qo.taskId}" id="taskId">
+             <%--  <input type="hidden" name="taskId" value="${qo.taskId}" id="taskId"> --%>
+              <input type="hidden" name="teacherId" value="${loginUser.id}" id="teacherId">
               	
                 <div class="form-group col-sm-3" style="padding-top: 6px;">
 	                <label class="radio-inline">
-						<input type="radio" name="courseRadio" value="${loginUser.id}"><span>我的课程</span>
+						<input type="radio" ${qo.courseType == '我的课程' ? "checked='checked'" : ""}  name="courseType" value="我的课程"><span>我的课程</span>
 					</label>
 					<label class="radio-inline">
-						<input type="radio" name="courseRadio" value="${loginUser.id}" ><span>其他课程</span>
+						<input type="radio" ${qo.courseType == '其他课程' ? "checked='checked'" : ""} name="courseType" value="其他课程" ><span>其他课程</span>
 					</label>
                 </div>
                 
@@ -65,8 +66,13 @@
                     <label>选择课程：</label>
                   </div>
                   <div class="col-sm-6" style="padding: 0">
-                  	<select name="courseName" class="form-control" id="courseSelect">
-                  		<option>------请选择------</option>
+                  	<select name="courseId" class="form-control" id="courseSelect">
+                  		<option value="-1">------请选择------</option>
+                  		<c:forEach items="${courseList}" var="course">
+                  			<option ${course.id == qo.courseId ? "selected='selected'" : ""} value="${course.id}">
+                  				${course.courseName}
+                  			</option>
+                  		</c:forEach>
                   	</select>
                   </div>
                 </div>
@@ -78,6 +84,11 @@
                   <div class="col-sm-6" style="padding: 0;margin-left: -18px;">
                   	<select name="taskId" class="form-control" id="taskSelect">
                   		<option>------请选择------</option>
+                  		<c:forEach items="${taskList}" var="task">
+                  			<option ${task.id == qo.taskId ? "selected='selected'" : ""} value="${task.id}">
+                  				${task.taskName}
+                  			</option>
+                  		</c:forEach>
                   	</select>
                   </div>
                 </div>				

@@ -25,6 +25,7 @@ import lombok.Setter;
 
 public class ResourceQueryObject extends QueryObject{
 	private long taskId;//任务Id
+	private long courseId;
 	private String courseType;//课程类型
 	
 	/**
@@ -55,6 +56,14 @@ public class ResourceQueryObject extends QueryObject{
 
 	public void setCourseType(String courseType) {
 		this.courseType = courseType;
+	}
+
+	public long getCourseId() {
+		return courseId;
+	}
+
+	public void setCourseId(long courseId) {
+		this.courseId = courseId;
 	}
 	
 }

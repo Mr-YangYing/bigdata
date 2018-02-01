@@ -159,9 +159,9 @@ function getRoleById(id){
 					$("input[name=permissionIds]").val(permissionIds);
 					//$("#roleForm").submit();
 					document.forms['updateForm'].submit();
-				layer.msg('修改成功',{
+				layer.msg('修改成功!重新登录后生效!',{
 					icon: 1,
-					time:1000
+					time:3000
 					});
 				layer.close(index);
 				},

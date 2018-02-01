@@ -80,7 +80,7 @@ public class PermissionDaoImpl implements IPermissionDao{
 				permission.setPage(rs.getString("page"));
 				permission.setGeneratemenu(rs.getString("generatemenu"));
 				permission.setZindex(rs.getInt("zindex"));
-				permission.setpId(rs.getString("pid"));
+				//permission.setpId(rs.getString("pid"));
 				return permission;
 			}
 		});

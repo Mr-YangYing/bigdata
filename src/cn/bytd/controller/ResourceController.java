@@ -7,6 +7,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
@@ -25,11 +26,14 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.support.RequestContextUtils;
 
+import cn.bytd.domain.Course;
 import cn.bytd.domain.Resource;
+import cn.bytd.domain.Task;
 import cn.bytd.queryPage.ResourceQueryObject;
 import cn.bytd.queryPage.page.PageResult;
 import cn.bytd.service.ICourseService;
 import cn.bytd.service.IResourceService;
+import cn.bytd.service.ITaskService;
 import cn.bytd.service.ITeacherService;
 
 /**
@@ -49,6 +53,8 @@ public class ResourceController {
 	private ICourseService courseService;
 	@Autowired
 	private ITeacherService teacherService;
+	@Autowired
+	private ITaskService taskService;
 	/**
 	 * 资源列表
 	 * @param qo
@@ -56,7 +62,7 @@ public class ResourceController {
 	 * @return
 	 */
 	@RequestMapping(value="/resourceList")
-	public ModelAndView resourceList(ResourceQueryObject qo,HttpServletRequest request){
+	public ModelAndView resourceList(ResourceQueryObject qo,String teacherId,HttpServletRequest request){
 		//可以获取另一个方法传入的值
 		Map<String, Object> modelMap = (Map<String, Object>) RequestContextUtils.getInputFlashMap(request);
 		if (modelMap != null) {
@@ -65,10 +71,20 @@ public class ResourceController {
 			qo.setTaskId(taskId);
 			qo.setCourseType(courseType);
 		}
-		
+		List<Course> courseList = new ArrayList<>();
+		List<Task> taskList = new ArrayList<>();
+		if(qo.getCourseType().equals("我的课程")){
+			courseList = courseService.getCoursesByTeacherId(teacherId);
+			taskList = taskService.getTaskByCourseId(qo.getCourseId());
+		}else{
+			courseList = courseService.getCoursesByOtherTeacherId(teacherId);
+			taskList = taskService.getPublishedTaskByCourseId(qo.getCourseId());
+		}
 		PageResult pageResult = resourceService.query(qo);
 		ModelAndView md = new ModelAndView();
 		md.addObject("qo", qo);
+		md.addObject("courseList", courseList);
+		md.addObject("taskList", taskList);
 		md.addObject("pageResult", pageResult);
 		md.setViewName("views/teacher/resource");
 		return md;

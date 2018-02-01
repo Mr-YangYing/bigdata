@@ -25,8 +25,10 @@ import org.springframework.stereotype.Repository;
 
 import com.mysql.jdbc.Connection;
 
+import cn.bytd.dao.IPermissionDao;
 import cn.bytd.dao.IRoleDao;
 import cn.bytd.dao.IUserDao;
+import cn.bytd.domain.Permission;
 import cn.bytd.domain.Role;
 import cn.bytd.domain.Student;
 import cn.bytd.domain.User;
@@ -36,6 +38,9 @@ import cn.bytd.queryPage.utils.QueryUtil;
 @Repository(value="roleDao")
 public class RoleDaoImpl implements IRoleDao {
 
+	@Autowired
+	private IPermissionDao permissionDao;
+	
 	private RowMapper<Role> rm = new RowMapperRole();//Role通用结果集处理器
 	private JdbcTemplate jdbcTemplate;
 
@@ -199,6 +204,12 @@ public class RoleDaoImpl implements IRoleDao {
 			role.setName(rs.getString("name"));
 			role.setCode(rs.getString("code"));
 			role.setDescription(rs.getString("description"));
+			List<Permission> PermissionList = permissionDao.getPermissionByRoleId(rs.getString("id"));
+			Set<Permission> PermissionSet = new HashSet<>();
+			for (Permission permission : PermissionList) {
+				PermissionSet.add(permission);
+			}
+			role.setPermissions(PermissionSet);
 			return role;
 		}
 

@@ -19,6 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import cn.bytd.dao.IRoleDao;
 import cn.bytd.dao.IUserDao;
+import cn.bytd.domain.Permission;
 import cn.bytd.domain.Role;
 import cn.bytd.domain.User;
 
@@ -53,14 +54,21 @@ public class MyRealm extends AuthorizingRealm{
 	@Override
 	protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
 		User user = (User) SecurityUtils.getSubject().getPrincipal();
-		System.out.println("授权");
 		SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
 		Set<Role> roles = user.getRoles();
-		String permissionName = null;
+		System.out.println("角色长度"+roles.size());
+		//info.setRoles(user.getRoles());
+		//String roleName = null;
 		if(roles!=null){
 			for (Role role : roles) {
-				permissionName = role.getCode();
-				info.addStringPermission(permissionName);
+				//添加角色
+				//roleName = role.getCode();
+				//info.addStringPermission(roleName);
+				//添加权限
+				Set<Permission> permissions = role.getPermissions();
+				for (Permission permission : permissions) {
+					info.addStringPermission(permission.getCode());
+				}
 			}
 		}
 		return info;

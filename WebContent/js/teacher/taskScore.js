@@ -9,7 +9,7 @@ $(function(){
 			data:"courseId="+courseId,
 			success:function(classesList){
 				$("#classesSelect").empty();
-				$("#classesSelect").append("<option>------请选择------</option>");
+				$("#classesSelect").append("<option value = '-1'>------请选择------</option>");
 				for(var i = 0 ;i < classesList.length ; i++){
 					$("#classesSelect").append("<option value = '"+classesList[i].id+"'>"+classesList[i].classesNumber+"</option>");
 				}
@@ -53,8 +53,16 @@ $(function(){
 	});*/
 	//根据选择的课程,提交表单,查询到对应的任务
 	$("#studentSelect").change(function(){
-		/*$("#courseId").val($(this).val());*/
-		document.forms["searchForm"].submit();
+			if ($("#courseSelect").children('option:selected').val() == -1
+				|| $("#classesSelect").children('option:selected').val() == -1) {
+				
+				layer.msg('请正确选择',{
+					icon: 0,
+					time:2000
+				});
+			}else{
+				document.forms["searchForm"].submit();
+			}
 	});
 });
 
