@@ -123,10 +123,10 @@
 		          <c:forEach items="${taskList}" var="task" varStatus="c">
 			          <tr>
 			            <td>${task.taskName}</td>
-						<c:if test="${task.completeStatus==0}">
+						<c:if test="${task.taskCompleteStatus.taskStatus==0}">
 							<td>未完成</td>
 						</c:if>
-						<c:if test="${task.completeStatus==1}">
+						<c:if test="${task.taskCompleteStatus.taskStatus==1}">
 							<td>已完成</td>
 						</c:if>
 			            <c:choose>
@@ -148,7 +148,7 @@
 			            </c:if>
 			            <td>
 			              <div class="btn-group">
-				             <c:if test="${task.completeStatus==1}">
+				             <c:if test="${task.taskCompleteStatus.taskStatus==1}">
 			                	<a target="_blank" href="${pageContext.request.contextPath}/report/getReportByTaskId?taskId=${task.id}&studentId=${studentId}">查看报告</a>
 							</c:if>
 			                	<a href="javascript:setScoreByTaskId(${task.id},'${studentId}')" style="margin-left: 10px">评分</a>

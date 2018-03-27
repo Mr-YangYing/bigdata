@@ -91,12 +91,31 @@ function addResource(taskId){
 				
 				var fileValue = $("#uploadFile").val();//获取file下载框的值
 				if(fileValue!='' && fileValue.length > 1){//判断文件是否为空
-					document.forms['updateForm'].submit();
+					//////使用formData可以实现ajax提交带有文件的form表单
+					var form = new FormData(document.forms['updateForm']);
+					$.ajax({
+			                type:"post",//方法类型
+			                data:form,
+			                processData:false,
+			                contentType:false,
+			                url: "/resource/resourceUpload" ,//url
+			                success: function (result) {
+			                	layer.msg('上传成功',{
+									icon: 1,
+									time:2000
+								},function(){
+									window.location.reload();
+								});
+			                }
+			            });
+				/*	document.forms['updateForm'].submit();
 					layer.msg('上传成功',{
 						icon: 1,
 						time:2000
-					});
-					layer.close(index);
+					},function(){
+						window.location.reload();
+					});*/
+					//layer.close(index);
 				}else{
 					layer.msg('请选择文件!!',{
 						icon: 0,

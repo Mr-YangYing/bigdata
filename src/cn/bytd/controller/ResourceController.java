@@ -68,6 +68,8 @@ public class ResourceController {
 		if (modelMap != null) {
 			long taskId = (long) modelMap.get("taskId");
 			String courseType = (String) modelMap.get("courseType");
+			teacherId = (String) modelMap.get("teacherId");//教师ID
+			System.out.println(teacherId+"2222222222222222222");
 			qo.setTaskId(taskId);
 			qo.setCourseType(courseType);
 		}
@@ -126,7 +128,7 @@ public class ResourceController {
 	 * @return
 	 */
 	@RequestMapping(value="/resourceUpload")
-	public ModelAndView resourceUpload(MultipartFile uploadFile,Resource resource,HttpSession session,long taskId,String courseType,RedirectAttributes ra){
+	public ModelAndView resourceUpload(MultipartFile uploadFile,String uploader,Resource resource,HttpSession session,long taskId,String courseType,RedirectAttributes ra){
 		ModelAndView md = new ModelAndView();
 		String filename = uploadFile.getOriginalFilename();//文件原始名称
 		
@@ -147,6 +149,7 @@ public class ResourceController {
         }
 		resource.setResourceAddr(path + File.separator + filename);//设置文件的路径用于保存到数据库
 		//这里resource.getUploader()得到的是页面传入的教师的Id
+		System.out.println(resource.getUploader());
 		resource.setUploader(teacherService.getById(resource.getUploader()).getTeacherName());
 		
 		if(resource.getId()!=-1){
@@ -161,11 +164,14 @@ public class ResourceController {
 			e.printStackTrace();
 		}
 		//方法之间传值
-		ra.addAttribute("taskId", taskId);
+		/*ra.addAttribute("taskId", taskId);
 		ra.addAttribute("courseType", courseType);
+		ra.addAttribute("teacherId", uploader);//教师ID
+		
 		
 		md.setViewName("redirect:/resource/resourceList");
-		return md;
+		return md;*/
+		return null;
 	}
 	/**
 	 * 资源下载

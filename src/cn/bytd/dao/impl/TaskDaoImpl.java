@@ -17,6 +17,7 @@ import cn.bytd.dao.IMarkDao;
 import cn.bytd.dao.ITaskDao;
 import cn.bytd.domain.Student;
 import cn.bytd.domain.Task;
+import cn.bytd.domain.TaskCompleteStatus;
 import cn.bytd.queryPage.page.PageResult;
 import cn.bytd.queryPage.query.IQueryObject;
 import cn.bytd.queryPage.utils.QueryUtil;
@@ -70,9 +71,28 @@ public class TaskDaoImpl implements ITaskDao{
 	@Override
 	public List<Task> getTaskByCourseStudentId(long courseId, String studentId) {
 		// TODO Auto-generated method stub
-		return jdbcTemplate.query("select * from task as t "
-				+ "right join (select * from report where studentId=?) as s on t.id=s.taskId "
-				+ "where t.courseId=? and publishTask=1;",rm,studentId,courseId);
+		return jdbcTemplate.query("select DISTINCT tk.*,taskcompletestatus.taskStatus from "
+				+ "(select t.id,t.taskName,t.taskType,t.uploadReport,t.description,t.difficulty,t.publishTask,s.studentId from task as t right join "
+				+ "(select * from report where studentId=?) as s "
+				+ "on t.id=s.taskId where t.courseId=? and publishTask=1) as tk "
+				+ "LEFT JOIN taskcompletestatus on tk.studentId=taskcompletestatus.studentId;",
+				new RowMapper() {
+					@Override
+					public Task mapRow(ResultSet rs, int rowNum) throws SQLException {
+						Task task = new Task();
+						task.setId(rs.getLong("id"));
+						task.setTaskName(rs.getString("taskName"));
+						task.setTaskType(rs.getInt("taskType"));
+						task.setUploadReport(rs.getInt("uploadReport"));
+						task.setDescription(rs.getString("description"));
+						task.setPublishTask(rs.getInt("publishTask"));
+						task.setDifficulty(rs.getInt("difficulty"));
+						TaskCompleteStatus taskCompleteStatus = new TaskCompleteStatus();
+						taskCompleteStatus.setTaskStatus(rs.getInt("taskStatus"));
+						task.setTaskCompleteStatus(taskCompleteStatus);
+						return task;
+					}
+				},studentId,courseId);
 	}
 	
 	/**
@@ -96,9 +116,9 @@ public class TaskDaoImpl implements ITaskDao{
 	 * @param task
 	 */
     public void update(Task task){
-		jdbcTemplate.update("update task set taskName = ?,taskType = ?,uploadReport = ?,publishTask = ?,difficulty = ?,completeStatus = ?,description = ? where id = ?", 
+		jdbcTemplate.update("update task set taskName = ?,taskType = ?,uploadReport = ?,publishTask = ?,difficulty = ?,description = ? where id = ?", 
 				task.getTaskName(),task.getTaskType(),task.getUploadReport(),0,task.getDifficulty(),
-				task.getCompleteStatus(),task.getDescription(),task.getId());
+				task.getDescription(),task.getId());
 	};
 	
 	/**
@@ -106,9 +126,9 @@ public class TaskDaoImpl implements ITaskDao{
 	 * @param task
 	 */
 	public void insert(Task task,long courseId){
-		jdbcTemplate.update("insert into task(taskName,taskType,uploadReport,publishTask,difficulty,completeStatus,description,courseId) values(?,?,?,?,?,?,?,?)",
+		jdbcTemplate.update("insert into task(taskName,taskType,uploadReport,publishTask,difficulty,description,courseId) values(?,?,?,?,?,?,?,?)",
 				task.getTaskName(),task.getTaskType(),task.getUploadReport(),0,task.getDifficulty(),
-				task.getCompleteStatus(),task.getDescription(),courseId);
+				task.getDescription(),courseId);
 	};
 	
 	/**
@@ -159,7 +179,6 @@ public class TaskDaoImpl implements ITaskDao{
 			task.setDescription(rs.getString("description"));
 			task.setPublishTask(rs.getInt("publishTask"));
 			task.setDifficulty(rs.getInt("difficulty"));
-			task.setCompleteStatus(rs.getInt("completeStatus"));
 			return task;
 		}
 		

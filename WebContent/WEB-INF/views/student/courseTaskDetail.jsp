@@ -82,7 +82,7 @@
 		          <tr>
 		           <!--  <th class="text-center">序号</th> -->
 		            <th class="text-center">任务名称</th>
-		            <th class="text-center">完成状态</th>
+		            <!-- <th class="text-center">完成状态</th> -->
 		            <th class="text-center">任务类型</th>
 		            <th class="text-center">操作</th>
 		          </tr>
@@ -92,12 +92,12 @@
 			          <tr>
 			          <%--   <td>${c.count}</td> --%>
 			            <td>${task.taskName}</td>
-			            <c:if test="${task.completeStatus==0}">
+			       <%--      <c:if test="${task.completeStatus==0}">
 				            <td>未完成</td>
 			            </c:if>
 			            <c:if test="${task.completeStatus==1}">
 				            <td>已完成</td>
-			            </c:if>
+			            </c:if> --%>
 			            <c:choose>
 			            	<c:when test="${task.taskType==0}">
 			            		<td>实验</td>

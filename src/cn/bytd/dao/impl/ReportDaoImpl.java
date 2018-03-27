@@ -51,7 +51,7 @@ public class ReportDaoImpl implements IReportDao{
 				report.getReportName(),report.getReportAddress(),new Date(),studentId,taskId);
 		}
 		//上传之后修改任务状态为完成
-		jdbcTemplate.update("update task set completeStatus = 1 where id = ?", taskId);
+		jdbcTemplate.update("insert into taskCompleteStatus(taskId,studentId,taskStatus)values(?,?,1)",taskId,studentId);
 	};
 	/**
 	 * 根据任务Id和学生Id获取报告

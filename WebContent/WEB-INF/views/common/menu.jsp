@@ -35,11 +35,11 @@
                 </div>
                 </shiro:hasPermission>
                 <!-- 课表管理还没有添加 -->
-                <shiro:hasPermission name="">
+<%--                 <shiro:hasPermission name="">
                 <div class="panel-body" style="padding-left: 30px;">
                 		<a href="${pageContext.request.contextPath}/schedule/list">课表管理</a> 
                 </div>
-                </shiro:hasPermission>
+                </shiro:hasPermission> --%>
               </div>
           </div>
           </shiro:hasPermission>

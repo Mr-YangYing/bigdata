@@ -157,7 +157,7 @@
 <!-- 任务详情的表单 -->
 <div id="resourceDiv" style="display:none;overflow: hidden;padding-top: 30px">
 	<!--水平表单-->
-	<form class="form-horizontal" action="${pageContext.request.contextPath}/resource/resourceUpload" method="post" name="updateForm" enctype="multipart/form-data">
+	<form class="form-horizontal" action="${pageContext.request.contextPath}/resource/resourceUpload" method="post" name="updateForm" enctype="multipart/form-data" id="taskForm">
 
 		<!-- ---------------携带分页信息隐藏域 --------------------->
 		<input type="hidden" name="currentPage" value="${pageResult.currentPage}" id="currentPage">
