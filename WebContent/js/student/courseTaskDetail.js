@@ -1,5 +1,5 @@
 //资源上传
-function addReport(taskId,courseId){
+function addReport(taskId,courseId,studentId){
 	layer.open({
 		  type: 1,
 		  title:["作业上传","font-size:18px"],
@@ -9,6 +9,24 @@ function addReport(taskId,courseId){
 		  success: function(){
 			  $("#taskId").val(taskId);
 			  $("#courseId").val(courseId);
+			  //回显学生上传的作业
+			  $.ajax({
+				  type:"get",
+				  url:"/report/getReport",
+				  data:"taskId="+taskId+"&studentId="+studentId,
+				  success:function(report){
+					  var hasReport = $.isEmptyObject(report);//判断report是否为空
+					  console.log(hasReport);
+					  if(!hasReport){
+						  $("#reportName").val(report.reportName);
+						  var reportAddr = report.reportAddress.split("\\");
+						  $("#fileName").val(reportAddr[reportAddr.length-1]);  
+					  }else{
+						  $("#reportName").val('');
+						  $("#fileName").val(''); 
+					  }
+				  }
+			  });
 		  },
 		  btn:['提交','取消'],
 		  btn1:function(index){

@@ -113,7 +113,7 @@
 			              <div class="btn-group">
 			                <a class="" href="${pageContext.request.contextPath}/resource/getResourceByTaskId?taskId=${task.id}" style="margin-right: 20px">学习资源</a>
 				            <c:if test="${task.uploadReport==1}">
-					            <a class="" href="javascript:addReport(${task.id},${course.id})" style="margin-right: 20px">上传作业</a>
+					            <a class="" href="javascript:addReport(${task.id},${course.id},'${loginUser.id}')" style="margin-right: 20px">上传作业</a>
 				            </c:if>
 			                <a class="" href="javascript:getTaskDetailById(${task.id})">任务详情</a>
 			              </div>
